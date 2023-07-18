@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import { Button, ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap';
+import { CATEGORIES } from '../constant/constants';
 
-export default function RandomQuestion() {
-  const [selectedCategorty, setSelectedCategory] = useState('All');
-
-  const handleDropdownItemClick = (eventKey) => {
-    console.log('이벤트클릭', eventKey);
-    setSelectedCategory(eventKey);
-  };
+export default function RandomQuestion({
+  selectedCategory,
+  onSelect,
+  nextQuestion,
+}) {
   return (
     <div
       style={{ display: 'flex', justifyContent: 'center', margin: '30px 0' }}
@@ -15,9 +13,7 @@ export default function RandomQuestion() {
       <ButtonGroup>
         <Button
           variant='outline-dark'
-          onClick={() => {
-            console.log('다음질문');
-          }}
+          onClick={() => nextQuestion(selectedCategory)}
         >
           다음 질문
         </Button>
@@ -25,15 +21,15 @@ export default function RandomQuestion() {
         <DropdownButton
           variant='outline-dark'
           as={ButtonGroup}
-          title={selectedCategorty}
+          title={selectedCategory}
           id='bg-nested-dropdown'
-          onSelect={handleDropdownItemClick}
+          onSelect={onSelect}
         >
-          <Dropdown.Item eventKey='All'>All</Dropdown.Item>
-          <Dropdown.Item eventKey='JavaScript'>JavaScript</Dropdown.Item>
-          <Dropdown.Item eventKey='TypeScript'>TypeScript</Dropdown.Item>
-          <Dropdown.Item eventKey='CS'>CS</Dropdown.Item>
-          <Dropdown.Item eventKey='React'>React</Dropdown.Item>
+          {CATEGORIES.map((category, index) => (
+            <Dropdown.Item key={index} eventKey={category}>
+              {category}
+            </Dropdown.Item>
+          ))}
         </DropdownButton>
       </ButtonGroup>
     </div>
