@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
-import HintBadge from './ui/HintBadge';
+import CustomBadge from './ui/CustomBadge';
 
 export default function Hint({ hints }) {
   const [open, setOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function Hint({ hints }) {
           }}
         >
           {hints?.split(', ').map((hint, index) => (
-            <HintBadge text={hint} key={index} />
+            <CustomBadge text={hint} key={index} />
           ))}
         </div>
       </Collapse>
