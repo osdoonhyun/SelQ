@@ -4,16 +4,20 @@ import { CATEGORIES } from '../constant/constants';
 export default function RandomQuestion({
   selectedCategory,
   onSelect,
-  nextQuestion,
+  getNextQuestion,
 }) {
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'center', margin: '30px 0' }}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '30px 0 15px',
+      }}
     >
       <ButtonGroup>
         <Button
           variant='outline-dark'
-          onClick={() => nextQuestion(selectedCategory)}
+          onClick={() => getNextQuestion(selectedCategory)}
         >
           다음 질문
         </Button>
