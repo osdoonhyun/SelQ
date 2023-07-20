@@ -2,17 +2,18 @@ import { Badge, Button, Container, Stack } from 'react-bootstrap';
 import Hint from './Hint';
 import Answer from './Answer';
 
-export default function Question() {
+export default function Question({ question }) {
+  console.log('질문!!!', question);
+
   return (
     <div
       style={{
         display: 'flex',
         backgroundColor: 'white',
-        height: '80vh',
+        // height: '640px',
         flexDirection: 'column',
       }}
     >
-      {/* <div>category &gt; JavaScript</div> */}
       <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
       <div
         style={{
@@ -22,11 +23,10 @@ export default function Question() {
           letterSpacing: '0.05rem',
         }}
       >
-        자바스크립트는 무슨 언어인가요?무슨자바스크립트는 무슨
-        언어인가요?자바스크립트는 무슨 언어인가요?
+        {question?.attributes?.title}
       </div>
-      <Hint />
-      <Answer />
+      <Hint hints={question?.attributes?.hint} />
+      <Answer description={question?.attributes?.description} />
     </div>
   );
 }
