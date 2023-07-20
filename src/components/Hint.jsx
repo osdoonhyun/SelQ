@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import CustomBadge from './ui/CustomBadge';
 
 export default function Hint({ hints }) {
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [hints]);
 
   return (
     <div style={{ display: 'inline-block', marginTop: '1.5rem' }}>

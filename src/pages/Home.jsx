@@ -58,7 +58,7 @@ export default function Home() {
         selectedCategory={selectedCategory}
         onSelect={handleDropdownCategorySelect}
       />
-      <Question question={nextQuestion} />
+      <Question questionId={nextQuestion.id} question={nextQuestion} />
     </>
   );
 }

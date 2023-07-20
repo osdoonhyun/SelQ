@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 
 export default function Answer({ description }) {
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [description]);
 
   return (
     <div style={{ display: 'inline-block', marginTop: '1.2rem' }}>

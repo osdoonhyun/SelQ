@@ -1,8 +1,9 @@
 import { Badge, Button, Container, Stack } from 'react-bootstrap';
 import Hint from './Hint';
 import Answer from './Answer';
+import { Fragment } from 'react';
 
-export default function Question({ question }) {
+export default function Question({ questionId, question }) {
   console.log('질문!!!', question);
 
   return (
@@ -25,8 +26,10 @@ export default function Question({ question }) {
       >
         {question?.attributes?.title}
       </div>
-      <Hint hints={question?.attributes?.hint} />
-      <Answer description={question?.attributes?.description} />
+      <Fragment key={questionId}>
+        <Hint hints={question?.attributes?.hint} />
+        <Answer description={question?.attributes?.description} />
+      </Fragment>
     </div>
   );
 }
