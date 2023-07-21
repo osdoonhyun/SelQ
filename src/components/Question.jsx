@@ -3,15 +3,17 @@ import Hint from './Hint';
 import Answer from './Answer';
 import { Fragment } from 'react';
 
-export default function Question({ questionId, question }) {
-  console.log('질문!!!', question);
-
+export default function Question({
+  questionId,
+  question,
+  description,
+  onGetAnswer,
+}) {
   return (
     <div
       style={{
         display: 'flex',
         backgroundColor: 'white',
-        // height: '640px',
         flexDirection: 'column',
       }}
     >
@@ -28,7 +30,7 @@ export default function Question({ questionId, question }) {
       </div>
       <Fragment key={questionId}>
         <Hint hints={question?.attributes?.hint} />
-        <Answer description={question?.attributes?.description} />
+        <Answer description={description} onGetAnswer={onGetAnswer} />
       </Fragment>
     </div>
   );
