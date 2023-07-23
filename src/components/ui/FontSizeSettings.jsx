@@ -16,6 +16,8 @@ const FONT_SIZE_OPTIONS = [
 ];
 
 export default function FontSizeSettings() {
+  const [fontSize, setFontSize] = useState('');
+  const [selectedFontCard, setSelectedFontCard] = useState(1); // 기본 index는 2
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
@@ -25,7 +27,28 @@ export default function FontSizeSettings() {
     setTarget(event.target);
   };
 
-  //TODO: hover, 선택 시 표시되도록 css 추가 예정
+  const saveFontSizeOption = (fontSize) => {
+    localStorage.setItem('fontSize', fontSize);
+  };
+
+  const handleFontSizeSaved = (event) => {
+    setFontSize(fontSize);
+    saveFontSizeOption(fontSize);
+    setShow(!show);
+    setTarget(event.target);
+  };
+
+  const handleFontSizeClick = (index) => {
+    setSelectedFontCard(index);
+  };
+
+  useEffect(() => {
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+      setFontSize(savedFontSize);
+    }
+  }, []);
+
   return (
     <div ref={ref}>
       <Button variant='Light' onClick={handleClick}>
@@ -40,13 +63,29 @@ export default function FontSizeSettings() {
         containerPadding={20}
       >
         <Popover id='popover-contained'>
-          <Popover.Header as='h3'>글자크기</Popover.Header>
+          <Popover.Header as='h3'>
+            <Row className='d-flex justify-content-between'>
+              <Col className='text-muted'>글자크기</Col>
+              <Col
+                className='text-end text-muted'
+                onClick={handleFontSizeSaved}
+              >
+                저장
+              </Col>
+            </Row>
+          </Popover.Header>
           <Popover.Body>
             <CardGroup>
               <Row>
                 {FONT_SIZE_OPTIONS.map(({ label, size }, index) => (
                   <Col key={index}>
-                    <Card>
+                    <Card
+                      onClick={() => handleFontSizeClick(index)}
+                      style={{
+                        border: selectedFontCard === index && '2px solid red',
+                        boxShadow: selectedFontCard === index && '0 0 3px red',
+                      }}
+                    >
                       <Card.Body
                         style={{
                           height: '86px',
@@ -57,12 +96,12 @@ export default function FontSizeSettings() {
                       >
                         <Card.Text style={{ fontSize: size }}>가 Aa</Card.Text>
                       </Card.Body>
-                      <Card.Footer>
-                        <Row>
-                          <Button variant='Light'>
-                            <large className='text-muted'>{label}</large>
-                          </Button>
-                        </Row>
+                      <Card.Footer className='d-flex justify-content-center align-items-center p-3'>
+                        <span className='text-muted'>{label}</span>
+                        {/* <Row>
+                          <Col variant='Light'>
+                          </Col>
+                        </Row> */}
                       </Card.Footer>
                     </Card>
                   </Col>
