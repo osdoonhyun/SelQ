@@ -3,8 +3,10 @@ import axios from 'axios';
 import { CATEGORIES } from '../constant/constants';
 import { Badge, Button } from 'react-bootstrap';
 import CustomBadge from '../components/ui/CustomBadge';
+import { calcFontSize } from '../components/ui/FontSizeSettings';
 
 export default function Questions() {
+  const [fontSizeSetting, setFontSizeSetting] = useState('');
   const [questions, setQuestions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -34,6 +36,14 @@ export default function Questions() {
   );
 
   useEffect(() => {
+    const savedFontSize = localStorage.getItem('fontSizeSetting');
+    if (savedFontSize) {
+      setFontSizeSetting(savedFontSize);
+    }
+    console.log('실행됨');
+  }, [fontSizeSetting]);
+
+  useEffect(() => {
     getQuestions();
   }, []);
 
@@ -50,10 +60,17 @@ export default function Questions() {
       ))}
       {filteredQuestions.map((question) => (
         <div key={question.id} style={{ margin: '2rem 0 3rem' }}>
-          <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
           <div
             style={{
-              fontSize: '1.6rem',
+              fontSize: calcFontSize('1.8rem', fontSizeSetting),
+              fontWeight: '500',
+            }}
+          >
+            Q.
+          </div>
+          <div
+            style={{
+              fontSize: calcFontSize('1.6rem', fontSizeSetting),
               fontWeight: '500',
               lineHeight: 1.2,
               marginBottom: '0.5rem',
