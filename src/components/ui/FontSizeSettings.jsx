@@ -10,14 +10,34 @@ import {
 } from 'react-bootstrap';
 
 const FONT_SIZE_OPTIONS = [
-  { label: '축소', size: '14px' },
-  { label: '기본', size: '17px' },
-  { label: '확대', size: '20px' },
+  { label: '축소', size: '14px', variant: 'small' },
+  { label: '기본', size: '17px', variant: 'basic' },
+  { label: '확대', size: '20px', variant: 'large' },
 ];
 
-export default function FontSizeSettings() {
-  const [fontSize, setFontSize] = useState('');
-  const [selectedFontCard, setSelectedFontCard] = useState(1); // 기본 index는 2
+export const calcFontSize = (fontSize, fontVariant) => {
+  const fontSizeValue = parseFloat(fontSize);
+  let calcedFontSize;
+  switch (fontVariant) {
+    case 'small':
+      calcedFontSize = `${fontSizeValue - 3}px`;
+      break;
+    case 'basic':
+      calcedFontSize = fontSize;
+      break;
+    case 'large':
+      calcedFontSize = `${fontSizeValue + 3}px`;
+      break;
+    default:
+      calcedFontSize = fontSize;
+      break;
+  }
+
+  return calcedFontSize;
+};
+
+export function FontSizeSettings() {
+  const [selectedFontCardIndex, setSelectedFontCardIndex] = useState(1);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
@@ -27,27 +47,21 @@ export default function FontSizeSettings() {
     setTarget(event.target);
   };
 
-  const saveFontSizeOption = (fontSize) => {
-    localStorage.setItem('fontSize', fontSize);
+  const saveFontSizeOption = (fontVariant) => {
+    localStorage.setItem('fontSizeSetting', fontVariant);
   };
 
   const handleFontSizeSaved = (event) => {
-    setFontSize(fontSize);
-    saveFontSizeOption(fontSize);
+    const fontSizeSettingOption = FONT_SIZE_OPTIONS[selectedFontCardIndex];
+    saveFontSizeOption(fontSizeSettingOption.variant);
+    // Popover
     setShow(!show);
     setTarget(event.target);
   };
 
   const handleFontSizeClick = (index) => {
-    setSelectedFontCard(index);
+    setSelectedFontCardIndex(index);
   };
-
-  useEffect(() => {
-    const savedFontSize = localStorage.getItem('fontSize');
-    if (savedFontSize) {
-      setFontSize(savedFontSize);
-    }
-  }, []);
 
   return (
     <div ref={ref}>
@@ -82,8 +96,10 @@ export default function FontSizeSettings() {
                     <Card
                       onClick={() => handleFontSizeClick(index)}
                       style={{
-                        border: selectedFontCard === index && '2px solid red',
-                        boxShadow: selectedFontCard === index && '0 0 3px red',
+                        border:
+                          selectedFontCardIndex === index && '2px solid red',
+                        boxShadow:
+                          selectedFontCardIndex === index && '0 0 3px red',
                       }}
                     >
                       <Card.Body

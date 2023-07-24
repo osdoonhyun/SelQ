@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import FormContainer from './FormContainer';
-import FontSizeSettings from './ui/FontSizeSettings';
+import { FontSizeSettings } from './ui/FontSizeSettings';
 
 export default function Header() {
   return (
