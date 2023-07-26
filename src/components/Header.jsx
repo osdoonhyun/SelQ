@@ -11,6 +11,7 @@ export default function Header() {
           <Nav className='me-auto'>
             <Nav.Link href='/home'>홈</Nav.Link>
             <Nav.Link href='/questions'>질문목록</Nav.Link>
+            <Nav.Link href='/importants'>중요질문</Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
             <FontSizeSettings />
