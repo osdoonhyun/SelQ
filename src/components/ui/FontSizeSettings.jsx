@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import {
   Button,
   Card,
@@ -8,36 +8,13 @@ import {
   Popover,
   Row,
 } from 'react-bootstrap';
-
-const FONT_SIZE_OPTIONS = [
-  { label: '축소', size: '14px', variant: 'small' },
-  { label: '기본', size: '17px', variant: 'basic' },
-  { label: '확대', size: '20px', variant: 'large' },
-];
-
-export const calcFontSize = (fontSize, fontVariant) => {
-  const fontSizeValue = parseFloat(fontSize);
-  let calcedFontSize;
-  switch (fontVariant) {
-    case 'small':
-      calcedFontSize = `${fontSizeValue - 3}px`;
-      break;
-    case 'basic':
-      calcedFontSize = fontSize;
-      break;
-    case 'large':
-      calcedFontSize = `${fontSizeValue + 3}px`;
-      break;
-    default:
-      calcedFontSize = fontSize;
-      break;
-  }
-
-  return calcedFontSize;
-};
+import { FontSizingContext } from '../context/FontSizingProvider';
+import { getTargetIndex } from '../utils/utils';
+import { FONT_SIZE_OPTIONS } from '../../constant/constants';
 
 export function FontSizeSettings() {
-  const [selectedFontCardIndex, setSelectedFontCardIndex] = useState(1);
+  const { fontSizing, handleFontSizing } = useContext(FontSizingContext);
+  const [selectedFontCard, setSelectedFontCard] = useState('');
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
@@ -47,20 +24,14 @@ export function FontSizeSettings() {
     setTarget(event.target);
   };
 
-  const saveFontSizeOption = (fontVariant) => {
-    localStorage.setItem('fontSizeSetting', fontVariant);
-  };
-
   const handleFontSizeSaved = (event) => {
-    const fontSizeSettingOption = FONT_SIZE_OPTIONS[selectedFontCardIndex];
-    saveFontSizeOption(fontSizeSettingOption.variant);
-    // Popover
+    handleFontSizing(getTargetIndex(selectedFontCard));
     setShow(!show);
     setTarget(event.target);
   };
 
-  const handleFontSizeClick = (index) => {
-    setSelectedFontCardIndex(index);
+  const handleFontCardClick = (variant) => {
+    setSelectedFontCard(variant);
   };
 
   return (
@@ -91,15 +62,17 @@ export function FontSizeSettings() {
           <Popover.Body>
             <CardGroup>
               <Row>
-                {FONT_SIZE_OPTIONS.map(({ label, size }, index) => (
+                {FONT_SIZE_OPTIONS.map(({ label, size, variant }, index) => (
                   <Col key={index}>
                     <Card
-                      onClick={() => handleFontSizeClick(index)}
+                      onClick={() => handleFontCardClick(variant)}
                       style={{
                         border:
-                          selectedFontCardIndex === index && '2px solid red',
+                          (selectedFontCard || fontSizing) === variant &&
+                          '2px solid red',
                         boxShadow:
-                          selectedFontCardIndex === index && '0 0 3px red',
+                          (selectedFontCard || fontSizing) === variant &&
+                          '0 0 3px red',
                       }}
                     >
                       <Card.Body
