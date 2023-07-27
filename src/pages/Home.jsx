@@ -8,6 +8,7 @@ export default function Home() {
   const [nextQuestion, setNextQuestion] = useState({});
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [description, setDescription] = useState('');
+  const [hints, setHints] = useState('');
 
   const getQuestions = async () => {
     try {
@@ -24,11 +25,25 @@ export default function Home() {
     }
   };
 
-  const handleGetAnswer = async () => {
-    const questionId = nextQuestion.attributes?.answer?.data?.id;
+  const handleGetHints = async () => {
+    const hintId = nextQuestion.attributes?.hint?.data?.id;
     try {
       const { data, status } = await axios.get(
-        `http://localhost:1337/api/answers/${questionId}`
+        `http://localhost:1337/api/hints/${hintId}`
+      );
+      if (status === 200) {
+        setHints(data.data.attributes.hint);
+      }
+    } catch (error) {
+      console.log('Get Hints Error', error.message);
+    }
+  };
+
+  const handleGetAnswer = async () => {
+    const answerId = nextQuestion.attributes?.answer?.data?.id;
+    try {
+      const { data, status } = await axios.get(
+        `http://localhost:1337/api/answers/${answerId}`
       );
       if (status === 200) {
         setDescription(data.data.attributes.description);
@@ -79,7 +94,9 @@ export default function Home() {
         questionId={nextQuestion.id}
         question={nextQuestion}
         description={description}
+        hints={hints}
         onGetAnswer={handleGetAnswer}
+        onGetHints={handleGetHints}
       />
     </>
   );

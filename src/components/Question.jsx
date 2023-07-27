@@ -7,7 +7,9 @@ export default function Question({
   questionId,
   question,
   description,
+  hints,
   onGetAnswer,
+  onGetHints,
 }) {
   return (
     <div
@@ -29,7 +31,7 @@ export default function Question({
         {question?.attributes?.title}
       </div>
       <Fragment key={questionId}>
-        <Hint hints={question?.attributes?.hint} />
+        <Hint hints={hints} onGetHints={onGetHints} />
         <Answer description={description} onGetAnswer={onGetAnswer} />
       </Fragment>
     </div>
