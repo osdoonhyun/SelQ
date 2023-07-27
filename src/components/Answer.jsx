@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 export default function Answer({ description, onGetAnswer }) {
   const [open, setOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Answer({ description, onGetAnswer }) {
             letterSpacing: '0.1rem',
           }}
         >
-          {description}
+          <ReactMarkdown children={description} />
         </div>
       </Collapse>
     </div>
