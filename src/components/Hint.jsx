@@ -2,14 +2,19 @@ import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import CustomBadge from './ui/CustomBadge';
 
-export default function Hint({ hints }) {
+export default function Hint({ hints, onGetHints }) {
   const [open, setOpen] = useState(false);
+
+  const handleHintsButton = () => {
+    onGetHints();
+    setOpen(!open);
+  };
 
   return (
     <div style={{ display: 'inline-block', marginTop: '1.5rem' }}>
       <Button
         variant='outline-dark'
-        onClick={() => setOpen(!open)}
+        onClick={handleHintsButton}
         aria-controls='example-collapse-text'
         aria-expanded={open}
         disabled={hints === null}
@@ -23,9 +28,10 @@ export default function Hint({ hints }) {
             marginTop: '0.8rem',
           }}
         >
-          {hints?.split(', ').map((hint, index) => (
-            <CustomBadge text={hint} key={index} />
-          ))}
+          {hints &&
+            hints
+              ?.split(', ')
+              .map((hint, index) => <CustomBadge text={hint} key={index} />)}
         </div>
       </Collapse>
     </div>
