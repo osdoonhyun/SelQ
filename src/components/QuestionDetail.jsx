@@ -10,31 +10,49 @@ import ImportantQuestion from './ui/ImportantQuestion';
 export default function QuestionDetail() {
   const { questionId } = useParams();
   const [question, setQuestion] = useState({});
-  const [description, setDescription] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [hints, setHints] = useState('');
+  const [importance, setImportance] = useState(0);
 
   const getQuestion = async (id) => {
     try {
       const { data, status } = await axios.get(
-        `http://localhost:1337/api/questions/${id}`
+        `http://localhost:1337/api/questions/${id}?populate=*`
       );
 
       if (status === 200) {
         setQuestion(data.data.attributes);
+        setImportance(
+          data.data.attributes.importants.data[0].attributes.importantLevel
+        );
       }
     } catch (error) {
       console.log('QuestionDetail Error', error.message);
     }
   };
-
-  const handleGetAnswer = async (id) => {
+  const handleGetHints = async () => {
+    const hintId = question?.hint?.data?.id;
     try {
       const { data, status } = await axios.get(
-        `http://localhost:1337/api/answers/${parseInt(id) - 22}`
+        `http://localhost:1337/api/hints/${hintId}`
       );
-
-      console.log('겟 ANSWER', data, status);
+      console.log('HINT data', data.data.attributes.hint);
       if (status === 200) {
-        setDescription(data.data.attributes.description);
+        setHints(data.data.attributes.hint);
+      }
+    } catch (error) {
+      console.log('Hints Handler Error', error.message);
+    }
+  };
+
+  const handleGetAnswer = async () => {
+    const answerId = question?.answer.data.id;
+    try {
+      const { data, status } = await axios.get(
+        `http://localhost:1337/api/answers/${answerId}`
+      );
+      if (status === 200) {
+        setAnswer(data.data.attributes.description);
       }
     } catch (error) {
       console.log('Answer Handler Error', error.message);
@@ -60,7 +78,7 @@ export default function QuestionDetail() {
             <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
           </Col>
           <Col className='text-end'>
-            <ImportantQuestion />
+            <ImportantQuestion importance={importance} />
           </Col>
         </Row>
         <div
@@ -74,11 +92,8 @@ export default function QuestionDetail() {
           {question?.title}
         </div>
         <Fragment key={questionId}>
-          <Hint hints={question?.hint} />
-          <Answer
-            description={description}
-            onGetAnswer={() => handleGetAnswer(questionId)}
-          />
+          <Hint hints={hints} onGetHints={handleGetHints} />
+          <Answer description={answer} onGetAnswer={handleGetAnswer} />
         </Fragment>
       </div>
     </>
