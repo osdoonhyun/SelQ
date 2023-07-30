@@ -9,16 +9,13 @@ const IMPORTANCE_OPTIONS = [
   { label: '매우매우중요', level: 3, color: 'red', var: 'danger' },
 ];
 
-export default function ImportantQuestion({ importance, importances }) {
-  const [added, setAdded] = useState(false);
+export default function ImportantQuestion({ importance }) {
   const [show, setShow] = useState(false);
-  const [importanceLevel, setImportanceLevel] = useState(importance);
-  console.log('중요도s,', importances); // 이렇게 하면 undefined 값이 나옴
-  console.log('중요도,', importance);
+  const [importanceLevel, setImportanceLevel] = useState(0);
+
   const handleAddClick = () => {
     // addImportant(questionId);
     increaseImportance();
-    console.log('중요도~~', importanceLevel);
   };
 
   // const addImportant = async (questionId) => {

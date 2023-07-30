@@ -1,7 +1,8 @@
-import { Badge, Button, Container, Stack } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Row, Stack } from 'react-bootstrap';
 import Hint from './Hint';
 import Answer from './Answer';
 import { Fragment } from 'react';
+import ImportantQuestion from './ui/ImportantQuestion';
 
 export default function Question({
   questionId,
@@ -19,7 +20,19 @@ export default function Question({
         flexDirection: 'column',
       }}
     >
-      <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
+      <Row className='d-flex justify-content-between'>
+        <Col>
+          <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
+        </Col>
+        <Col className='text-end'>
+          <ImportantQuestion
+            importance={
+              question?.attributes?.importants?.data[0]?.attributes
+                ?.importantLevel
+            }
+          />
+        </Col>
+      </Row>
       <div
         style={{
           fontSize: '1.6rem',

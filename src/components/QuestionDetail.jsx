@@ -12,7 +12,6 @@ export default function QuestionDetail() {
   const [question, setQuestion] = useState({});
   const [answer, setAnswer] = useState('');
   const [hints, setHints] = useState('');
-  const [importance, setImportance] = useState(0);
 
   const getQuestion = async (id) => {
     try {
@@ -22,9 +21,6 @@ export default function QuestionDetail() {
 
       if (status === 200) {
         setQuestion(data.data.attributes);
-        setImportance(
-          data.data.attributes.importants.data[0].attributes.importantLevel
-        );
       }
     } catch (error) {
       console.log('QuestionDetail Error', error.message);
@@ -78,7 +74,11 @@ export default function QuestionDetail() {
             <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
           </Col>
           <Col className='text-end'>
-            <ImportantQuestion importance={importance} />
+            <ImportantQuestion
+              importance={
+                question?.importants?.data[0]?.attributes.importantLevel
+              }
+            />
           </Col>
         </Row>
         <div
