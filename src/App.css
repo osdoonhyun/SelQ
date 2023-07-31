@@ -1,10 +1,16 @@
 .App {
   text-align: center;
+  font-family: 'BMEuljiro10yearslater';
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+@font-face {
+  font-family: 'BMEuljiro10yearslater';
+  src: url('./font/BMEuljiro10yearslater.ttf') format('ttf');
 }
 
 @media (prefers-reduced-motion: no-preference) {
