@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button, Toast, ToastContainer } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 const IMPORTANCE_OPTIONS = [
-  { label: '안중요', level: 0, color: 'white', var: 'light' },
-  { label: '중요', level: 1, color: 'yellow', var: 'success' },
+  { label: '안중요', level: 0, color: 'grey', var: 'light' },
+  { label: '중요', level: 1, color: '#F2D035', var: 'success' },
   { label: '매우중요', level: 2, color: 'orange', var: 'warning' },
   { label: '매우매우중요', level: 3, color: 'red', var: 'danger' },
 ];
 
-export default function ImportantQuestion({ importance }) {
+export default function ImportantQuestion({ importance = 0 }) {
   const [show, setShow] = useState(false);
   const [importanceLevel, setImportanceLevel] = useState(0);
 
@@ -71,13 +74,21 @@ export default function ImportantQuestion({ importance }) {
         </Toast>
       </ToastContainer>
 
-      {/* <Button variant={added ? 'dark' : 'light'} onClick={handleAddClick}> */}
-      <Button
-        variant={IMPORTANCE_OPTIONS[importanceLevel || 0]?.var}
-        onClick={handleAddClick}
-      >
-        북마크: {importanceLevel}
-      </Button>
+      {importanceLevel === 0 ? (
+        <FontAwesomeIcon
+          onClick={handleAddClick}
+          icon={faStarRegular}
+          size='xl'
+          style={{ color: IMPORTANCE_OPTIONS[importanceLevel].color }}
+        />
+      ) : (
+        <FontAwesomeIcon
+          onClick={handleAddClick}
+          icon={faStarSolid}
+          size='xl'
+          style={{ color: IMPORTANCE_OPTIONS[importanceLevel].color }}
+        />
+      )}
     </>
   );
 }
