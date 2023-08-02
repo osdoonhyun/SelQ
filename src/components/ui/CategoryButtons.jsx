@@ -2,7 +2,14 @@ import React from 'react';
 import { Badge, Button } from 'react-bootstrap';
 import { CATEGORIES } from '../../constant/constants';
 
-const CategoryButtons = ({ onClickCategory }) => {
+const CategoryButtons = ({ questions, onClickCategory }) => {
+  const categoryCounts = { All: questions.length };
+
+  questions.forEach((question) => {
+    const category = question.attributes.category;
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  });
+
   return (
     <div
       style={{
@@ -21,7 +28,7 @@ const CategoryButtons = ({ onClickCategory }) => {
           variant='outline-dark'
         >
           <span style={{ paddingRight: '5px' }}>{category}</span>
-          <Badge bg='secondary'>{category.length}</Badge>
+          <Badge bg='secondary'>{categoryCounts[category]}</Badge>
         </Button>
       ))}
     </div>

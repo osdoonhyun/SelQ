@@ -5,6 +5,7 @@ import { Badge, Button } from 'react-bootstrap';
 import CustomBadge from '../components/ui/CustomBadge';
 import { calcFontSize } from '../components/ui/FontSizeSettings';
 import { LinkContainer } from 'react-router-bootstrap';
+import CategoryButtons from '../components/ui/CategoryButtons';
 
 export default function Questions() {
   const [fontSizeSetting, setFontSizeSetting] = useState('');
@@ -50,15 +51,11 @@ export default function Questions() {
 
   return (
     <>
-      {CATEGORIES.map((category, index) => (
-        <Button
-          key={index}
-          onClick={() => handleCategoryClick(category)}
-          variant='outline-dark'
-        >
-          {category} <Badge bg='secondary'>{category.length}</Badge>
-        </Button>
-      ))}
+      <CategoryButtons
+        questions={questions}
+        onClickCategory={handleCategoryClick}
+      />
+
       {filteredQuestions.map((question) => (
         <LinkContainer to={`/questions/${question.id}`} key={question.id}>
           <div style={{ margin: '2rem 0 3rem' }}>
