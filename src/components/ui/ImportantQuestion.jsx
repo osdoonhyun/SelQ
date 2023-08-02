@@ -12,7 +12,12 @@ const IMPORTANCE_OPTIONS = [
   { label: '매우매우중요', level: 3, color: '#F2D035' },
 ];
 
-export default function ImportantQuestion({ importance }) {
+export default function ImportantQuestion({
+  importance = 0,
+  importanceId,
+  questionId,
+}) {
+  const [added, setAdded] = useState(false);
   const [show, setShow] = useState(false);
   const [importanceLevel, setImportanceLevel] = useState(0);
 
@@ -20,30 +25,17 @@ export default function ImportantQuestion({ importance }) {
   const MIN_LEVEL = 0;
 
   const handleAddClick = () => {
-    // addImportant(questionId);
     increaseImportance();
+    const updatedImportance =
+      importanceLevel + 1 > MAX_LEVEL ? MIN_LEVEL : importanceLevel + 1;
+    if (importanceLevel === 0) {
+      createImportance();
+    } else if (importanceLevel === 3) {
+      deleteImoprtance();
+    } else {
+      updateImportance(updatedImportance);
+    }
   };
-
-  // const addImportant = async (questionId) => {
-  //   try {
-  //     const userInput = {
-  //       data: {
-  //         question: questionId,
-  //         memo: '',
-  //       },
-  //     };
-  //     const { status } = await axios.post(
-  //       'http://localhost:1337/api/importants',
-  //       userInput
-  //     );
-  //     if (status === 200) {
-  //       setAdded((prev) => !prev);
-  //       setShow((prev) => !prev);
-  //     }
-  //   } catch (error) {
-  //     console.log('Add Important', error.message);
-  //   }
-  // };
 
   const increaseImportance = () => {
     setImportanceLevel((prevLevel) => {
@@ -52,6 +44,71 @@ export default function ImportantQuestion({ importance }) {
       }
       return prevLevel + 1;
     });
+  };
+
+  const createImportance = async () => {
+    console.log('생성 important');
+    try {
+      const userInput = {
+        data: {
+          question: questionId,
+          memo: '',
+          importantLevel: 1,
+        },
+      };
+      const { status } = await axios.post(
+        'http://localhost:1337/api/importants',
+        userInput
+      );
+      if (status === 200) {
+        console.log('생성되었습니다.');
+        setAdded(true);
+        setShow((prev) => !prev);
+      }
+    } catch (error) {
+      console.log('Importance Create Handler Error', error.message);
+    }
+  };
+
+  const updateImportance = async (importantLevel) => {
+    console.log('업데이트 important', importantLevel);
+    try {
+      const userInput = {
+        data: {
+          question: questionId,
+          memo: '',
+          importantLevel: importantLevel,
+        },
+      };
+      const { status, data } = await axios.put(
+        `http://localhost:1337/api/importants/${importanceId}`,
+        userInput
+      );
+
+      if (status === 200) {
+        console.log('importance +1 업데이트되었습니다.', data);
+      }
+    } catch (error) {
+      console.log('Importance Update Handler Error', error.message);
+    }
+  };
+
+  const deleteImoprtance = async () => {
+    console.log('삭제 importance');
+    try {
+      const { status, data } = await axios.delete(
+        `http://localhost:1337/api/importants/${importanceId}`
+      );
+
+      if (status === 200) {
+        console.log('삭제되었습니다.', data);
+        // 북마크 해제
+        setAdded(false);
+        setShow((prev) => !prev);
+      }
+    } catch (error) {
+      console.log('Importance Update Handler Error', error.message);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +125,7 @@ export default function ImportantQuestion({ importance }) {
         <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
           <Toast.Header>
             <strong className='me-auto'>
-              {/* {added ? '북마크 추가' : '북마크 해제'} */}별
+              {added ? '북마크 추가' : '북마크 해제'}
             </strong>
           </Toast.Header>
           <Toast.Body className='m-auto'>

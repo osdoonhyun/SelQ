@@ -47,7 +47,9 @@ export default function ImportantQuestionsList() {
               </Col>
               <Col className='text-end'>
                 <ImportantQuestion
+                  importanceId={question?.id}
                   importance={question?.attributes?.importantLevel}
+                  questionId={question?.attributes.question.data.id}
                 />
               </Col>
             </Row>

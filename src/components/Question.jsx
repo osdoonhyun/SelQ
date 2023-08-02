@@ -30,6 +30,8 @@ export default function Question({
               question?.attributes?.importants?.data[0]?.attributes
                 ?.importantLevel
             }
+            importanceId={question?.attributes?.importants?.data[0]?.id}
+            questionId={questionId}
           />
         </Col>
       </Row>

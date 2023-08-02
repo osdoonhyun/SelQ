@@ -78,6 +78,8 @@ export default function QuestionDetail() {
               importance={
                 question?.importants?.data[0]?.attributes.importantLevel
               }
+              importanceId={question?.importants?.data[0]?.id}
+              questionId={questionId}
             />
           </Col>
         </Row>
