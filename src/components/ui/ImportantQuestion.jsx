@@ -20,6 +20,7 @@ export default function ImportantQuestion({
   const [added, setAdded] = useState(false);
   const [show, setShow] = useState(false);
   const [importanceLevel, setImportanceLevel] = useState(0);
+  const [importantId, setImportantId] = useState(0);
 
   const MAX_LEVEL = IMPORTANCE_OPTIONS.length - 1;
   const MIN_LEVEL = 0;
@@ -56,12 +57,13 @@ export default function ImportantQuestion({
           importantLevel: 1,
         },
       };
-      const { status } = await axios.post(
+      const { status, data } = await axios.post(
         'http://localhost:1337/api/importants',
         userInput
       );
       if (status === 200) {
-        console.log('생성되었습니다.');
+        console.log('생성되었습니다.', data);
+        setImportantId(data.data.id);
         setAdded(true);
         setShow((prev) => !prev);
       }
@@ -81,7 +83,7 @@ export default function ImportantQuestion({
         },
       };
       const { status, data } = await axios.put(
-        `http://localhost:1337/api/importants/${importanceId}`,
+        `http://localhost:1337/api/importants/${importantId}`,
         userInput
       );
 
@@ -97,7 +99,7 @@ export default function ImportantQuestion({
     console.log('삭제 importance');
     try {
       const { status, data } = await axios.delete(
-        `http://localhost:1337/api/importants/${importanceId}`
+        `http://localhost:1337/api/importants/${importantId}`
       );
 
       if (status === 200) {
@@ -113,7 +115,8 @@ export default function ImportantQuestion({
 
   useEffect(() => {
     setImportanceLevel(importance);
-  }, [importance]);
+    setImportantId(importanceId);
+  }, [importance, importanceId]);
 
   return (
     <>
