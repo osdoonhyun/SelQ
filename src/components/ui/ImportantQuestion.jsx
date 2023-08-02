@@ -6,10 +6,10 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 const IMPORTANCE_OPTIONS = [
-  { label: '안중요', level: 0, color: 'grey', var: 'light' },
-  { label: '중요', level: 1, color: '#F2D035', var: 'success' },
-  { label: '매우중요', level: 2, color: 'orange', var: 'warning' },
-  { label: '매우매우중요', level: 3, color: 'red', var: 'danger' },
+  { label: '안중요', level: 0, color: 'grey' },
+  { label: '중요', level: 1, color: '#F2D035' },
+  { label: '매우중요', level: 2, color: '#F2D035' },
+  { label: '매우매우중요', level: 3, color: '#F2D035' },
 ];
 
 export default function ImportantQuestion({ importance = 0 }) {
@@ -74,21 +74,20 @@ export default function ImportantQuestion({ importance = 0 }) {
         </Toast>
       </ToastContainer>
 
-      {importanceLevel === 0 ? (
-        <FontAwesomeIcon
-          onClick={handleAddClick}
-          icon={faStarRegular}
-          size='xl'
-          style={{ color: IMPORTANCE_OPTIONS[importanceLevel].color }}
-        />
-      ) : (
-        <FontAwesomeIcon
-          onClick={handleAddClick}
-          icon={faStarSolid}
-          size='xl'
-          style={{ color: IMPORTANCE_OPTIONS[importanceLevel].color }}
-        />
-      )}
+      <div onClick={handleAddClick}>
+        {Array.from({ length: 3 }, (_, index) => (
+          <FontAwesomeIcon
+            key={index}
+            icon={index >= 3 - importanceLevel ? faStarSolid : faStarRegular}
+            size='xl'
+            style={{
+              color:
+                IMPORTANCE_OPTIONS[importanceLevel >= 3 - index ? index + 1 : 0]
+                  .color,
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }
