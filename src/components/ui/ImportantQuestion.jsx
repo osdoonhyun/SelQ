@@ -12,9 +12,12 @@ const IMPORTANCE_OPTIONS = [
   { label: '매우매우중요', level: 3, color: '#F2D035' },
 ];
 
-export default function ImportantQuestion({ importance = 0 }) {
+export default function ImportantQuestion({ importance }) {
   const [show, setShow] = useState(false);
   const [importanceLevel, setImportanceLevel] = useState(0);
+
+  const MAX_LEVEL = IMPORTANCE_OPTIONS.length - 1;
+  const MIN_LEVEL = 0;
 
   const handleAddClick = () => {
     // addImportant(questionId);
@@ -44,8 +47,8 @@ export default function ImportantQuestion({ importance = 0 }) {
 
   const increaseImportance = () => {
     setImportanceLevel((prevLevel) => {
-      if (prevLevel + 1 > 3) {
-        return 0;
+      if (prevLevel + 1 > MAX_LEVEL) {
+        return MIN_LEVEL;
       }
       return prevLevel + 1;
     });
@@ -75,15 +78,18 @@ export default function ImportantQuestion({ importance = 0 }) {
       </ToastContainer>
 
       <div onClick={handleAddClick}>
-        {Array.from({ length: 3 }, (_, index) => (
+        {Array.from({ length: MAX_LEVEL }, (_, index) => (
           <FontAwesomeIcon
             key={index}
-            icon={index >= 3 - importanceLevel ? faStarSolid : faStarRegular}
+            icon={
+              index >= MAX_LEVEL - importanceLevel ? faStarSolid : faStarRegular
+            }
             size='xl'
             style={{
               color:
-                IMPORTANCE_OPTIONS[importanceLevel >= 3 - index ? index + 1 : 0]
-                  .color,
+                IMPORTANCE_OPTIONS[
+                  importanceLevel >= MAX_LEVEL - index ? index + 1 : MIN_LEVEL
+                ].color,
             }}
           />
         ))}
