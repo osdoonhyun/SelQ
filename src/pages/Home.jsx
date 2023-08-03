@@ -71,7 +71,11 @@ export default function Home() {
   };
 
   const getRandomQuestion = (questions, count) => {
-    const randomIndex = Math.floor(Math.random() * count);
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * count);
+    } while (questions[randomIndex] === nextQuestion);
+
     return questions[randomIndex];
   };
 
