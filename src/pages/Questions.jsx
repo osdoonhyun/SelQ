@@ -3,14 +3,14 @@ import axios from 'axios';
 import { CATEGORIES } from '../constant/constants';
 import { Badge, Button } from 'react-bootstrap';
 import CustomBadge from '../components/ui/CustomBadge';
-import { calcFontSize } from '../components/ui/FontSizeSettings';
 import { LinkContainer } from 'react-router-bootstrap';
 import CategoryButtons from '../components/ui/CategoryButtons';
+import { useFontSize } from '../components/context/FontSizingProvider';
 
 export default function Questions() {
-  const [fontSizeSetting, setFontSizeSetting] = useState('');
   const [questions, setQuestions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const { fontSizing, calcFontSize } = useFontSize();
 
   const getQuestions = async () => {
     try {
@@ -38,14 +38,6 @@ export default function Questions() {
   );
 
   useEffect(() => {
-    const savedFontSize = localStorage.getItem('fontSizeSetting');
-    if (savedFontSize) {
-      setFontSizeSetting(savedFontSize);
-    }
-    console.log('실행됨');
-  }, [fontSizeSetting]);
-
-  useEffect(() => {
     getQuestions();
   }, []);
 
@@ -61,7 +53,7 @@ export default function Questions() {
           <div style={{ margin: '2rem 0 3rem' }}>
             <div
               style={{
-                fontSize: calcFontSize('1.8rem', fontSizeSetting),
+                fontSize: calcFontSize('1.8rem', fontSizing),
                 fontWeight: '500',
               }}
             >
@@ -69,7 +61,7 @@ export default function Questions() {
             </div>
             <div
               style={{
-                fontSize: calcFontSize('1.6rem', fontSizeSetting),
+                fontSize: calcFontSize('1.6rem', fontSizing),
                 fontWeight: '500',
                 lineHeight: 1.2,
                 marginBottom: '0.5rem',
