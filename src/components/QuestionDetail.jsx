@@ -6,8 +6,10 @@ import Hint from './Hint';
 import Answer from './Answer';
 import GoBackButton from './ui/GoBackButton';
 import ImportantQuestion from './ui/ImportantQuestion';
+import { useFontSize } from './context/FontSizingProvider';
 
 export default function QuestionDetail() {
+  const { fontSizing, calcFontSize } = useFontSize();
   const { questionId } = useParams();
   const [question, setQuestion] = useState({});
   const [answer, setAnswer] = useState('');
@@ -71,7 +73,14 @@ export default function QuestionDetail() {
       >
         <Row className='d-flex justify-content-between'>
           <Col>
-            <div style={{ fontSize: '1.8rem', fontWeight: '500' }}>Q.</div>
+            <div
+              style={{
+                fontSize: calcFontSize('1.8rem', fontSizing),
+                fontWeight: '500',
+              }}
+            >
+              Q.
+            </div>
           </Col>
           <Col className='text-end'>
             <ImportantQuestion
@@ -85,7 +94,7 @@ export default function QuestionDetail() {
         </Row>
         <div
           style={{
-            fontSize: '1.6rem',
+            fontSize: calcFontSize('1.6rem', fontSizing),
             fontWeight: '500',
             lineHeight: 1.2,
             letterSpacing: '0.05rem',

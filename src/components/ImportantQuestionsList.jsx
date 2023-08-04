@@ -4,8 +4,10 @@ import CustomBadge from './ui/CustomBadge';
 import ImportantQuestion from './ui/ImportantQuestion';
 import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useFontSize } from './context/FontSizingProvider';
 
 export default function ImportantQuestionsList() {
+  const { fontSizing, calcFontSize } = useFontSize();
   const [importantQuestions, setImportantQuestions] = useState([]);
 
   const getImportantQuestions = async () => {
@@ -38,7 +40,7 @@ export default function ImportantQuestionsList() {
               <Col>
                 <div
                   style={{
-                    fontSize: '1.8rem',
+                    fontSize: calcFontSize('1.8rem', fontSizing),
                     fontWeight: '500',
                   }}
                 >
@@ -55,7 +57,7 @@ export default function ImportantQuestionsList() {
             </Row>
             <div
               style={{
-                fontSize: '1.6rem',
+                fontSize: calcFontSize('1.6rem', fontSizing),
                 fontWeight: '500',
                 lineHeight: 1.2,
                 marginBottom: '0.5rem',
