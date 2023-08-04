@@ -11,6 +11,8 @@ import {
 import { FontSizingContext } from '../context/FontSizingProvider';
 import { getTargetIndex } from '../utils/utils';
 import { FONT_SIZE_OPTIONS } from '../../constant/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 export function FontSizeSettings() {
   const { fontSizing, handleFontSizing } = useContext(FontSizingContext);
@@ -37,7 +39,16 @@ export function FontSizeSettings() {
   return (
     <div ref={ref}>
       <Button variant='Light' onClick={handleClick}>
-        설정
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <FontAwesomeIcon icon={faGear} size='xl' />
+          <span style={{ fontSize: '13px', marginTop: '8px' }}>설정</span>
+        </div>
       </Button>
 
       <Overlay
