@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import useFontSizing from '../hooks/useFontSizing';
 
 const defaultValue = {
@@ -7,6 +7,10 @@ const defaultValue = {
 };
 
 export const FontSizingContext = createContext(defaultValue);
+
+export function useFontSize() {
+  return useContext(FontSizingContext);
+}
 
 function FontSizingProvider({ children }) {
   const fontSizingProps = useFontSizing();
