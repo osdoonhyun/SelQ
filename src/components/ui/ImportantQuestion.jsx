@@ -25,7 +25,8 @@ export default function ImportantQuestion({
   const MAX_LEVEL = IMPORTANCE_OPTIONS.length - 1;
   const MIN_LEVEL = 0;
 
-  const handleAddClick = () => {
+  const handleAddClick = (e) => {
+    e.stopPropagation();
     increaseImportance();
     const updatedImportance =
       importanceLevel + 1 > MAX_LEVEL ? MIN_LEVEL : importanceLevel + 1;
@@ -115,8 +116,11 @@ export default function ImportantQuestion({
 
   useEffect(() => {
     setImportanceLevel(importance);
+  }, [importance]);
+
+  useEffect(() => {
     setImportantId(importanceId);
-  }, [importance, importanceId]);
+  }, [importanceId]);
 
   return (
     <>
