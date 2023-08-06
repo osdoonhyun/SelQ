@@ -27,6 +27,7 @@ export function FontSizeSettings() {
   };
 
   const handleFontSizeSaved = (event) => {
+    event.stopPropagation();
     handleFontSizing(getTargetIndex(selectedFontCard));
     setShow(!show);
     setTarget(event.target);
@@ -46,8 +47,12 @@ export function FontSizeSettings() {
             alignItems: 'center',
           }}
         >
-          <FontAwesomeIcon icon={faGear} size='xl' />
-          <span style={{ fontSize: '13px', marginTop: '8px' }}>설정</span>
+          <FontAwesomeIcon color='#575757' icon={faGear} size='xl' />
+          <span
+            style={{ fontSize: '13px', marginTop: '8px', color: '#575757' }}
+          >
+            설정
+          </span>
         </div>
       </Button>
 
