@@ -1,8 +1,9 @@
 import React from 'react';
-import { Badge, Button } from 'react-bootstrap';
 import { CATEGORIES } from '../../constant/constants';
+import { ScrollingCarousel } from '@trendyol-js/react-carousel';
+import { MyBadge, MyButton } from '../../styles/ButtonStyles';
 
-const CategoryButtons = ({ questions, onClickCategory }) => {
+const CategoryButtons = ({ questions, onClickCategory, selectedCategory }) => {
   const categoryCounts = { All: questions.length };
 
   questions.forEach((question) => {
@@ -11,26 +12,21 @@ const CategoryButtons = ({ questions, onClickCategory }) => {
   });
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        overflow: 'auto',
-        width: '100%',
-        gap: '5px',
-      }}
-      draggable='true'
-    >
-      {CATEGORIES.map((category, index) => (
-        <Button
-          key={index}
-          className='d-inline-flex align-items-center'
-          onClick={() => onClickCategory(category)}
-          variant='outline-dark'
-        >
-          <span style={{ paddingRight: '5px' }}>{category}</span>
-          <Badge bg='secondary'>{categoryCounts[category]}</Badge>
-        </Button>
-      ))}
+    <div style={{ marginTop: '20px' }}>
+      <ScrollingCarousel>
+        {CATEGORIES.map((category, index) => (
+          <MyButton
+            key={index}
+            onClick={() => onClickCategory(category)}
+            selected={selectedCategory === category}
+          >
+            <span style={{ paddingRight: '5px' }}>{category}</span>
+            <MyBadge selected={selectedCategory === category}>
+              {categoryCounts[category]}
+            </MyBadge>
+          </MyButton>
+        ))}
+      </ScrollingCarousel>
     </div>
   );
 };
