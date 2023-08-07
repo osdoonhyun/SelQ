@@ -1,7 +1,7 @@
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { routes } from './routes';
 import Header from './components/Header';
-import { RouterProvider } from 'react-router-dom';
-import router from './router';
 import FormContainer from './components/FormContainer';
 import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
@@ -19,10 +19,20 @@ function App() {
         }}
       >
         <FontSizingProvider>
-          <Header />
-          <FormContainer>
-            <RouterProvider router={router} />
-          </FormContainer>
+          <BrowserRouter>
+            <Header />
+            <FormContainer>
+              <Routes>
+                {routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </FormContainer>
+          </BrowserRouter>
         </FontSizingProvider>
       </Container>
       <Footer />
