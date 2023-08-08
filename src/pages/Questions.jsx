@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import { CATEGORIES } from '../constant/constants';
 import { Badge, Button } from 'react-bootstrap';
@@ -46,33 +46,43 @@ export default function Questions() {
       <CategoryButtons
         questions={questions}
         onClickCategory={handleCategoryClick}
+        selectedCategory={selectedCategory}
       />
 
-      {filteredQuestions.map((question) => (
-        <LinkContainer to={`/questions/${question.id}`} key={question.id}>
-          <div style={{ margin: '2rem 0 3rem' }}>
-            <div
-              style={{
-                fontSize: calcFontSize('1.8rem', fontSizing),
-                fontWeight: '500',
-              }}
-            >
-              Q.
-            </div>
-            <div
-              style={{
-                fontSize: calcFontSize('1.6rem', fontSizing),
-                fontWeight: '500',
-                lineHeight: 1.2,
-                marginBottom: '0.5rem',
-                letterSpacing: '0.05rem',
-              }}
-            >
-              {question.attributes?.title}
-            </div>
-            <CustomBadge text={question.attributes?.category} />
-          </div>
-        </LinkContainer>
+      {filteredQuestions.map((question, index) => (
+        <Fragment key={question.id}>
+          <LinkContainer to={`/questions/${question.id}`}>
+            <>
+              <div
+                style={{
+                  fontSize: calcFontSize('1.8rem', fontSizing),
+                  fontWeight: '500',
+                  marginTop: index === 0 ? '20px' : '50px',
+                  cursor: 'pointer',
+                }}
+              >
+                Q.
+              </div>
+              <div
+                style={{
+                  fontSize: calcFontSize('1.6rem', fontSizing),
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  lineHeight: 1.2,
+                  marginBottom: '0.5rem',
+                  letterSpacing: '0.05rem',
+                }}
+              >
+                {question.attributes?.title}
+              </div>
+            </>
+          </LinkContainer>
+          <CustomBadge
+            last={index === filteredQuestions.length - 1}
+            text={question.attributes?.category}
+            onClickCategory={handleCategoryClick}
+          />
+        </Fragment>
       ))}
       {/* TODO:아래와 같이 리팩토링 계획(콜백함수의 인자 객체 구조분해할당)
       {filteredQuestions.map(({id, ...question}) => (

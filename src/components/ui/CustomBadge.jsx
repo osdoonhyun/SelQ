@@ -1,6 +1,6 @@
 import { Badge } from 'react-bootstrap';
 
-export default function CustomBadge({ text }) {
+export default function CustomBadge({ text, onClickCategory, last }) {
   return (
     <Badge
       bg='light'
@@ -10,7 +10,11 @@ export default function CustomBadge({ text }) {
         borderRadius: '10px',
         padding: '5px',
         display: 'inline-block',
+        marginRight: '7px',
+        marginBottom: last && '50px',
+        cursor: onClickCategory ? 'pointer' : 'default',
       }}
+      onClick={() => onClickCategory(text)}
     >
       {text}
     </Badge>
