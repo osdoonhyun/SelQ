@@ -13,7 +13,7 @@ const NavItem = ({ href, icon, text }) => {
 
   return (
     <Nav.Link href={href}>
-      <HeaderIcon icon={icon} size='xl' isActive={isActive} />
+      <HeaderIcon icon={icon} size='xl' $isActive={isActive} />
       <span
         style={{ fontSize: '13px', color: isActive ? '#5BACEE' : '#B3B3B5' }}
       >
