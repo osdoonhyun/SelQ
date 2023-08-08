@@ -14,7 +14,7 @@ export default function CustomBadge({ text, onClickCategory, last }) {
         marginBottom: last && '50px',
         cursor: onClickCategory ? 'pointer' : 'default',
       }}
-      onClick={() => onClickCategory(text)}
+      onClick={onClickCategory ? () => onClickCategory(text) : undefined}
     >
       {text}
     </Badge>
