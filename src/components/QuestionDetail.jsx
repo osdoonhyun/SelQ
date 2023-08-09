@@ -71,7 +71,7 @@ export default function QuestionDetail() {
           flexDirection: 'column',
         }}
       >
-        <Row className='d-flex justify-content-between'>
+        <Row>
           <Col>
             <div
               style={{
@@ -82,7 +82,7 @@ export default function QuestionDetail() {
               Q.
             </div>
           </Col>
-          <Col className='text-end'>
+          <Col className='d-flex justify-content-end align-items-center'>
             <ImportantQuestion
               importance={
                 question?.importants?.data[0]?.attributes.importantLevel

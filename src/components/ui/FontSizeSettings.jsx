@@ -47,9 +47,13 @@ export function FontSizeSettings() {
             alignItems: 'center',
           }}
         >
-          <FontAwesomeIcon color='#575757' icon={faGear} size='xl' />
+          <FontAwesomeIcon color='#B3B3B5' icon={faGear} size='xl' />
           <span
-            style={{ fontSize: '13px', marginTop: '8px', color: '#575757' }}
+            style={{
+              fontSize: '13px',
+              marginTop: '8px',
+              color: '#B3B3B5',
+            }}
           >
             설정
           </span>
@@ -62,14 +66,28 @@ export function FontSizeSettings() {
         placement='bottom'
         container={ref}
         containerPadding={20}
+        style={{
+          fontFamily: 'BMHANNAPro',
+        }}
       >
         <Popover id='popover-contained'>
           <Popover.Header as='h3'>
             <Row className='d-flex justify-content-between'>
-              <Col className='text-muted'>글자크기</Col>
+              <Col
+                style={{
+                  fontFamily: 'BMHANNAPro',
+                }}
+                className='text-muted'
+              >
+                글자크기
+              </Col>
               <Col
                 className='text-end text-muted'
                 onClick={handleFontSizeSaved}
+                style={{
+                  cursor: 'pointer',
+                  fontFamily: 'BMHANNAPro',
+                }}
               >
                 저장
               </Col>
@@ -85,10 +103,7 @@ export function FontSizeSettings() {
                       style={{
                         border:
                           (selectedFontCard || fontSizing) === variant &&
-                          '2px solid red',
-                        boxShadow:
-                          (selectedFontCard || fontSizing) === variant &&
-                          '0 0 3px red',
+                          '3px solid #5bacee',
                       }}
                     >
                       <Card.Body
@@ -99,14 +114,17 @@ export function FontSizeSettings() {
                           alignItems: 'center',
                         }}
                       >
-                        <Card.Text style={{ fontSize: size }}>가 Aa</Card.Text>
+                        <Card.Text
+                          style={{
+                            fontSize: size,
+                            fontFamily: 'BMHANNAPro',
+                          }}
+                        >
+                          가 Aa
+                        </Card.Text>
                       </Card.Body>
                       <Card.Footer className='d-flex justify-content-center align-items-center p-3'>
                         <span className='text-muted'>{label}</span>
-                        {/* <Row>
-                          <Col variant='Light'>
-                          </Col>
-                        </Row> */}
                       </Card.Footer>
                     </Card>
                   </Col>

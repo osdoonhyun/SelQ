@@ -30,24 +30,29 @@ export default function ImportantQuestionsList() {
 
   return (
     <>
-      {importantQuestions.map((question) => (
+      {importantQuestions.map((question, index) => (
         <LinkContainer
           to={`/importants/${question?.attributes?.question?.data?.id}`}
           key={question.id}
         >
-          <div style={{ margin: '2rem 0 3rem' }}>
-            <Row className='d-flex justify-content-between'>
+          <div>
+            <Row
+              style={{
+                marginTop: index === 0 ? '20px' : '50px',
+              }}
+            >
               <Col>
                 <div
                   style={{
                     fontSize: calcFontSize('1.8rem', fontSizing),
                     fontWeight: '500',
+                    cursor: 'pointer',
                   }}
                 >
                   Q.
                 </div>
               </Col>
-              <Col className='text-end'>
+              <Col className='d-flex justify-content-end align-items-center'>
                 <ImportantQuestion
                   importanceId={question?.id}
                   importance={question?.attributes?.importantLevel}
@@ -57,18 +62,25 @@ export default function ImportantQuestionsList() {
             </Row>
             <div
               style={{
-                fontSize: calcFontSize('1.6rem', fontSizing),
-                fontWeight: '500',
-                lineHeight: 1.2,
-                marginBottom: '0.5rem',
-                letterSpacing: '0.05rem',
+                marginBottom: index === importantQuestions.length - 1 && '50px',
               }}
             >
-              {question.attributes?.question.data.attributes.title}
+              <div
+                style={{
+                  fontSize: calcFontSize('1.6rem', fontSizing),
+                  fontWeight: '500',
+                  lineHeight: 1.2,
+                  marginBottom: '0.5rem',
+                  letterSpacing: '0.05rem',
+                  cursor: 'pointer',
+                }}
+              >
+                {question.attributes?.question.data.attributes.title}
+              </div>
+              <CustomBadge
+                text={question.attributes?.question.data.attributes.category}
+              />
             </div>
-            <CustomBadge
-              text={question.attributes?.question.data.attributes.category}
-            />
           </div>
         </LinkContainer>
       ))}

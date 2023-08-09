@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useFontSize } from './context/FontSizingProvider';
+import { StyledButton } from '../styles/Styles';
 
 export default function Answer({ description, onGetAnswer }) {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -20,21 +21,19 @@ export default function Answer({ description, onGetAnswer }) {
         paddingBottom: '1.2rem',
       }}
     >
-      <Button
-        variant='outline-dark'
+      <StyledButton
         onClick={handleAnswerButton}
         aria-controls='example-collapse-text'
         aria-expanded={open}
       >
         A.
-      </Button>
+      </StyledButton>
       <Collapse in={open}>
         <div
           id='example-collapse-text'
           style={{
             marginTop: '0.8rem',
             fontSize: calcFontSize('1.3rem', fontSizing),
-            fontWeight: '400',
             lineHeight: 1.2,
             letterSpacing: '0.1rem',
           }}

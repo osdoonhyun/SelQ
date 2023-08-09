@@ -1,5 +1,10 @@
 import { Button, ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 import { CATEGORIES } from '../constant/constants';
+import {
+  HomeDropdownButton,
+  HomeDropdownItem,
+  HomeNextButton,
+} from '../styles/Styles';
 
 export default function RandomQuestion({
   selectedCategory,
@@ -15,14 +20,15 @@ export default function RandomQuestion({
       }}
     >
       <ButtonGroup>
-        <Button
-          variant='outline-dark'
-          onClick={() => getNextQuestion(selectedCategory)}
-        >
+        <HomeNextButton onClick={() => getNextQuestion(selectedCategory)}>
           다음 질문
-        </Button>
+        </HomeNextButton>
 
         <DropdownButton
+          style={{
+            color: '#313030',
+            backgroundColor: '#f9f9f9',
+          }}
           variant='outline-dark'
           as={ButtonGroup}
           title={selectedCategory}
@@ -30,11 +36,25 @@ export default function RandomQuestion({
           onSelect={onSelect}
         >
           {CATEGORIES.map((category, index) => (
-            <Dropdown.Item key={index} eventKey={category}>
+            <HomeDropdownItem key={index} eventKey={category}>
               {category}
-            </Dropdown.Item>
+            </HomeDropdownItem>
           ))}
         </DropdownButton>
+
+        {/* <HomeDropdownButton
+          variant='outline-dark'
+          as={ButtonGroup}
+          title={selectedCategory}
+          id='bg-nested-dropdown'
+          onSelect={onSelect}
+        >
+          {CATEGORIES.map((category, index) => (
+            <HomeDropdownItem key={index} eventKey={category}>
+              {category}
+            </HomeDropdownItem>
+          ))}
+        </HomeDropdownButton> */}
       </ButtonGroup>
     </div>
   );

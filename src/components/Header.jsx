@@ -3,7 +3,7 @@ import FormContainer from './FormContainer';
 import { FontSizeSettings } from './ui/FontSizeSettings';
 import { faHouse, faList } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
-import { HeaderIcon, HeaderNav } from '../styles/ButtonStyles';
+import { HeaderIcon, HeaderNav } from '../styles/Styles';
 import { useLocation } from 'react-router-dom';
 
 const NavItem = ({ href, icon, text }) => {

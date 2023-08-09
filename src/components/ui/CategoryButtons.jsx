@@ -1,7 +1,7 @@
 import React from 'react';
 import { CATEGORIES } from '../../constant/constants';
 import { ScrollingCarousel } from '@trendyol-js/react-carousel';
-import { MyBadge, MyButton } from '../../styles/ButtonStyles';
+import { StyledBadge, StyledButton } from '../../styles/Styles';
 
 const CategoryButtons = ({ questions, onClickCategory, selectedCategory }) => {
   const categoryCounts = { All: questions.length };
@@ -12,19 +12,20 @@ const CategoryButtons = ({ questions, onClickCategory, selectedCategory }) => {
   });
 
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div style={{ marginTop: '20px', padding: '0 10px 0' }}>
       <ScrollingCarousel>
         {CATEGORIES.map((category, index) => (
-          <MyButton
+          <StyledButton
+            style={{ margin: '5px' }}
             key={index}
             onClick={() => onClickCategory(category)}
             selected={selectedCategory === category}
           >
             <span style={{ paddingRight: '5px' }}>{category}</span>
-            <MyBadge selected={selectedCategory === category}>
+            <StyledBadge selected={selectedCategory === category}>
               {categoryCounts[category]}
-            </MyBadge>
-          </MyButton>
+            </StyledBadge>
+          </StyledButton>
         ))}
       </ScrollingCarousel>
     </div>

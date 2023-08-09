@@ -8,13 +8,15 @@ export default function Footer() {
           height: '60px',
           position: 'absolute',
           transform: 'translateY(-100%)',
-          borderTop: '1px solid #333',
           left: 0,
+          fontWeight: 500,
           width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: 'BMEuljiro10yearslater',
+          fontFamily: 'BMHANNAPro',
+          backgroundColor: '#F7F6F7',
+          color: '#313030',
         }}
       >
         @ 2023. shinseunghyun all rights reserved.

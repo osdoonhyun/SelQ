@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import CustomBadge from './ui/CustomBadge';
+import { StyledButton } from '../styles/Styles';
 
 export default function Hint({ hints, onGetHints }) {
   const [open, setOpen] = useState(false);
@@ -12,15 +13,14 @@ export default function Hint({ hints, onGetHints }) {
 
   return (
     <div style={{ display: 'inline-block', marginTop: '1.5rem' }}>
-      <Button
-        variant='outline-dark'
+      <StyledButton
         onClick={handleHintsButton}
         aria-controls='example-collapse-text'
         aria-expanded={open}
         disabled={hints === null}
       >
         Hint
-      </Button>
+      </StyledButton>
       <Collapse in={open}>
         <div
           id='example-collapse-text'

@@ -1,13 +1,12 @@
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { BackButton } from '../../styles/Styles';
 
 export default function GoBackButton() {
   const navigate = useNavigate();
   return (
-    <>
-      <Button variant='outline-dark' onClick={() => navigate(-1)}>
-        &larr;
-      </Button>
-    </>
+    <div style={{ margin: '15px 0' }}>
+      <BackButton onClick={() => navigate(-1)}>&larr;</BackButton>
+    </div>
   );
 }
