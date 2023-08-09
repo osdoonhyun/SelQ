@@ -15,7 +15,7 @@ function App() {
           height: 'auto',
           minHeight: '100vh',
           paddingBottom: '60px',
-          fontFamily: 'BMEuljiro10yearslater',
+          fontFamily: 'BMHANNAPro',
         }}
       >
         <FontSizingProvider>
