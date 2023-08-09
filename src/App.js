@@ -1,9 +1,10 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { routes } from './routes';
-import Header from './components/Header';
-import FormContainer from './components/FormContainer';
-import Footer from './components/Footer';
+import Header from './components/common/Header';
+import FormContainer from './components/common/FormContainer';
+import Footer from './components/common/Footer';
+
 import { Container } from 'react-bootstrap';
 import FontSizingProvider from './components/context/FontSizingProvider';
 

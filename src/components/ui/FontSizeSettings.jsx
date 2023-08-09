@@ -14,7 +14,7 @@ import { FONT_SIZE_OPTIONS } from '../../constant/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 
-export function FontSizeSettings() {
+export default function FontSizeSettings() {
   const { fontSizing, handleFontSizing } = useContext(FontSizingContext);
   const [selectedFontCard, setSelectedFontCard] = useState('');
   const [show, setShow] = useState(false);

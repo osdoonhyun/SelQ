@@ -2,11 +2,12 @@ import axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Hint from './Hint';
-import Answer from './Answer';
-import GoBackButton from './ui/GoBackButton';
-import ImportantQuestion from './ui/ImportantQuestion';
-import { useFontSize } from './context/FontSizingProvider';
+
+import GoBackButton from '../components/ui/GoBackButton';
+import ImportantQuestion from '../components/ImportanceCount';
+import { useFontSize } from '../components/context/FontSizingProvider';
+import Answer from '../components/common/Answer';
+import Hint from '../components/common/Hint';
 
 export default function QuestionDetail() {
   const { fontSizing, calcFontSize } = useFontSize();

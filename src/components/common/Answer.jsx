@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { useFontSize } from './context/FontSizingProvider';
-import { StyledButton } from '../styles/Styles';
+import { useFontSize } from '../context/FontSizingProvider';
+import { StyledButton } from '../../styles/Styles';
 
 export default function Answer({ description, onGetAnswer }) {
   const { fontSizing, calcFontSize } = useFontSize();

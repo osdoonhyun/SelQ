@@ -1,8 +1,8 @@
 import { Badge, Button, Col, Container, Row, Stack } from 'react-bootstrap';
-import Hint from './Hint';
-import Answer from './Answer';
+import Hint from './common/Hint';
+import Answer from './common/Answer';
 import { Fragment } from 'react';
-import ImportantQuestion from './ui/ImportantQuestion';
+import ImportantQuestion from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';
 
 export default function Question({

@@ -4,7 +4,7 @@ import { CATEGORIES } from '../constant/constants';
 import { Badge, Button } from 'react-bootstrap';
 import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
-import CategoryButtons from '../components/ui/CategoryButtons';
+import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../components/context/FontSizingProvider';
 
 export default function Questions() {
@@ -43,7 +43,7 @@ export default function Questions() {
 
   return (
     <>
-      <CategoryButtons
+      <CategoryCarousel
         questions={questions}
         onClickCategory={handleCategoryClick}
         selectedCategory={selectedCategory}

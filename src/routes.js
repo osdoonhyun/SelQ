@@ -1,7 +1,7 @@
 import Home from './pages/Home';
 import Questions from './pages/Questions';
-import QuestionDetail from './components/QuestionDetail';
-import ImportantQuestionsList from './components/ImportantQuestionsList';
+import ImportantQuestionsList from './pages/ImportantQuestionsList';
+import QuestionDetail from './pages/QuestionDetail';
 
 export const routes = [
   { path: '/', element: <Home /> },

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import CustomBadge from './ui/CustomBadge';
-import ImportantQuestion from './ui/ImportantQuestion';
+import CustomBadge from '../components/ui/CustomBadge';
+import ImportantQuestion from '../components/ImportanceCount';
 import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useFontSize } from './context/FontSizingProvider';
+import { useFontSize } from '../components/context/FontSizingProvider';
 
 export default function ImportantQuestionsList() {
   const { fontSizing, calcFontSize } = useFontSize();
