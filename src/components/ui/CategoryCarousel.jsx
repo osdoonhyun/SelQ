@@ -3,7 +3,11 @@ import { CATEGORIES } from '../../constant/constants';
 import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 import { StyledBadge, StyledButton } from '../../styles/Styles';
 
-const CategoryButtons = ({ questions, onClickCategory, selectedCategory }) => {
+export default function CategoryCarousel({
+  questions,
+  onClickCategory,
+  selectedCategory,
+}) {
   const categoryCounts = { All: questions.length };
 
   questions.forEach((question) => {
@@ -30,6 +34,4 @@ const CategoryButtons = ({ questions, onClickCategory, selectedCategory }) => {
       </ScrollingCarousel>
     </div>
   );
-};
-
-export default CategoryButtons;
+}

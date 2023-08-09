@@ -4,15 +4,9 @@ import { Button, Toast, ToastContainer } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { IMPORTANCE_OPTIONS } from '../constant/constants';
 
-const IMPORTANCE_OPTIONS = [
-  { label: '안중요', level: 0, color: 'grey' },
-  { label: '중요', level: 1, color: '#F2D035' },
-  { label: '매우중요', level: 2, color: '#F2D035' },
-  { label: '매우매우중요', level: 3, color: '#F2D035' },
-];
-
-export default function ImportantQuestion({
+export default function ImportanceCount({
   importance = 0,
   importanceId,
   questionId,
