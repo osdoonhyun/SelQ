@@ -9,4 +9,5 @@ export const routes = [
   { path: '/questions', element: <Questions /> },
   { path: '/questions/:questionId', element: <QuestionDetail /> },
   { path: '/importants', element: <ImportantQuestionsList /> },
+  { path: '/importants/:questionId', element: <QuestionDetail /> },
 ];

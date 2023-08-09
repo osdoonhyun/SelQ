@@ -32,7 +32,7 @@ export default function ImportantQuestionsList() {
     <>
       {importantQuestions.map((question) => (
         <LinkContainer
-          to={`/questions/${question?.attributes?.question?.data?.id}`}
+          to={`/importants/${question?.attributes?.question?.data?.id}`}
           key={question.id}
         >
           <div style={{ margin: '2rem 0 3rem' }}>

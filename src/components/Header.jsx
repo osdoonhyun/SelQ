@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 const NavItem = ({ href, icon, text }) => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const isActive = currentPath === href;
+  const isActive = currentPath.includes(href);
 
   return (
     <Nav.Link href={href}>
