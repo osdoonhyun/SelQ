@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'BMEuljiro10yearslater';
+  font-family: 'BMHANNAPro';
 }
 
 .App-logo {
@@ -9,8 +9,8 @@
 }
 
 @font-face {
-  font-family: 'BMEuljiro10yearslater';
-  src: url('./font/BMEuljiro10yearslater.ttf') format('ttf');
+  font-family: 'BMHANNAPro';
+  src: url('./font/BMHANNAPro.ttf') format('ttf');
 }
 
 @media (prefers-reduced-motion: no-preference) {
