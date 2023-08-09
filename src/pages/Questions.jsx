@@ -52,7 +52,7 @@ export default function Questions() {
       {filteredQuestions.map((question, index) => (
         <Fragment key={question.id}>
           <LinkContainer to={`/questions/${question.id}`}>
-            <>
+            <div>
               <div
                 style={{
                   fontSize: calcFontSize('1.8rem', fontSizing),
@@ -75,7 +75,7 @@ export default function Questions() {
               >
                 {question.attributes?.title}
               </div>
-            </>
+            </div>
           </LinkContainer>
           <CustomBadge
             last={index === filteredQuestions.length - 1}
