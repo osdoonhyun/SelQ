@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Question from '../components/Question';
 import RandomQuestion from '../components/RandomQuestion';
+import Hint from '../components/common/Hint';
+import Answer from '../components/common/Answer';
 
 export default function Home() {
   const [questions, setQuestions] = useState([]);
@@ -94,14 +96,10 @@ export default function Home() {
         selectedCategory={selectedCategory}
         onSelect={handleDropdownCategorySelect}
       />
-      <Question
-        questionId={nextQuestion.id}
-        question={nextQuestion}
-        description={description}
-        hints={hints}
-        onGetAnswer={handleGetAnswer}
-        onGetHints={handleGetHints}
-      />
+      <Question questionId={nextQuestion.id} question={nextQuestion}>
+        <Hint hints={hints} onGetHints={handleGetHints} />
+        <Answer description={description} onGetAnswer={handleGetAnswer} />
+      </Question>
     </>
   );
 }

@@ -5,14 +5,7 @@ import { Fragment } from 'react';
 import ImportantQuestion from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';
 
-export default function Question({
-  questionId,
-  question,
-  description,
-  hints,
-  onGetAnswer,
-  onGetHints,
-}) {
+export default function Question({ questionId, question, children }) {
   const { fontSizing, calcFontSize } = useFontSize();
 
   return (
@@ -55,10 +48,7 @@ export default function Question({
       >
         {question?.attributes?.title}
       </div>
-      <Fragment key={questionId}>
-        <Hint hints={hints} onGetHints={onGetHints} />
-        <Answer description={description} onGetAnswer={onGetAnswer} />
-      </Fragment>
+      {children}
     </div>
   );
 }
