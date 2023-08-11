@@ -48,7 +48,7 @@ export default function Question({ questionId, question, children }) {
       >
         {question?.attributes?.title}
       </div>
-      {children}
+      <Fragment key={questionId}>{children}</Fragment>
     </div>
   );
 }
