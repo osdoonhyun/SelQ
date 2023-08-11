@@ -5,29 +5,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { IMPORTANCE_OPTIONS } from '../constant/constants';
+import DeleteImportanceModal from './ui/DeleteImporatnceModal';
 
 export default function ImportanceCount({
   importance = 0,
   importanceId,
   questionId,
 }) {
-  const [added, setAdded] = useState(false);
-  const [show, setShow] = useState(false);
+  const [questionListAdded, setQuestionListAdded] = useState(false);
+  const [toastShow, setToastShow] = useState(false);
   const [importanceLevel, setImportanceLevel] = useState(0);
   const [importantId, setImportantId] = useState(0);
+
+  const [modalShow, setModalShow] = useState(false);
+
+  const handleModalShow = () => {
+    setModalShow(true);
+  };
+  const handleModalClose = () => {
+    setModalShow(false);
+  };
 
   const MAX_LEVEL = IMPORTANCE_OPTIONS.length - 1;
   const MIN_LEVEL = 0;
 
   const handleAddClick = (e) => {
     e.stopPropagation();
+
+    if (importanceLevel === 3) {
+      handleModalShow(); // 이게 나을지, setModalShow(true)가 나을지
+      return;
+    }
+
     increaseImportance();
+
     const updatedImportance =
       importanceLevel + 1 > MAX_LEVEL ? MIN_LEVEL : importanceLevel + 1;
+
     if (importanceLevel === 0) {
       createImportance();
-    } else if (importanceLevel === 3) {
-      deleteImoprtance();
     } else {
       updateImportance(updatedImportance);
     }
@@ -59,8 +75,8 @@ export default function ImportanceCount({
       if (status === 200) {
         console.log('생성되었습니다.', data);
         setImportantId(data.data.id);
-        setAdded(true);
-        setShow((prev) => !prev);
+        setQuestionListAdded(true);
+        setToastShow((prev) => !prev);
       }
     } catch (error) {
       console.log('Importance Create Handler Error', error.message);
@@ -100,14 +116,17 @@ export default function ImportanceCount({
       if (status === 200) {
         console.log('삭제되었습니다.', data);
         // 북마크 해제
-        setAdded(false);
-        setShow((prev) => !prev);
+        increaseImportance();
+        setModalShow(false);
+        setQuestionListAdded(false);
+        setToastShow((prev) => !prev);
       }
     } catch (error) {
       console.log('Importance Update Handler Error', error.message);
     }
   };
 
+  // TODO:이 부분 어떻게 리팩토링할 수 있을지 , 조건 경합이 이뤄지는기? ->클린업함수 사용
   useEffect(() => {
     setImportanceLevel(importance);
   }, [importance]);
@@ -118,15 +137,26 @@ export default function ImportanceCount({
 
   return (
     <>
+      <DeleteImportanceModal
+        show={modalShow}
+        handleClose={handleModalClose}
+        deleteImoprtance={deleteImoprtance}
+      />
+
       <ToastContainer
         className='p-3'
         position='top-center'
         style={{ zIndex: 1 }}
       >
-        <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+        <Toast
+          onClose={() => setToastShow(false)}
+          show={toastShow}
+          delay={2000}
+          autohide
+        >
           <Toast.Header>
             <strong className='me-auto'>
-              {added ? '북마크 추가' : '북마크 해제'}
+              {questionListAdded ? '북마크 추가' : '북마크 해제'}
             </strong>
           </Toast.Header>
           <Toast.Body className='m-auto'>
@@ -134,8 +164,7 @@ export default function ImportanceCount({
           </Toast.Body>
         </Toast>
       </ToastContainer>
-
-      <div onClick={handleAddClick}>
+      <div style={{ cursor: 'pointer' }} onClick={handleAddClick}>
         {Array.from({ length: MAX_LEVEL }, (_, index) => (
           <FontAwesomeIcon
             key={index}
