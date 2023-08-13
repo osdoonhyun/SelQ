@@ -55,6 +55,15 @@ export const HomeNextButton = styled(Button)`
   }
 `;
 
+export const DeleteButton = styled(Button)`
+  color: #f9f9f9;
+  background-color: #5bacee;
+  border: 1px solid #a8d0f2;
+  &:hover {
+    background-color: #a8d0f2;
+  }
+`;
+
 export const BackButton = styled.button`
   width: 35px;
   height: 35px;
@@ -90,6 +99,15 @@ export const HomeDropdownButton = styled(DropdownButton)`
 `;
 
 export const HomeDropdownItem = styled(Dropdown.Item)``;
+
+export const QuestionTitle = styled.div`
+  font-size: ${(props) => props.fontSizing};
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.05rem;
+  margin-bottom: ${(props) => (props.marginBottom ? props.marginBottom : 0)};
+  cursor: ${(props) => (props.cursor ? 'pointer' : 'default')};
+`;
 
 // #F7F6F7 -> 밝은 회색 (Header, Footer)
 // 아이콘 선택 안되었을때 #B3B3B5 -> 조금 어두운 회색

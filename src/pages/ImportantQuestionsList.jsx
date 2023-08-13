@@ -5,6 +5,7 @@ import ImportantQuestion from '../components/ImportanceCount';
 import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../components/context/FontSizingProvider';
+import { QuestionTitle } from '../styles/Styles';
 
 export default function ImportantQuestionsList() {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -65,18 +66,13 @@ export default function ImportantQuestionsList() {
                 marginBottom: index === importantQuestions.length - 1 && '50px',
               }}
             >
-              <div
-                style={{
-                  fontSize: calcFontSize('1.6rem', fontSizing),
-                  fontWeight: '500',
-                  lineHeight: 1.2,
-                  marginBottom: '0.5rem',
-                  letterSpacing: '0.05rem',
-                  cursor: 'pointer',
-                }}
+              <QuestionTitle
+                fontSizing={calcFontSize('1.6rem', fontSizing)}
+                marginBottom='0.5rem'
+                cursor={true}
               >
                 {question.attributes?.question.data.attributes.title}
-              </div>
+              </QuestionTitle>
               <CustomBadge
                 text={question.attributes?.question.data.attributes.category}
               />

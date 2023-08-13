@@ -4,6 +4,7 @@ import Answer from './common/Answer';
 import { Fragment } from 'react';
 import ImportantQuestion from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';
+import { QuestionTitle } from '../styles/Styles';
 
 export default function Question({ questionId, question, children }) {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -38,16 +39,9 @@ export default function Question({ questionId, question, children }) {
           />
         </Col>
       </Row>
-      <div
-        style={{
-          fontSize: calcFontSize('1.6rem', fontSizing),
-          fontWeight: '500',
-          lineHeight: 1.2,
-          letterSpacing: '0.05rem',
-        }}
-      >
+      <QuestionTitle fontSizing={calcFontSize('1.6rem', fontSizing)}>
         {question?.attributes?.title}
-      </div>
+      </QuestionTitle>
       <Fragment key={questionId}>{children}</Fragment>
     </div>
   );

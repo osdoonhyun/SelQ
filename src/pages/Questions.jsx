@@ -6,6 +6,7 @@ import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../components/context/FontSizingProvider';
+import { QuestionTitle } from '../styles/Styles';
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
@@ -63,18 +64,13 @@ export default function Questions() {
               >
                 Q.
               </div>
-              <div
-                style={{
-                  fontSize: calcFontSize('1.6rem', fontSizing),
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  lineHeight: 1.2,
-                  marginBottom: '0.5rem',
-                  letterSpacing: '0.05rem',
-                }}
+              <QuestionTitle
+                fontSizing={calcFontSize('1.6rem', fontSizing)}
+                marginBottom='0.5rem'
+                cursor={true}
               >
                 {question.attributes?.title}
-              </div>
+              </QuestionTitle>
             </div>
           </LinkContainer>
           <CustomBadge
