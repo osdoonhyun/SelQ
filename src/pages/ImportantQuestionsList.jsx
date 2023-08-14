@@ -5,7 +5,7 @@ import ImportantQuestion from '../components/ImportanceCount';
 import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../components/context/FontSizingProvider';
-import { QuestionTitle } from '../styles/Styles';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function ImportantQuestionsList() {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -43,15 +43,12 @@ export default function ImportantQuestionsList() {
               }}
             >
               <Col>
-                <div
-                  style={{
-                    fontSize: calcFontSize('1.8rem', fontSizing),
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                  }}
+                <QuestionQ
+                  size={calcFontSize('1.6rem', fontSizing)}
+                  cursor={'pointer'}
                 >
                   Q.
-                </div>
+                </QuestionQ>
               </Col>
               <Col className='d-flex justify-content-end align-items-center'>
                 <ImportantQuestion
@@ -67,9 +64,9 @@ export default function ImportantQuestionsList() {
               }}
             >
               <QuestionTitle
-                fontSizing={calcFontSize('1.6rem', fontSizing)}
-                marginBottom='0.5rem'
-                cursor={true}
+                size={calcFontSize('1.6rem', fontSizing)}
+                mb='0.5rem'
+                cursor={'pointer'}
               >
                 {question.attributes?.question.data.attributes.title}
               </QuestionTitle>

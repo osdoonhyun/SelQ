@@ -6,7 +6,7 @@ import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../components/context/FontSizingProvider';
-import { QuestionTitle } from '../styles/Styles';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
@@ -54,20 +54,19 @@ export default function Questions() {
         <Fragment key={question.id}>
           <LinkContainer to={`/questions/${question.id}`}>
             <div>
-              <div
+              <QuestionQ
                 style={{
-                  fontSize: calcFontSize('1.8rem', fontSizing),
-                  fontWeight: '500',
                   marginTop: index === 0 ? '20px' : '50px',
-                  cursor: 'pointer',
                 }}
+                size={calcFontSize('1.8rem', fontSizing)}
+                cursor={'pointer'}
               >
                 Q.
-              </div>
+              </QuestionQ>
               <QuestionTitle
-                fontSizing={calcFontSize('1.6rem', fontSizing)}
-                marginBottom='0.5rem'
-                cursor={true}
+                size={calcFontSize('1.6rem', fontSizing)}
+                mb='0.5rem'
+                cursor={'pointer'}
               >
                 {question.attributes?.title}
               </QuestionTitle>

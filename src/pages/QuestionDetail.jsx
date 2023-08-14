@@ -8,7 +8,7 @@ import ImportantQuestion from '../components/ImportanceCount';
 import { useFontSize } from '../components/context/FontSizingProvider';
 import Answer from '../components/common/Answer';
 import Hint from '../components/common/Hint';
-import { QuestionTitle } from '../styles/Styles';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function QuestionDetail() {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -75,14 +75,7 @@ export default function QuestionDetail() {
       >
         <Row>
           <Col>
-            <div
-              style={{
-                fontSize: calcFontSize('1.8rem', fontSizing),
-                fontWeight: '500',
-              }}
-            >
-              Q.
-            </div>
+            <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
             <ImportantQuestion
@@ -94,7 +87,7 @@ export default function QuestionDetail() {
             />
           </Col>
         </Row>
-        <QuestionTitle fontSizing={calcFontSize('1.6rem', fontSizing)}>
+        <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
           {question?.title}
         </QuestionTitle>
         <Fragment key={questionId}>

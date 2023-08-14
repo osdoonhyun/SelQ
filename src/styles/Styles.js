@@ -100,13 +100,19 @@ export const HomeDropdownButton = styled(DropdownButton)`
 
 export const HomeDropdownItem = styled(Dropdown.Item)``;
 
+export const QuestionQ = styled.div`
+  font-size: ${(props) => props.size};
+  font-weight: 500;
+  cursor: ${({ cursor }) => (cursor === 'pointer' ? 'pointer' : 'default')};
+`;
+
 export const QuestionTitle = styled.div`
-  font-size: ${(props) => props.fontSizing};
+  font-size: ${(props) => props.size};
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.05rem;
-  margin-bottom: ${(props) => (props.marginBottom ? props.marginBottom : 0)};
-  cursor: ${(props) => (props.cursor ? 'pointer' : 'default')};
+  margin-bottom: ${(props) => (props.mb ? props.mb : 0)};
+  cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
 `;
 
 // #F7F6F7 -> 밝은 회색 (Header, Footer)

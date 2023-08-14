@@ -4,7 +4,7 @@ import Answer from './common/Answer';
 import { Fragment } from 'react';
 import ImportantQuestion from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';
-import { QuestionTitle } from '../styles/Styles';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function Question({ questionId, question, children }) {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -19,14 +19,7 @@ export default function Question({ questionId, question, children }) {
     >
       <Row>
         <Col>
-          <div
-            style={{
-              fontSize: calcFontSize('1.8rem', fontSizing),
-              fontWeight: '500',
-            }}
-          >
-            Q.
-          </div>
+          <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <ImportantQuestion
@@ -39,7 +32,7 @@ export default function Question({ questionId, question, children }) {
           />
         </Col>
       </Row>
-      <QuestionTitle fontSizing={calcFontSize('1.6rem', fontSizing)}>
+      <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
         {question?.attributes?.title}
       </QuestionTitle>
       <Fragment key={questionId}>{children}</Fragment>
