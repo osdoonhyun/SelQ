@@ -23,6 +23,7 @@ export default function Question({ questionId, question, children }) {
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
           <ImportanceCount
+            key={questionId}
             importance={
               question?.attributes?.importants?.data[0]?.attributes
                 ?.importantLevel
