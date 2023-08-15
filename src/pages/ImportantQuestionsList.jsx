@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CustomBadge from '../components/ui/CustomBadge';
-import ImportantQuestion from '../components/ImportanceCount';
+import ImportanceCount from '../components/ImportanceCount';
 import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../components/context/FontSizingProvider';
@@ -51,7 +51,7 @@ export default function ImportantQuestionsList() {
                 </QuestionQ>
               </Col>
               <Col className='d-flex justify-content-end align-items-center'>
-                <ImportantQuestion
+                <ImportanceCount
                   importanceId={question?.id}
                   importance={question?.attributes?.importantLevel}
                   questionId={question?.attributes.question.data.id}

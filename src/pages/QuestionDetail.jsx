@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import GoBackButton from '../components/ui/GoBackButton';
-import ImportantQuestion from '../components/ImportanceCount';
+import ImportanceCount from '../components/ImportanceCount';
 import { useFontSize } from '../components/context/FontSizingProvider';
 import Answer from '../components/common/Answer';
 import Hint from '../components/common/Hint';
@@ -78,7 +78,7 @@ export default function QuestionDetail() {
             <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
-            <ImportantQuestion
+            <ImportanceCount
               importance={
                 question?.importants?.data[0]?.attributes.importantLevel
               }
