@@ -19,10 +19,17 @@ export default function ImportanceCount({
 
   const [modalShow, setModalShow] = useState(false);
 
-  const handleModalShow = () => {
+  const handleModalShow = (e) => {
+    if (modalShow) {
+      e.stopPropagation();
+    }
     setModalShow(true);
   };
-  const handleModalClose = () => {
+
+  const handleModalClose = (e) => {
+    if (modalShow) {
+      e.stopPropagation();
+    }
     setModalShow(false);
   };
 
@@ -106,7 +113,10 @@ export default function ImportanceCount({
     }
   };
 
-  const deleteImoprtance = async () => {
+  const deleteImoprtance = async (e) => {
+    if (modalShow) {
+      e.stopPropagation();
+    }
     console.log('삭제 importance');
     try {
       const { status, data } = await axios.delete(
@@ -164,6 +174,7 @@ export default function ImportanceCount({
           </Toast.Body>
         </Toast>
       </ToastContainer>
+
       <div style={{ cursor: 'pointer' }} onClick={handleAddClick}>
         {Array.from({ length: MAX_LEVEL }, (_, index) => (
           <FontAwesomeIcon
