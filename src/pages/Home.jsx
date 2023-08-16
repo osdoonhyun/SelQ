@@ -29,6 +29,9 @@ export default function Home() {
 
   const handleGetHints = async () => {
     const hintId = nextQuestion.attributes?.hint?.data?.id;
+    if (!hintId) {
+      return;
+    }
     try {
       const { data, status } = await axios.get(
         `http://localhost:1337/api/hints/${hintId}`

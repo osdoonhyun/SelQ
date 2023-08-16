@@ -32,6 +32,9 @@ export default function QuestionDetail() {
   };
   const handleGetHints = async () => {
     const hintId = question?.hint?.data?.id;
+    if (!hintId) {
+      return;
+    }
     try {
       const { data, status } = await axios.get(
         `http://localhost:1337/api/hints/${hintId}`
