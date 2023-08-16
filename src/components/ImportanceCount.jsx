@@ -19,18 +19,15 @@ export default function ImportanceCount({
 
   const [modalShow, setModalShow] = useState(false);
 
-  const handleModalShow = (e) => {
-    if (modalShow) {
-      e.stopPropagation();
-    }
-    setModalShow(true);
+  const handleToast = () => {
+    setToastShow((prevToast) => !prevToast);
   };
 
-  const handleModalClose = (e) => {
+  const handleModal = (e) => {
     if (modalShow) {
       e.stopPropagation();
     }
-    setModalShow(false);
+    setModalShow((prevModal) => !prevModal);
   };
 
   const MAX_LEVEL = IMPORTANCE_OPTIONS.length - 1;
@@ -40,7 +37,7 @@ export default function ImportanceCount({
     e.stopPropagation();
 
     if (importanceLevel === 3) {
-      handleModalShow(); // 이게 나을지, setModalShow(true)가 나을지
+      handleModal();
       return;
     }
 
@@ -83,7 +80,7 @@ export default function ImportanceCount({
         console.log('생성되었습니다.', data);
         setImportantId(data.data.id);
         setQuestionListAdded(true);
-        setToastShow((prev) => !prev);
+        setToastShow(true);
       }
     } catch (error) {
       console.log('Importance Create Handler Error', error.message);
@@ -149,7 +146,7 @@ export default function ImportanceCount({
     <>
       <DeleteImportanceModal
         show={modalShow}
-        handleClose={handleModalClose}
+        handleClose={handleModal}
         deleteImoprtance={deleteImoprtance}
       />
 
@@ -158,12 +155,7 @@ export default function ImportanceCount({
         position='top-center'
         style={{ zIndex: 1 }}
       >
-        <Toast
-          onClose={() => setToastShow(false)}
-          show={toastShow}
-          delay={2000}
-          autohide
-        >
+        <Toast onClose={handleToast} show={toastShow} delay={2000} autohide>
           <Toast.Header>
             <strong className='me-auto'>
               {questionListAdded ? '북마크 추가' : '북마크 해제'}
