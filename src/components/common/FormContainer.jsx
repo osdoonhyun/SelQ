@@ -1,11 +1,18 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 export default function FormContainer({ children }) {
   return (
-    <Container style={{ maxWidth: '390px', margin: 'auto' }}>
+    <div
+      style={{
+        maxWidth: '390px',
+        margin: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Row>
         <Col>{children}</Col>
       </Row>
-    </Container>
+    </div>
   );
 }
