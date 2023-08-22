@@ -5,6 +5,7 @@ import { faHouse, faList } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { HeaderIcon, HeaderNav } from '../../styles/Styles';
 import { useLocation } from 'react-router-dom';
+import SearchBar from '../ui/SearchBar';
 
 const NavItem = ({ href, icon, text }) => {
   const currentPath = window.location.pathname;
@@ -38,6 +39,7 @@ export default function Header() {
           <NavItem href='/importants' icon={faBookmark} text='중요질문' />
         </HeaderNav>
         <Nav className='ml-auto'>
+          <SearchBar />
           <FontSizeSettings />
         </Nav>
       </Container>
