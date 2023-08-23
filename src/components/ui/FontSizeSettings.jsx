@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   Button,
   Card,
@@ -37,6 +37,17 @@ export default function FontSizeSettings() {
     setSelectedFontCard(variant);
   };
 
+  useEffect(() => {
+    const handleOutsideClose = (event) => {
+      if (show && !ref.current.contains(event.target)) {
+        setShow(!show);
+      }
+    };
+    document.addEventListener('click', handleOutsideClose);
+
+    return () => document.removeEventListener('click', handleOutsideClose);
+  }, [show]);
+
   return (
     <div ref={ref}>
       <Button variant='Light' onClick={handleClick}>
@@ -45,6 +56,7 @@ export default function FontSizeSettings() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginTop: '8px',
           }}
         >
           <FontAwesomeIcon color='#B3B3B5' icon={faGear} size='xl' />
