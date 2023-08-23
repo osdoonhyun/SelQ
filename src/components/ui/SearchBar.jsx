@@ -39,11 +39,27 @@ export default function SearchBar() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <label>
-            검색 :
+          <label
+            style={{ width: '100%', display: 'flex', alignItems: 'center' }}
+          >
+            <FontAwesomeIcon
+              color='#B3B3B5'
+              icon={faMagnifyingGlass}
+              size='xl'
+            />
             <input
+              style={{
+                width: '100%',
+                marginLeft: '10px',
+                padding: '2px 6px',
+                border: 0,
+                borderRadius: '4px',
+                outline: '2px solid  #A8D0F2',
+              }}
+              placeholder='Search Questions'
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
+              autoFocus
             />
           </label>
         </Modal.Header>
