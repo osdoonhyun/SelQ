@@ -3,12 +3,18 @@ import Questions from './pages/Questions';
 import ImportantQuestionsList from './pages/ImportantQuestionsList';
 import QuestionDetail from './pages/QuestionDetail';
 import { createBrowserRouter } from 'react-router-dom';
+import Root from './pages/Root';
 
 export const router = createBrowserRouter([
-  { path: '/', element: <Home /> },
-  { path: '/home', element: <Home /> },
-  { path: '/questions', element: <Questions /> },
-  { path: '/questions/:questionId', element: <QuestionDetail /> },
-  { path: '/importants', element: <ImportantQuestionsList /> },
-  { path: '/importants/:questionId', element: <QuestionDetail /> },
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: '/questions', element: <Questions /> },
+      { path: '/questions/:questionId', element: <QuestionDetail /> },
+      { path: '/importants', element: <ImportantQuestionsList /> },
+      { path: '/importants/:questionId', element: <QuestionDetail /> },
+    ],
+  },
 ]);
