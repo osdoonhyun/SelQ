@@ -1,8 +1,9 @@
 import { Suspense, useDeferredValue, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import SearchResult from './SearchResult';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import SearchQuetions from './SearchQuetions';
+import { useSearchQuestionsQuery } from '../../services/api';
 
 export default function SearchBar() {
   const [show, setShow] = useState(false);
@@ -10,7 +11,12 @@ export default function SearchBar() {
   const defferedSearchInput = useDeferredValue(searchInput);
   const isStale = searchInput !== defferedSearchInput;
 
-  const handleClose = () => setShow(false);
+  const { data: searchResults } = useSearchQuestionsQuery({ searchInput });
+
+  const handleClose = () => {
+    setSearchInput('');
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   return (
@@ -66,7 +72,10 @@ export default function SearchBar() {
         <Modal.Body>
           <Suspense>
             <div style={{ opacity: isStale ? 0.5 : 1 }}>
-              <SearchResult />
+              <SearchQuetions
+                searchResults={searchResults}
+                searchInput={defferedSearchInput}
+              />
             </div>
           </Suspense>
         </Modal.Body>
