@@ -8,26 +8,26 @@ export default function CategoryCarousel({
   onClickCategory,
   selectedCategory,
 }) {
-  const categoryCounts = { All: questions.length };
+  const categoryCounts = { all: questions?.length };
 
-  questions.forEach((question) => {
-    const category = question.attributes.category;
+  questions?.forEach((question) => {
+    const category = question.category;
     categoryCounts[category] = (categoryCounts[category] || 0) + 1;
   });
 
   return (
     <div style={{ marginTop: '20px', padding: '0 10px 0' }}>
       <ScrollingCarousel>
-        {CATEGORIES.map((category, index) => (
+        {CATEGORIES.map(({ category, label }, index) => (
           <StyledButton
             style={{ margin: '5px' }}
             key={index}
-            onClick={() => onClickCategory(category)}
-            selected={selectedCategory === category}
+            onClick={() => onClickCategory(label)}
+            selected={selectedCategory === label}
           >
             <span style={{ paddingRight: '5px' }}>{category}</span>
-            <StyledBadge selected={selectedCategory === category}>
-              {categoryCounts[category]}
+            <StyledBadge selected={selectedCategory === label}>
+              {categoryCounts[label] ?? 0}
             </StyledBadge>
           </StyledButton>
         ))}
