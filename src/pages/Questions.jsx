@@ -7,40 +7,22 @@ import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../components/context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
+import { useQuestionsQuery } from '../services/api';
 
 export default function Questions() {
-  const [questions, setQuestions] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const { fontSizing, calcFontSize } = useFontSize();
 
-  const getQuestions = async () => {
-    try {
-      const { data, status } = await axios.get(
-        'http://localhost:1337/api/questions'
-      );
-
-      if (status === 200) {
-        console.log('전체 질문목록', data.data);
-        setQuestions(data.data);
-      }
-    } catch (error) {
-      console.log('Get Question Error', error.message);
-    }
-  };
+  const { data: questions } = useQuestionsQuery({ category: selectedCategory });
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  const filteredQuestions = questions.filter(
+  const filteredQuestions = questions?.filter(
     (question) =>
-      selectedCategory === 'All' ||
-      question.attributes.category === selectedCategory
+      selectedCategory === 'all' || question.category === selectedCategory
   );
-
-  useEffect(() => {
-    getQuestions();
-  }, []);
 
   return (
     <>
@@ -50,13 +32,13 @@ export default function Questions() {
         selectedCategory={selectedCategory}
       />
 
-      {filteredQuestions.map((question, index) => (
+      {filteredQuestions?.map((question, index) => (
         <Fragment key={question.id}>
           <LinkContainer to={`/questions/${question.id}`}>
             <div>
               <QuestionQ
                 style={{
-                  marginTop: index === 0 ? '20px' : '50px',
+                  marginTop: index === 0 ? '20px' : '70px',
                 }}
                 size={calcFontSize('1.8rem', fontSizing)}
                 cursor={'pointer'}
@@ -68,13 +50,13 @@ export default function Questions() {
                 mb='0.5rem'
                 cursor={'pointer'}
               >
-                {question.attributes?.title}
+                {question.question}
               </QuestionTitle>
             </div>
           </LinkContainer>
           <CustomBadge
             last={index === filteredQuestions.length - 1}
-            text={question.attributes?.category}
+            text={question.category}
             onClickCategory={handleCategoryClick}
           />
         </Fragment>

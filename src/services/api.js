@@ -5,6 +5,24 @@ const serverApi = axios.create({
   baseURL: 'http://localhost:8000/api',
 });
 
+const getQuestionsByCategory = async (category) => {
+  let url = '/questions';
+  if (category !== 'all') {
+    url += `?category=${category.toLowerCase()}`;
+  }
+  const response = await serverApi.get(url);
+
+  return response.data.data;
+};
+
+const useQuestionsQuery = ({ category }) => {
+  const queryData = useQuery(['questions', category], () =>
+    getQuestionsByCategory(category)
+  );
+
+  return queryData;
+};
+
 const getQuestionsByKeyword = async (keyword) => {
   const response = await serverApi.get('/questions');
 
@@ -26,4 +44,4 @@ const useSearchQuestionsQuery = ({ searchInput: keyword }) => {
   return queryData;
 };
 
-export { useSearchQuestionsQuery };
+export { useQuestionsQuery, useSearchQuestionsQuery };

@@ -8,7 +8,8 @@ export default function CustomBadge({ text, onClickCategory, last }) {
       style={{
         border: '1px solid black',
         borderRadius: '10px',
-        padding: '5px',
+        padding: '6px',
+        letterSpacing: '0.5px',
         display: 'inline-block',
         marginRight: '7px',
         marginBottom: last && '50px',
