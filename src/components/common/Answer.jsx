@@ -4,12 +4,11 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useFontSize } from '../context/FontSizingProvider';
 import { StyledButton } from '../../styles/Styles';
 
-export default function Answer({ description, onGetAnswer }) {
+export default function Answer({ answers }) {
   const { fontSizing, calcFontSize } = useFontSize();
   const [open, setOpen] = useState(false);
 
   const handleAnswerButton = () => {
-    onGetAnswer();
     setOpen(!open);
   };
 
@@ -38,7 +37,13 @@ export default function Answer({ description, onGetAnswer }) {
             letterSpacing: '0.1rem',
           }}
         >
-          <ReactMarkdown children={description} />
+          <ul>
+            {answers?.map((answer, index) => (
+              <li key={index}>
+                <ReactMarkdown children={answer.answers} />
+              </li>
+            ))}
+          </ul>
         </div>
       </Collapse>
     </div>

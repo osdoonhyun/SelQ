@@ -3,11 +3,10 @@ import { Button, Collapse } from 'react-bootstrap';
 import CustomBadge from '../ui/CustomBadge';
 import { StyledButton } from '../../styles/Styles';
 
-export default function Hint({ hints, onGetHints }) {
+export default function Hint({ hints }) {
   const [open, setOpen] = useState(false);
 
   const handleHintsButton = () => {
-    onGetHints();
     setOpen(!open);
   };
 
@@ -28,10 +27,13 @@ export default function Hint({ hints, onGetHints }) {
             marginTop: '0.8rem',
           }}
         >
-          {hints &&
-            hints
-              ?.split(', ')
-              .map((hint, index) => <CustomBadge text={hint} key={index} />)}
+          <ul>
+            {hints?.map((hint, index) => (
+              <li>
+                <CustomBadge text={hint} key={index} />
+              </li>
+            ))}
+          </ul>
         </div>
       </Collapse>
     </div>

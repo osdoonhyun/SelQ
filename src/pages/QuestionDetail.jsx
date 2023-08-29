@@ -9,62 +9,12 @@ import { useFontSize } from '../components/context/FontSizingProvider';
 import Answer from '../components/common/Answer';
 import Hint from '../components/common/Hint';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
+import { useQuestionDetailQuery } from '../services/api';
 
 export default function QuestionDetail() {
   const { fontSizing, calcFontSize } = useFontSize();
   const { questionId } = useParams();
-  const [question, setQuestion] = useState({});
-  const [answer, setAnswer] = useState('');
-  const [hints, setHints] = useState('');
-
-  const getQuestion = async (id) => {
-    try {
-      const { data, status } = await axios.get(
-        `http://localhost:1337/api/questions/${id}?populate=*`
-      );
-
-      if (status === 200) {
-        setQuestion(data.data.attributes);
-      }
-    } catch (error) {
-      console.log('QuestionDetail Error', error.message);
-    }
-  };
-  const handleGetHints = async () => {
-    const hintId = question?.hint?.data?.id;
-    if (!hintId) {
-      return;
-    }
-    try {
-      const { data, status } = await axios.get(
-        `http://localhost:1337/api/hints/${hintId}`
-      );
-      console.log('HINT data', data.data.attributes.hint);
-      if (status === 200) {
-        setHints(data.data.attributes.hint);
-      }
-    } catch (error) {
-      console.log('Hints Handler Error', error.message);
-    }
-  };
-
-  const handleGetAnswer = async () => {
-    const answerId = question?.answer.data.id;
-    try {
-      const { data, status } = await axios.get(
-        `http://localhost:1337/api/answers/${answerId}`
-      );
-      if (status === 200) {
-        setAnswer(data.data.attributes.description);
-      }
-    } catch (error) {
-      console.log('Answer Handler Error', error.message);
-    }
-  };
-
-  useEffect(() => {
-    getQuestion(questionId);
-  }, []);
+  const { data: question } = useQuestionDetailQuery(questionId);
 
   return (
     <>
@@ -81,21 +31,21 @@ export default function QuestionDetail() {
             <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
-            <ImportanceCount
+            {/* <ImportanceCount
               importance={
                 question?.importants?.data[0]?.attributes.importantLevel
               }
               importanceId={question?.importants?.data[0]?.id}
-              questionId={questionId}
-            />
+              questionId={question.id}
+            /> */}
           </Col>
         </Row>
         <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
-          {question?.title}
+          {question?.question}
         </QuestionTitle>
-        <Fragment key={questionId}>
-          <Hint hints={hints} onGetHints={handleGetHints} />
-          <Answer description={answer} onGetAnswer={handleGetAnswer} />
+        <Fragment key={question?.id}>
+          <Hint hints={question?.hints} />
+          <Answer answers={question?.answers} />
         </Fragment>
       </div>
     </>

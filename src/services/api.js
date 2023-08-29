@@ -23,6 +23,19 @@ const useQuestionsQuery = ({ category }) => {
   return queryData;
 };
 
+const getQuestionDetailById = async (questionId) => {
+  const response = await serverApi.get(`/questions/${questionId}`);
+  console.log('Rseponse', response.data);
+  return response.data;
+};
+
+const useQuestionDetailQuery = (questionId) => {
+  const queryKey = ['question', questionId];
+  const queryData = useQuery(queryKey, () => getQuestionDetailById(questionId));
+
+  return queryData;
+};
+
 const getQuestionsByKeyword = async (keyword) => {
   const response = await serverApi.get('/questions');
 
@@ -44,4 +57,4 @@ const useSearchQuestionsQuery = ({ searchInput: keyword }) => {
   return queryData;
 };
 
-export { useQuestionsQuery, useSearchQuestionsQuery };
+export { useQuestionsQuery, useQuestionDetailQuery, useSearchQuestionsQuery };
