@@ -29,8 +29,8 @@ export default function Hint({ hints }) {
         >
           <ul>
             {hints?.map((hint, index) => (
-              <li>
-                <CustomBadge text={hint} key={index} />
+              <li key={index}>
+                <CustomBadge text={hint} />
               </li>
             ))}
           </ul>
