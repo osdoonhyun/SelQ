@@ -4,6 +4,7 @@ import ImportantQuestionsList from './pages/ImportantQuestionsList';
 import QuestionDetail from './pages/QuestionDetail';
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
+import SignUp from './pages/SignUp';
 
 export const router = createBrowserRouter([
   {
@@ -17,4 +18,5 @@ export const router = createBrowserRouter([
       { path: '/importants/:questionId', element: <QuestionDetail /> },
     ],
   },
+  { path: '/signup', element: <SignUp /> },
 ]);
