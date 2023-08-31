@@ -6,6 +6,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import ResetPassword from './pages/resetPassword/ResetPassword';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: '/questions/:questionId', element: <QuestionDetail /> },
       { path: '/importants', element: <ImportantQuestionsList /> },
       { path: '/importants/:questionId', element: <QuestionDetail /> },
+      { path: '/password/new', element: <ResetPassword /> },
     ],
   },
   { path: '/login', element: <LogIn /> },
