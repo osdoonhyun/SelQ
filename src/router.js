@@ -5,6 +5,7 @@ import QuestionDetail from './pages/QuestionDetail';
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
 import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
 
 export const router = createBrowserRouter([
   {
@@ -18,5 +19,6 @@ export const router = createBrowserRouter([
       { path: '/importants/:questionId', element: <QuestionDetail /> },
     ],
   },
+  { path: '/login', element: <LogIn /> },
   { path: '/signup', element: <SignUp /> },
 ]);
