@@ -12,7 +12,7 @@ export default function SignUp() {
     password: '',
     username: '',
   });
-  const [btnDisable, setBtnDisable] = useState(false);
+  const [btnDisable, setBtnDisable] = useState(true);
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -35,7 +35,7 @@ export default function SignUp() {
     try {
       const userInput = {
         username: userInfo.username,
-        email: userInfo.email,
+        email: userInfo.email + userInfo.emailCategory,
         password: userInfo.password,
         profileImg: '',
         provider: 'local',
@@ -56,9 +56,9 @@ export default function SignUp() {
 
   useEffect(() => {
     if (userInfo.email !== '' && userInfo.emailCategory !== '') {
-      setBtnDisable(true);
-    } else {
       setBtnDisable(false);
+    } else {
+      setBtnDisable(true);
     }
     // setBtnDisable(userInfo.email !== '' && userInfo.emailCategory !== '');
   }, [userInfo.email, userInfo.emailCategory]);
@@ -79,7 +79,7 @@ export default function SignUp() {
           <Col>
             {/* TODO: Feedback 추가하기 */}
             <Form.Control
-              type='email'
+              type='text'
               placeholder='이메일'
               value={userInfo.email}
               onChange={(e) =>
@@ -119,7 +119,7 @@ export default function SignUp() {
           onClick={verifyRegisteredEmail}
           className='mb-3'
           variant='primary'
-          disabled={btnDisable ? false : true}
+          disabled={btnDisable}
         >
           이메일 인증하기
         </Button>
