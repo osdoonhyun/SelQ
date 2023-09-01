@@ -13,7 +13,7 @@ export default function Questions() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { fontSizing, calcFontSize } = useFontSize();
 
-  const { data: questions } = useQuestionsQuery({ category: selectedCategory });
+  const { data: questions } = useQuestionsQuery({ category: 'all' });
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
