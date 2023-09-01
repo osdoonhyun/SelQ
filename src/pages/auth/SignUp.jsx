@@ -1,7 +1,7 @@
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { EMAIL_LIST } from '../constant/constants';
+import { EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
