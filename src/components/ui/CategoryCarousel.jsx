@@ -8,11 +8,12 @@ export default function CategoryCarousel({
   onClickCategory,
   selectedCategory,
 }) {
-  const categoryCounts = { all: questions?.length };
+  const categoryCounts = new Map();
+  categoryCounts.set('all', questions?.length);
 
   questions?.forEach((question) => {
     const category = question.category;
-    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    categoryCounts.set(category, (categoryCounts.get(category) || 0) + 1);
   });
 
   return (
@@ -27,7 +28,7 @@ export default function CategoryCarousel({
           >
             <span style={{ paddingRight: '5px' }}>{category}</span>
             <StyledBadge selected={selectedCategory === label}>
-              {categoryCounts[label] ?? 0}
+              {categoryCounts.get(label) ?? 0}
             </StyledBadge>
           </StyledButton>
         ))}
