@@ -31,13 +31,7 @@ export default function QuestionDetail() {
             <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
-            {/* <ImportanceCount
-              importance={
-                question?.importants?.data[0]?.attributes.importantLevel
-              }
-              importanceId={question?.importants?.data[0]?.id}
-              questionId={question.id}
-            /> */}
+            <ImportanceCount importance={question.importance} />
           </Col>
         </Row>
         <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
