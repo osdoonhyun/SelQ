@@ -1,39 +1,33 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import useLogInHandler from '../../services/authHook/login';
+import { useForm } from 'react-hook-form';
 
 export default function LogIn() {
   const navigate = useNavigate();
-  const [logInInfo, setLogInInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const { handleSubmit, register } = useForm();
 
-  const loginHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const userInput = {
-        email: logInInfo.email,
-        password: logInInfo.password,
-      };
+  const { isLoading, error, mutateAsync, data } = useLogInHandler();
 
-      const { data, status } = await axios.post(
-        'http://localhost:8000/api/auth/login',
-        userInput
-      );
-      if (status === 201) {
-        alert('로그인에 성공하셨습니다.');
-        navigate('/');
-      }
-    } catch (error) {
-      console.log('LogIn Error', error.message);
-    }
+  const loginHandler = async (values) => {
+    const logInInfo = {
+      email: values.email,
+      password: values.password,
+    };
+    await mutateAsync(logInInfo);
+    navigate('/');
   };
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('token', data.token);
+    }
+  }, [data]);
 
   return (
     <Container>
-      <Form onSubmit={loginHandler}>
+      <Form onSubmit={handleSubmit(loginHandler)}>
         <Form.Group as={Col}>
           <Row className='justify-content-center'>Sel-Q</Row>
         </Form.Group>
@@ -41,25 +35,13 @@ export default function LogIn() {
           <Row className='mb-2 justify-content-center'>
             <Form.Control
               style={{ height: '50px', width: '330px' }}
-              value={logInInfo.email}
+              {...register('email', { required: true })}
               placeholder='이메일'
-              onChange={(e) =>
-                setLogInInfo({
-                  ...logInInfo,
-                  email: e.target.value,
-                })
-              }
             />
             <Form.Control
               style={{ height: '50px', width: '330px' }}
-              value={logInInfo.password}
-              onChange={(e) =>
-                setLogInInfo({
-                  ...logInInfo,
-                  password: e.target.value,
-                })
-              }
-              type='password'
+              {...register('password', { required: true })}
+              type='text'
               placeholder='비밀번호'
             />
           </Row>
