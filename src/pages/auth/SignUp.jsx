@@ -3,21 +3,40 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
+import {
+  useSignUpHandler,
+  verifyRegisteredEmail,
+} from '../../services/authHook/signUp';
+import { useForm } from 'react-hook-form';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    emailCategory: '',
-    password: '',
-    username: '',
-  });
   const [btnDisable, setBtnDisable] = useState(true);
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const verifyRegisteredEmail = () => {
+  const { handleSubmit, register, watch } = useForm();
+
+  const email = watch('email');
+  const emailCategory = watch('emailCategory');
+
+  const { isLoading, error, mutateAsync, data } = useSignUpHandler();
+
+  const signUpHandler = async (values) => {
+    const signUpInfo = {
+      username: values.username,
+      email: values.email + '@' + values.emailCategory,
+      password: values.password,
+      profileImg: '',
+      provider: 'local',
+    };
+    console.log('USERINPUT', signUpInfo);
+    await mutateAsync(signUpInfo);
+    navigate('/login');
+  };
+
+  const verifyRegisteredEmailHandler = () => {
     // 등록된 이메일인지 검증 로직
 
     // 등록된 이메일이면 가입된 이메일입니다 알려주기
@@ -30,42 +49,19 @@ export default function SignUp() {
     setIsVerifiedEmail(false);
   };
 
-  const signUpHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const userInput = {
-        username: userInfo.username,
-        email: userInfo.email + userInfo.emailCategory,
-        password: userInfo.password,
-        profileImg: '',
-        provider: 'local',
-      };
-
-      const { data, status } = await axios.post(
-        'http://localhost:8000/api/auth/signup',
-        userInput
-      );
-      if (status === 201) {
-        alert('회원가입에 성공하셨습니다.');
-        navigate('/login');
-      }
-    } catch (error) {
-      console.log('Sign Up Error', error.message);
-    }
-  };
-
   useEffect(() => {
-    if (userInfo.email !== '' && userInfo.emailCategory !== '') {
+    if (email !== '' && emailCategory !== '선택해주세요') {
       setBtnDisable(false);
     } else {
       setBtnDisable(true);
     }
     // setBtnDisable(userInfo.email !== '' && userInfo.emailCategory !== '');
-  }, [userInfo.email, userInfo.emailCategory]);
+  }, [email, emailCategory]);
 
   return (
     <Container>
-      <Form onSubmit={signUpHandler}>
+      {error && <h1>{error}</h1>}
+      <Form onSubmit={handleSubmit(signUpHandler)}>
         <Form.Group as={Col}>
           <Form.Label>회원가입</Form.Label>
           <Row className='justify-content-center'>
@@ -81,13 +77,7 @@ export default function SignUp() {
             <Form.Control
               type='text'
               placeholder='이메일'
-              value={userInfo.email}
-              onChange={(e) =>
-                setUserInfo({
-                  ...userInfo,
-                  email: e.target.value,
-                })
-              }
+              {...register('email', { required: true })}
             />
           </Col>
           <Col
@@ -98,15 +88,7 @@ export default function SignUp() {
           </Col>
           <Col>
             {/* TODO: 직접 입력 구현하기 */}
-            <Form.Select
-              value={userInfo.emailCategory}
-              onChange={(e) =>
-                setUserInfo({
-                  ...userInfo,
-                  emailCategory: e.target.value,
-                })
-              }
-            >
+            <Form.Select {...register('emailCategory', { required: true })}>
               <option className='text-muted'>선택해주세요</option>
               {EMAIL_LIST.map((email, index) => (
                 <option key={index}>{email}</option>
@@ -116,7 +98,7 @@ export default function SignUp() {
         </Form.Group>
 
         <Button
-          onClick={verifyRegisteredEmail}
+          onClick={verifyRegisteredEmailHandler}
           className='mb-3'
           variant='primary'
           disabled={btnDisable}
@@ -125,42 +107,36 @@ export default function SignUp() {
         </Button>
 
         {isVerifiedEmail && (
-          <Form.Group className='mb-3' controlId='formBasicPassword'>
+          <Form.Group className='mb-3'>
             <Form.Text>이메일로 전송된 인증코드를 입력해주세요.</Form.Text>
             <Form.Control
-              type='password'
+              type='text'
+              placeholder='인증코드 6자리 입력'
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
-              placeholder='인증코드 6자리 입력'
             />
             <Button
               className='mt-3'
               variant='primary'
               onClick={checkVerificationCode}
-              type='submit'
+              // type='submit'
             >
               확인
             </Button>
           </Form.Group>
         )}
 
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+        <Form.Group className='mb-3'>
           <Form.Label>비밀번호</Form.Label>
           <br />
 
-          <Form.Text className='text-muted'>
+          <Form.Text>
             대문자, 특수문자를 포함한 8자 이상의 비밀번호를 입력해주세요.
           </Form.Text>
           <Form.Control
-            value={userInfo.password}
-            onChange={(e) =>
-              setUserInfo({
-                ...userInfo,
-                password: e.target.value,
-              })
-            }
-            type='password'
+            type='text'
             placeholder='비밀번호'
+            {...register('password', { required: true })}
           />
         </Form.Group>
         {/* TODO: 위 비밀번호와 같은지 확인하는 로직 필요 */}
@@ -169,7 +145,7 @@ export default function SignUp() {
           <Form.Control
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            type='password'
+            type='text'
             placeholder='비밀번호 확인'
           />
         </Form.Group>
@@ -181,13 +157,7 @@ export default function SignUp() {
             다른 유저와 겹치지 않도록 입력해주세요. (2~15자)
           </Form.Text>
           <Form.Control
-            value={userInfo.username}
-            onChange={(e) =>
-              setUserInfo({
-                ...userInfo,
-                username: e.target.value,
-              })
-            }
+            {...register('username', { required: true })}
             type='text'
             placeholder='별명 (2~15자)'
           />
