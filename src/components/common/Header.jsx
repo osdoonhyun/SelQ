@@ -4,15 +4,30 @@ import FontSizeSettings from '../ui/FontSizeSettings';
 import { faHouse, faList } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { HeaderIcon, HeaderNav } from '../../styles/Styles';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../ui/SearchBar';
 
+function isPathMatch(targetPath, currentPath) {
+  if (targetPath === '/') {
+    return currentPath === '/';
+  }
+
+  const cleanTargetPath = targetPath.endsWith('/')
+    ? targetPath.slice(0, -1)
+    : targetPath;
+  const cleanCurrentPath = currentPath.endsWith('/')
+    ? currentPath.slice(0, -1)
+    : currentPath;
+  return cleanCurrentPath.startsWith(cleanTargetPath);
+}
+
 const NavItem = ({ href, icon, text }) => {
-  const currentPath = window.location.pathname;
-  const isActive = currentPath.includes(href);
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const isActive = isPathMatch(href, currentPath);
 
   return (
-    <Nav.Link href={href}>
+    <Nav.Link as={Link} to={href}>
       <HeaderIcon icon={icon} size='xl' $isActive={isActive} />
       <span
         style={{ fontSize: '13px', color: isActive ? '#5BACEE' : '#B3B3B5' }}
@@ -28,7 +43,8 @@ export default function Header() {
     <Navbar style={{ backgroundColor: '#F7F6F7' }} className='bg-body-light'>
       <Container>
         <Navbar.Brand
-          href='/'
+          as={Link}
+          to='/'
           style={{ fontSize: '26px', fontWeight: '600', color: '#5bacee' }}
         >
           Sel-Q
