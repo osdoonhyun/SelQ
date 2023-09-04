@@ -19,3 +19,22 @@ export const IMPORTANCE_OPTIONS = [
   { label: '매우중요', level: 2, color: '#F2D035' },
   { label: '매우매우중요', level: 3, color: '#F2D035' },
 ];
+
+export const EMAIL_LIST = [
+  'naver.com',
+  'hanmail.net',
+  'nate.com',
+  'hotmai.com',
+  'icloud.com',
+  'google.com',
+  'kakao.com',
+  '직접입력',
+];
+
+export const AGREE_LIST = [
+  { label: '만 14세 이상입니다 (필수)' },
+  { label: '이용약관 (필수)' },
+  { label: '개인정보수집 및 이용동의 (필수)' },
+  // { label: '개인정보 마케팅 활용 동의(선택)' },
+  // { label: '이벤트, 쿠폰, 특가 알림 메일 및 SMS 등 수신(선택)' },
+];

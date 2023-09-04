@@ -1,7 +1,7 @@
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { EMAIL_LIST } from '../../constant/constants';
+import { AGREE_LIST, EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
 import {
   useSignUpHandler,
@@ -15,6 +15,7 @@ export default function SignUp() {
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreeList, setAgreeList] = useState([]);
 
   const { handleSubmit, register, watch } = useForm();
 
@@ -48,6 +49,26 @@ export default function SignUp() {
     // 이메일 인증 코드 확인 로직
     setIsVerifiedEmail(false);
   };
+
+  const handleAgreeCheckList = (e) => {
+    const { name, checked } = e.target;
+
+    if (name === '전체동의') {
+      let tempAgree = agreeList.map((agree) => {
+        return { ...agree, isChecked: checked };
+      });
+      setAgreeList(tempAgree);
+    } else {
+      let tempAgree = agreeList.map((agree) =>
+        agree.label === name ? { ...agree, isChecked: checked } : agree
+      );
+      setAgreeList(tempAgree);
+    }
+  };
+
+  useEffect(() => {
+    setAgreeList(AGREE_LIST);
+  }, []);
 
   useEffect(() => {
     if (email !== '' && emailCategory !== '선택해주세요') {
@@ -161,6 +182,28 @@ export default function SignUp() {
             type='text'
             placeholder='별명 (2~15자)'
           />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+          <Form.Label>약관 동의</Form.Label>
+          <Form.Check
+            type='checkbox'
+            label='전체동의'
+            name='전체동의'
+            checked={!agreeList?.some((agree) => agree?.isChecked !== true)}
+            onChange={handleAgreeCheckList}
+          />
+          <hr />
+          {agreeList.map((agree, index) => (
+            <Form.Check
+              key={index}
+              type='checkbox'
+              label={agree.label}
+              name={agree.label}
+              checked={agree?.isChecked || false}
+              onChange={handleAgreeCheckList}
+            />
+          ))}
         </Form.Group>
 
         <Button variant='primary' type='submit' className='w-100 mt-3'>
