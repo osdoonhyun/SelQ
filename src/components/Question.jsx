@@ -6,7 +6,10 @@ import ImportanceCount from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
-export default function Question({ questionId, question, children }) {
+export default function Question({
+  question: { id, question, importance },
+  children,
+}) {
   const { fontSizing, calcFontSize } = useFontSize();
 
   return (
@@ -16,27 +19,20 @@ export default function Question({ questionId, question, children }) {
         backgroundColor: 'white',
         flexDirection: 'column',
       }}
+      key={id}
     >
       <Row>
         <Col>
           <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
-          <ImportanceCount
-            key={questionId}
-            importance={
-              question?.attributes?.importants?.data[0]?.attributes
-                ?.importantLevel
-            }
-            importanceId={question?.attributes?.importants?.data[0]?.id}
-            questionId={questionId}
-          />
+          <ImportanceCount importance={importance} />
         </Col>
       </Row>
       <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
-        {question?.attributes?.title}
+        {question}
       </QuestionTitle>
-      <Fragment key={questionId}>{children}</Fragment>
+      <Fragment>{children}</Fragment>
     </div>
   );
 }
