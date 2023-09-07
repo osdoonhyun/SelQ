@@ -2,8 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { serverApi } from '../api';
 
 const signUpHandler = async (userInput) => {
-  const { data } = await serverApi.post('/auth/signup', userInput);
-  return data;
+  try {
+    const { status } = await serverApi.post('/auth/signup', userInput);
+    if (status === 201) {
+      return status;
+    }
+  } catch (error) {
+    throw error;
+  }
 };
 
 const useSignUpHandler = () => {
@@ -21,4 +27,112 @@ const useSignUpHandler = () => {
   });
 };
 
-export { useSignUpHandler };
+// 이메일 확인
+const verifyRegisteredEmail = async (email) => {
+  try {
+    const { status } = await serverApi.post('/users/email', {
+      email,
+    });
+
+    if (status === 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return false;
+    }
+    throw error;
+  }
+};
+
+const useVerifyRegisteredEmail = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (email) => verifyRegisteredEmail(email),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['email'],
+      });
+    },
+    onError: (error) => {
+      console.log('Verify Registered Email Error', error.message);
+    },
+  });
+};
+
+// 이메일 인증
+const sendEmailVerification = async (email) => {
+  try {
+    const { status, statusText } = await serverApi.post('/auth/email/send', {
+      email,
+    });
+
+    if (status === 201) {
+      console.log('이메일 인증 전송', status, statusText);
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const useSendEmailVerification = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (email) => sendEmailVerification(email),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['send'],
+      });
+    },
+    onError: (error) => {
+      console.log('Send Email Verification Error', error.message);
+    },
+  });
+};
+
+// 이메일 인증 확인
+const checkEmailVerification = async (data) => {
+  const { email, code } = data;
+  console.log('EMAIL, CODE', email, code);
+  try {
+    const { status } = await serverApi.post('/auth/email/check', {
+      email,
+      code,
+    });
+    console.log('+_+_+_stat', data);
+    if (status === 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const useCheckEmailVerification = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data) => {
+      const result = await checkEmailVerification(data);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['check'],
+      });
+    },
+    onError: (error) => {
+      console.log('Check Email Verifiaction Error', error.message);
+    },
+  });
+};
+
+export {
+  useSignUpHandler,
+  useVerifyRegisteredEmail,
+  useSendEmailVerification,
+  useCheckEmailVerification,
+};
