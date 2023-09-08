@@ -1,7 +1,15 @@
 import { useEffect } from 'react';
-import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Nav,
+  Row,
+  Spinner,
+} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useLogInHandler from '../../services/authHook/login';
+import useLogInHandler from '../../services/authHook/logIn';
 import { useForm } from 'react-hook-form';
 
 export default function LogIn() {
@@ -18,12 +26,6 @@ export default function LogIn() {
     await mutateAsync(logInInfo);
     navigate('/');
   };
-
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem('token', data.token);
-    }
-  }, [data]);
 
   return (
     <Container>
@@ -47,13 +49,26 @@ export default function LogIn() {
           </Row>
         </Form.Group>
 
+        {/* {isLoading && <h1>...loading</h1>} */}
         <div className='d-flex justify-content-center mt-4'>
           <Button
             style={{ height: '55px', width: '330px', padding: '15px 10px' }}
             variant='primary'
             type='submit'
           >
-            로그인
+            {isLoading ? (
+              <div>
+                <Spinner
+                  animation='border'
+                  size='sm'
+                  role='status'
+                  aria-hidden='true'
+                />
+                <span className='visually-hidden'>Loading...</span>
+              </div>
+            ) : (
+              '로그인'
+            )}
           </Button>
         </div>
       </Form>
