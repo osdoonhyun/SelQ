@@ -15,7 +15,6 @@ export default function PostAnswer({ question, onNext }) {
     <Container>
       <Form onSubmit={postingAnswer}>
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-          TODO: 뺄지 말지
           <Form.Label>질문</Form.Label>
           <ReactMarkdown children={question} />
         </Form.Group>

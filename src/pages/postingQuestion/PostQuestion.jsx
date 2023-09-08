@@ -101,6 +101,7 @@ export default function PostQuestion({ onNext }) {
             }
             aria-label='Select Importance'
           >
+            <option>중요도 선택</option>
             <option value='1'>1</option>
             <option value='2'>2</option>
             <option value='3'>3</option>
@@ -121,6 +122,7 @@ export default function PostQuestion({ onNext }) {
             }
             aria-label='Select Category'
           >
+            <option>카테고리 선택</option>
             {CATEGORIES.slice(1).map(({ category, label }, index) => (
               <option key={index} value={label}>
                 {category}

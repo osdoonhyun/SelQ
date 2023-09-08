@@ -4,10 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import PostQuestion from './PostQuestion';
 import PostAnswer from './PostAnswer';
 import RegisterQuestion from './RegisterQuestion';
+import { useRegisterQuestion } from '../../services/questionHook/registerQuestion';
 
 export default function RegisterQuestionForm() {
   const navigate = useNavigate();
   const [step, setStep] = useState('질문입력');
+  const {
+    mutateAsync: registerQuestion,
+    isLoading: loadingRegister,
+    error: errorRegister,
+  } = useRegisterQuestion();
+
   const [questionFormData, setQuestionFormData] = useState({
     question: '',
     importance: 0,
@@ -44,42 +51,26 @@ export default function RegisterQuestionForm() {
             });
             setStep('등록하기');
           }}
-        /> // 답변 등록시 answers, question: questionId 필요
+        />
       )}
       {step === '등록하기' && (
         <RegisterQuestion
           question={questionFormData}
           answer={answerFormData}
+          isLoading={loadingRegister}
+          error={errorRegister}
           onNext={async () => {
-            try {
-              const { data, status } = await axios.post(
-                'http://localhost:8000/api/questions',
-                questionFormData
-              );
+            const { status, questionId } = await registerQuestion({
+              question: questionFormData,
+              answer: answerFormData,
+            });
 
-              if (status === 201) {
-                try {
-                  const { status } = await axios.post(
-                    'http://localhost:8000/api/answers',
-                    {
-                      answers: answerFormData.answers,
-                      question: data.id,
-                    }
-                  );
-
-                  if (status === 201) {
-                    setAnswerFormData({
-                      ...answerFormData,
-                      question: data.id,
-                    });
-                    setStep('등록성공');
-                  }
-                } catch (error) {
-                  console.log('Answer Form Error', error.message);
-                }
-              }
-            } catch (error) {
-              console.log('Question Form Error', error.message);
+            if (status === 201) {
+              setAnswerFormData({
+                ...answerFormData,
+                question: questionId,
+              });
+              setStep('등록성공');
             }
           }}
         />

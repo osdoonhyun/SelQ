@@ -1,7 +1,13 @@
-import { Badge, Button, Container } from 'react-bootstrap';
+import { Badge, Button, Container, Spinner } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
-export default function RegisterQuestion({ question, answer, onNext }) {
+export default function RegisterQuestion({
+  question,
+  answer,
+  isLoading,
+  error,
+  onNext,
+}) {
   const onClick = () => {
     onNext();
   };
@@ -20,7 +26,21 @@ export default function RegisterQuestion({ question, answer, onNext }) {
         </Badge>
       ))}
       <ReactMarkdown children={answer.answers} />
-      <Button onClick={onClick}>등록하기</Button>
+      <Button onClick={onClick}>
+        {isLoading ? (
+          <div>
+            <Spinner
+              animation='border'
+              size='sm'
+              role='status'
+              aria-hidden='true'
+            />
+            <span className='visually-hidden'>Loading...</span>
+          </div>
+        ) : (
+          '등록하기'
+        )}
+      </Button>
     </Container>
   );
 }
