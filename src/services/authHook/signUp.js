@@ -101,7 +101,7 @@ const checkEmailVerification = async (data) => {
       email,
       code,
     });
-    console.log('+_+_+_stat', data);
+
     if (status === 201) {
       return true;
     } else {
@@ -115,10 +115,7 @@ const checkEmailVerification = async (data) => {
 const useCheckEmailVerification = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data) => {
-      const result = await checkEmailVerification(data);
-      return result;
-    },
+    mutationFn: async (data) => checkEmailVerification(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['check'],

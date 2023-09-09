@@ -1,74 +1,141 @@
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Table,
+} from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { AGREE_LIST, EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
 import {
   useSignUpHandler,
-  verifyRegisteredEmail,
+  useVerifyRegisteredEmail,
+  useSendEmailVerification,
+  useCheckEmailVerification,
 } from '../../services/authHook/signUp';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [btnDisable, setBtnDisable] = useState(true);
+  const [verificationBtnDisable, setVerificationBtnDisable] = useState(true);
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [agreeList, setAgreeList] = useState([]);
+  const [agreeList, setAgreeList] = useState(AGREE_LIST);
 
-  const { handleSubmit, register, watch } = useForm();
+  const { handleSubmit, register, watch, control } = useForm();
 
   const email = watch('email');
   const emailCategory = watch('emailCategory');
 
-  const { isLoading, error, mutateAsync, data } = useSignUpHandler();
+  const {
+    mutateAsync: signUp,
+    isLoading: loadingSignUp,
+    error: errorSignUp,
+  } = useSignUpHandler();
 
-  const signUpHandler = async (values) => {
+  const {
+    mutateAsync: verifyEmail,
+    isLoading: loadingVerifyEmail,
+    error: errorVerifyEmail,
+  } = useVerifyRegisteredEmail();
+
+  const {
+    mutateAsync: sendEmail,
+    isLoading: loadingSendEmail,
+    error: errorSendEmail,
+  } = useSendEmailVerification();
+
+  const {
+    mutateAsync: checkEmail,
+    isLoading: loadingCheckEmail,
+    error: errorCheckEmail,
+  } = useCheckEmailVerification();
+
+  const signUpHandler = async (values, e) => {
+    e.preventDefault();
+
+    const allTrue = values.allTrue;
     const signUpInfo = {
       username: values.username,
       email: values.email + '@' + values.emailCategory,
       password: values.password,
       profileImg: '',
       provider: 'local',
+
+      fourteenOverAgree: values.fourteenOverAgree
+        ? true
+        : values.fourteenOverAgree === undefined && allTrue,
+      termsOfUseAgree: values.termsOfUseAgree
+        ? true
+        : values.termsOfUseAgree === undefined && allTrue,
+      personalInfoAgree: values.personalInfoAgree
+        ? true
+        : values.personalInfoAgree === undefined && allTrue,
+      marketingConsent: values.marketingConsent
+        ? true
+        : values.marketingConsent === undefined && allTrue,
+      smsAndEventAgree: values.smsAndEventAgree
+        ? true
+        : values.smsAndEventAgree === undefined && allTrue,
     };
-    console.log('USERINPUT', signUpInfo);
-    await mutateAsync(signUpInfo);
+
+    await signUp(signUpInfo);
     navigate('/login');
   };
 
-  const verifyRegisteredEmailHandler = () => {
-    // 등록된 이메일인지 검증 로직
+  const verifyRegisteredEmailHandler = async () => {
+    const userEmail = email + '@' + emailCategory;
+    const response = await verifyEmail(userEmail);
 
-    // 등록된 이메일이면 가입된 이메일입니다 알려주기
-    // 등록된 이메일이 아니면 이메일로 메일 전송
-    setIsVerifiedEmail(true);
-  };
-
-  const checkVerificationCode = () => {
-    // 이메일 인증 코드 확인 로직
-    setIsVerifiedEmail(false);
-  };
-
-  const handleAgreeCheckList = (e) => {
-    const { name, checked } = e.target;
-
-    if (name === '전체동의') {
-      let tempAgree = agreeList.map((agree) => {
-        return { ...agree, isChecked: checked };
-      });
-      setAgreeList(tempAgree);
+    if (response === true) {
+      // 등록된 이메일
+      alert('이미 가입된 이메일입니다.');
+      return;
     } else {
-      let tempAgree = agreeList.map((agree) =>
-        agree.label === name ? { ...agree, isChecked: checked } : agree
-      );
-      setAgreeList(tempAgree);
+      // 등록된 이메일이 아니면 이메일로 메일 전송
+      await sendEmail(userEmail);
+      setIsVerifiedEmail(true);
     }
   };
 
-  useEffect(() => {
-    setAgreeList(AGREE_LIST);
-  }, []);
+  // 이메일 인증 코드 확인 로직
+  const checkEmailVerificationHandler = async () => {
+    const userEmail = email + '@' + emailCategory;
+    const response = await checkEmail({
+      email: userEmail,
+      code: verificationCode,
+    });
+
+    if (response === true) {
+      setIsVerifiedEmail(false);
+      setVerificationBtnDisable(false);
+    } else {
+      alert('다시 인증 코드를 입력해 주세요');
+    }
+  };
+
+  const handleAgreeCheckList = (e, field) => {
+    const { value, checked } = e.target;
+
+    if (value === '전체동의') {
+      let tempAgree = agreeList.map((agree) => ({
+        ...agree,
+        isChecked: checked,
+      }));
+      setAgreeList(tempAgree);
+    } else {
+      let tempAgree = agreeList.map((agree) =>
+        agree.label === value ? { ...agree, isChecked: checked } : agree
+      );
+      setAgreeList(tempAgree);
+    }
+    field.onChange(checked);
+  };
 
   useEffect(() => {
     if (email !== '' && emailCategory !== '선택해주세요') {
@@ -81,7 +148,6 @@ export default function SignUp() {
 
   return (
     <Container>
-      {error && <h1>{error}</h1>}
       <Form onSubmit={handleSubmit(signUpHandler)}>
         <Form.Group as={Col}>
           <Form.Label>회원가입</Form.Label>
@@ -103,7 +169,11 @@ export default function SignUp() {
           </Col>
           <Col
             xs='auto'
-            style={{ display: 'inline-flex', alignItems: 'center', padding: 0 }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: 0,
+            }}
           >
             <span>@</span>
           </Col>
@@ -117,14 +187,34 @@ export default function SignUp() {
             </Form.Select>
           </Col>
         </Form.Group>
-
         <Button
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '127px',
+            height: '38px',
+          }}
           onClick={verifyRegisteredEmailHandler}
           className='mb-3'
           variant='primary'
-          disabled={btnDisable}
+          disabled={btnDisable || !verificationBtnDisable}
         >
-          이메일 인증하기
+          {loadingVerifyEmail || loadingSendEmail ? (
+            <div>
+              <Spinner
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>Loading...</span>
+            </div>
+          ) : verificationBtnDisable ? (
+            '이메일 인증하기'
+          ) : (
+            '이메일 인증완료'
+          )}
         </Button>
 
         {isVerifiedEmail && (
@@ -136,17 +226,28 @@ export default function SignUp() {
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
             />
+            {/* TODO: 타이머 기능 추가 */}
             <Button
               className='mt-3'
               variant='primary'
-              onClick={checkVerificationCode}
-              // type='submit'
+              onClick={checkEmailVerificationHandler}
             >
-              확인
+              {loadingCheckEmail ? (
+                <>
+                  <Spinner
+                    animation='border'
+                    size='sm'
+                    role='status'
+                    aria-hidden='true'
+                  />
+                  <span className='visually-hidden'>Loading...</span>
+                </>
+              ) : (
+                '확인'
+              )}
             </Button>
           </Form.Group>
         )}
-
         <Form.Group className='mb-3'>
           <Form.Label>비밀번호</Form.Label>
           <br />
@@ -160,7 +261,7 @@ export default function SignUp() {
             {...register('password', { required: true })}
           />
         </Form.Group>
-        {/* TODO: 위 비밀번호와 같은지 확인하는 로직 필요 */}
+        {/* TODO: 위 비밀번호와 같은지 유효성 검사 로직 필요 */}
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
@@ -170,7 +271,6 @@ export default function SignUp() {
             placeholder='비밀번호 확인'
           />
         </Form.Group>
-
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>닉네임</Form.Label>
           <br />
@@ -186,28 +286,69 @@ export default function SignUp() {
 
         <Form.Group className='mb-3' controlId='formBasicCheckbox'>
           <Form.Label>약관 동의</Form.Label>
-          <Form.Check
-            type='checkbox'
-            label='전체동의'
-            name='전체동의'
-            checked={!agreeList?.some((agree) => agree?.isChecked !== true)}
-            onChange={handleAgreeCheckList}
-          />
-          <hr />
-          {agreeList.map((agree, index) => (
-            <Form.Check
-              key={index}
-              type='checkbox'
-              label={agree.label}
-              name={agree.label}
-              checked={agree?.isChecked || false}
-              onChange={handleAgreeCheckList}
+          <div
+            style={{
+              border: '1px solid #B3B3B5',
+              padding: '18px',
+              borderRadius: '5px',
+            }}
+          >
+            <Controller
+              render={({ field }) => (
+                <Form.Check
+                  type='checkbox'
+                  label='전체동의 (선택항목에 대한 동의 포함)'
+                  value='전체동의'
+                  checked={
+                    !agreeList?.some((agree) => agree?.isChecked !== true)
+                  }
+                  onChange={(e) => handleAgreeCheckList(e, field)}
+                />
+              )}
+              name='allTrue'
+              control={control}
             />
-          ))}
+            <hr />
+            {agreeList.map((agree, index) => (
+              <Controller
+                key={index}
+                name={agree.value}
+                render={({ field }) => (
+                  <>
+                    <Form.Check
+                      type='checkbox'
+                      onChange={(e) => handleAgreeCheckList(e, field)}
+                      checked={field.value || agree.isChecked}
+                      label={agree.label}
+                      value={agree.label}
+                    />
+                  </>
+                )}
+                control={control}
+              />
+            ))}
+          </div>
         </Form.Group>
 
-        <Button variant='primary' type='submit' className='w-100 mt-3'>
-          회원가입
+        <Button
+          onClick={verifyRegisteredEmailHandler}
+          variant='primary'
+          type='submit'
+          className='w-100 mt-3'
+        >
+          {loadingSignUp ? (
+            <>
+              <Spinner
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>Loading...</span>
+            </>
+          ) : (
+            '회원가입'
+          )}
         </Button>
       </Form>
 
