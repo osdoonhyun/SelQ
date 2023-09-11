@@ -8,6 +8,7 @@ import SignUp from './pages/auth/SignUp';
 import LogIn from './pages/auth/LogIn';
 import ResetPassword from './pages/resetPassword/ResetPassword';
 import RegisterQuestionForm from './pages/postingQuestion/RegisterQuestionForm';
+import MyPage from './pages/MyPage';
 import UsersManagement from './pages/UserManagement';
 
 export const router = createBrowserRouter([
@@ -21,6 +22,8 @@ export const router = createBrowserRouter([
       { path: '/importants', element: <ImportantQuestionsList /> },
       { path: '/importants/:questionId', element: <QuestionDetail /> },
       { path: '/password/new', element: <ResetPassword /> },
+      { path: '/user', element: <MyPage /> },
+
       { path: '/admin/post/question', element: <RegisterQuestionForm /> },
       { path: '/admin/users', element: <UsersManagement /> },
     ],
