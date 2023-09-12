@@ -10,7 +10,7 @@ export default function NewPassword() {
   const newPasswordHandler = async () => {};
 
   return (
-    <Container>
+    <Container style={{ maxWidth: '343px' }}>
       <Form onSubmit={newPasswordHandler}>
         <Form.Group as={Col}>
           <Row className='justify-content-center'>Sel-Q</Row>

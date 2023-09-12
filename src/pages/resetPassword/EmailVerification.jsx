@@ -1,37 +1,51 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import {
+  useSendEmailVerification,
+  useVerifyRegisteredEmail,
+} from '../../services/authHook/signUp';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function EmailVerification({ onNext }) {
-  const [email, setEmail] = useState('');
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
   const [sendBtnDisable, setSendBtnDisable] = useState(true);
 
-  const handleCheckButton = () => {
-    // 가입된 이메일인지 검증 API
-    setSendBtnDisable(false);
-    setCheckBtnDisable(true);
+  const { handleSubmit, control, getValues, setValue } = useForm();
+
+  const {
+    mutateAsync: verifyEmail,
+    isLoading: loadingVerifyEmail,
+    error: errorVerifyEmail,
+  } = useVerifyRegisteredEmail();
+
+  const {
+    mutateAsync: sendEmail,
+    isLoading: loadingSendEmail,
+    error: errorSendEmail,
+  } = useSendEmailVerification();
+
+  const handleCheckButton = async () => {
+    const inputEmail = getValues('email');
+    const response = await verifyEmail(inputEmail);
+
+    if (response === false) {
+      alert('가입 되지 않은 이메일입니다.');
+      return;
+    } else {
+      setSendBtnDisable(false);
+      setCheckBtnDisable(true);
+    }
   };
 
   const handleEmailVerification = async () => {
-    try {
-      // 이메일 인증 코드 전송 API
-      onNext();
-    } catch (error) {
-      console.log('Email Verification Error', error.message);
-    }
+    const inputEmail = getValues('email');
+    await sendEmail(inputEmail);
+    onNext(inputEmail);
   };
 
-  useEffect(() => {
-    if (email !== '') {
-      setCheckBtnDisable(false);
-    } else {
-      setCheckBtnDisable(true);
-    }
-  }, [email]);
-
   return (
-    <Container>
-      <Form onSubmit={handleEmailVerification}>
+    <Container style={{ maxWidth: '343px' }}>
+      <Form onSubmit={handleSubmit(handleEmailVerification)}>
         <Form.Label>가입한 이메일 주소를 입력해주세요.</Form.Label>
         <Form.Group as={Col} controlId='formGridCity'>
           <Form.Text className='text-muted'>
@@ -40,12 +54,22 @@ export default function EmailVerification({ onNext }) {
           <Row>
             <div className='d-flex'>
               <Col>
-                <Form.Control
-                  type='email'
-                  value={email}
-                  placeholder='이메일'
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={!sendBtnDisable}
+                <Controller
+                  name='email'
+                  control={control}
+                  defaultValue=''
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type='email'
+                      placeholder='이메일'
+                      onChange={(e) => {
+                        setValue('email', e.target.value);
+                        setCheckBtnDisable(e.target.value === '');
+                      }}
+                      disabled={!sendBtnDisable}
+                    />
+                  )}
                 />
               </Col>
               <Col
@@ -61,7 +85,21 @@ export default function EmailVerification({ onNext }) {
                   variant='primary'
                   disabled={checkBtnDisable}
                 >
-                  {sendBtnDisable ? '확인' : '확인완료'}
+                  {loadingVerifyEmail ? (
+                    <div>
+                      <Spinner
+                        animation='border'
+                        size='sm'
+                        role='status'
+                        aria-hidden='true'
+                      />
+                      <span className='visually-hidden'>Loading...</span>
+                    </div>
+                  ) : sendBtnDisable ? (
+                    '확인'
+                  ) : (
+                    '확인완료'
+                  )}
                 </Button>
               </Col>
             </div>
@@ -73,7 +111,19 @@ export default function EmailVerification({ onNext }) {
             type='submit'
             disabled={sendBtnDisable}
           >
-            이메일로 인증코드 보내기
+            {loadingSendEmail ? (
+              <>
+                <Spinner
+                  animation='border'
+                  size='sm'
+                  role='status'
+                  aria-hidden='true'
+                />
+                <span className='visually-hidden'>Loading...</span>
+              </>
+            ) : (
+              '이메일로 인증코드 보내기'
+            )}
           </Button>
         </div>
       </Form>

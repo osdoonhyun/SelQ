@@ -2,21 +2,30 @@ import { useState } from 'react';
 import EmailVerification from './EmailVerification';
 import NewPassword from './NewPassword';
 import axios from 'axios';
-import LogIn from '../LogIn';
+import LogIn from '../auth/LogIn';
 import EmailCodeVerification from './EmailCodeVerification';
 
 export default function ResetPassword() {
   const [step, setStep] = useState('이메일검증');
+  const [userEmail, setUserEmail] = useState('');
 
   return (
     <>
       {step === '이메일검증' && (
-        <EmailVerification onNext={() => setStep('인증코드검증')} />
+        <EmailVerification
+          onNext={(email) => {
+            setUserEmail(email);
+            setStep('인증코드검증');
+          }}
+        />
       )}
       {/* 가입된 이메일인지 검증 API
       이메일 인증 코드 전송 API */}
       {step === '인증코드검증' && (
-        <EmailCodeVerification onNext={() => setStep('비밀번호변경')} />
+        <EmailCodeVerification
+          userEmail={userEmail}
+          onNext={() => setStep('비밀번호변경')}
+        />
         // 이메일 인증코드 검증 API
       )}
       {step === '비밀번호변경' && (
