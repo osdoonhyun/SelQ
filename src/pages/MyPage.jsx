@@ -6,31 +6,57 @@ import {
   ImageForm,
   EmailForm,
 } from '../components/common/ResponsiveForm';
+import { useUpdateUser } from '../services/authHook/getUsers';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyPage() {
+  const navigate = useNavigate();
   const { data: userInfo } = useGetProfileInfo();
-  console.log('DATA', userInfo);
+  const {
+    mutateAsync: updateUser,
+    isLoading: loadingUpdateUser,
+    error: errorUpdateUser,
+  } = useUpdateUser();
 
-  const { handleSubmit, register, watch, control } = useForm();
+  const { handleSubmit, control, setValue, getValues } = useForm();
 
-  const updateUserHandler = () => {};
+  const updateUserHandler = async () => {
+    const updatedInfo = {};
+
+    const usernameValue = getValues('username');
+    if (usernameValue !== '' && usernameValue !== userInfo?.username) {
+      updatedInfo.username = usernameValue;
+    }
+
+    await updateUser({ updatedInfo });
+    navigate('/');
+  };
 
   return (
-    <Container>
+    <Container
+      style={{
+        maxWidth: '550px',
+      }}
+    >
       <Form onSubmit={handleSubmit(updateUserHandler)}>
         <ImageForm img={userInfo?.profileImg} />
         <EmailForm label={'이메일'} email={userInfo?.email} />
-        <UsernameForm label={'닉네임'} content={userInfo?.username} />
+        <UsernameForm
+          label={'닉네임'}
+          content={userInfo?.username}
+          control={control}
+          setValue={setValue}
+        />
 
         {/* 회원탈퇴 */}
 
         <Button
-          // onClick={verifyRegisteredEmailHandler}
+          style={{ width: '280px' }}
           variant='primary'
           type='submit'
-          className='w-100 mt-3'
+          className='mt-3'
         >
-          {/* {loadingSignUp ? (
+          {loadingUpdateUser ? (
             <>
               <Spinner
                 animation='border'
@@ -40,9 +66,9 @@ export default function MyPage() {
               />
               <span className='visually-hidden'>Loading...</span>
             </>
-          ) : ( */}
-          '회원 정보 수정'
-          {/* )} */}
+          ) : (
+            '회원 정보 수정'
+          )}
         </Button>
       </Form>
     </Container>
