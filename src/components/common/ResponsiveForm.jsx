@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form, Row, Col, Image } from 'react-bootstrap';
+import { Controller } from 'react-hook-form';
 
-const UsernameForm = ({ label, content }) => {
+const UsernameForm = ({ label, content, control, setValue }) => {
   const isMdOrLarger = window.innerWidth >= 988;
   return (
     <>
@@ -11,13 +12,35 @@ const UsernameForm = ({ label, content }) => {
             {label}
           </Form.Label>
           <Col sm={10}>
-            <Form.Control type='email' placeholder={content} />
+            <Controller
+              name='username'
+              control={control}
+              render={({ field }) => (
+                <Form.Control
+                  {...field}
+                  type='text'
+                  value={field.value || content || ''}
+                  onChange={(e) => setValue('username', e.target.value)}
+                />
+              )}
+            />
           </Col>
         </Form.Group>
       ) : (
         <Form.Group as={Col}>
           <Form.Label>{label}</Form.Label>
-          <Form.Control type='email' placeholder={content} />
+          <Controller
+            name='username'
+            control={control}
+            render={({ field }) => (
+              <Form.Control
+                {...field}
+                type='text'
+                value={field.value || content || ''}
+                onChange={(e) => setValue('username', e.target.value)}
+              />
+            )}
+          />
         </Form.Group>
       )}
     </>
@@ -41,13 +64,13 @@ const EmailForm = ({ label, email }) => {
           <Col sm={10}>
             <Row>
               <Col>
-                <Form.Control type='text' placeholder={emailId} />
+                <Form.Control type='text' value={emailId} disabled />
               </Col>
               <Col xs='auto' className='d-flex align-items-center p-0'>
                 <span>@</span>
               </Col>
               <Col>
-                <Form.Control type='text' placeholder={emailCategory} />
+                <Form.Control type='text' value={emailCategory} disabled />
               </Col>
             </Row>
           </Col>
@@ -58,13 +81,13 @@ const EmailForm = ({ label, email }) => {
           <Col>
             <Row>
               <Col>
-                <Form.Control type='text' placeholder={emailId} />
+                <Form.Control type='text' value={emailId} disabled />
               </Col>
               <Col xs='auto' className='d-flex align-items-center p-0'>
                 <span>@</span>
               </Col>
               <Col>
-                <Form.Control type='text' placeholder={emailCategory} />
+                <Form.Control type='text' value={emailCategory} disabled />
               </Col>
             </Row>
           </Col>
