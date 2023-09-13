@@ -147,7 +147,11 @@ export default function SignUp() {
   }, [email, emailCategory]);
 
   return (
-    <Container>
+    <Container
+      style={{
+        maxWidth: '380px',
+      }}
+    >
       <Form onSubmit={handleSubmit(signUpHandler)}>
         <Form.Group as={Col}>
           <Form.Label>회원가입</Form.Label>

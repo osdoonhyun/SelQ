@@ -28,7 +28,11 @@ export default function LogIn() {
   };
 
   return (
-    <Container>
+    <Container
+      style={{
+        maxWidth: '330px',
+      }}
+    >
       <Form onSubmit={handleSubmit(loginHandler)}>
         <Form.Group as={Col}>
           <Row className='justify-content-center'>Sel-Q</Row>
