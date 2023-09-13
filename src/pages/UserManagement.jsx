@@ -5,19 +5,33 @@ import {
   Form,
   Image,
   Modal,
+  Spinner,
   Table,
 } from 'react-bootstrap';
-import useUsersQuery from '../services/authHook/getUsers';
+import {
+  useUpdateUserInfo,
+  useUsersQuery,
+} from '../services/authHook/getUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import useGetProfileInfo from '../services/authHook/getProfile';
 
 export default function UsersManagement() {
-  const { data: users } = useUsersQuery();
-  const [updatedUserInfo, setUpdatedUserInfo] = useState({});
+  const { data: users, refetch: refetchUsers } = useUsersQuery();
+  const { data: userInfo } = useGetProfileInfo();
+  const {
+    mutateAsync: updateUser,
+    isLoading: loadingUpdateUser,
+    error: errorUpdateUser,
+  } = useUpdateUserInfo();
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { handleSubmit, control, setValue, getValues } = useForm();
 
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
@@ -29,6 +43,33 @@ export default function UsersManagement() {
   const handleShowDeleteModal = (user) => {
     setSelectedUser(user);
     setShowDeleteModal(true);
+  };
+
+  const updateUserHandler = async (userId) => {
+    const updatedInfo = {};
+
+    const usernameValue = getValues('username');
+    if (usernameValue !== '' && usernameValue !== selectedUser?.username) {
+      updatedInfo.username = usernameValue;
+    }
+
+    const rolesValue = getValues('roles');
+    if (rolesValue !== '' && rolesValue !== selectedUser?.roles[0]) {
+      updatedInfo.roles = [rolesValue];
+    }
+
+    try {
+      await updateUser({
+        userId,
+        updatedInfo,
+      });
+
+      refetchUsers();
+    } catch (error) {
+      console.error('UserInfo Update Error', error.message);
+    }
+
+    handleCloseEditModal();
   };
 
   return (
@@ -47,7 +88,7 @@ export default function UsersManagement() {
         </thead>
         <tbody>
           {users &&
-            users?.map((user, index) => (
+            users.data?.map((user, index) => (
               <tr key={user.id}>
                 <td>{index + 1}</td>
                 <td>{user.username}</td>
@@ -79,7 +120,7 @@ export default function UsersManagement() {
           <Modal.Title>계정 삭제</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit(updateUserHandler)}>
             <div className='d-flex justify-content-center'>
               <Image src={selectedUser?.profileImg} roundedCircle />
             </div>
@@ -149,9 +190,13 @@ export default function UsersManagement() {
           <Modal.Title>계정 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit(updateUserHandler)}>
             <div className='d-flex justify-content-center'>
-              <Image src={selectedUser?.profileImg} roundedCircle />
+              <Image
+                src={selectedUser?.profileImg}
+                alt={selectedUser?.profileImg}
+                roundedCircle
+              />
             </div>
 
             <Form.Group
@@ -168,33 +213,45 @@ export default function UsersManagement() {
 
             <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
               <Form.Label>유저 이름</Form.Label>
-              <Form.Control
-                type='text'
-                value={selectedUser?.username}
-                placeholder={selectedUser?.username}
-                // disabled
-                // onChange={(e) => setUsername(e.target.value)}
+              <Controller
+                name='username'
+                defaultValue={selectedUser?.username}
+                control={control}
+                render={({ field }) => (
+                  <Form.Control
+                    {...field}
+                    type='text'
+                    onChange={(e) => setValue('username', e.target.value)}
+                  />
+                )}
               />
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='formBasicPassword'>
               <Form.Label>유저 등급</Form.Label>
-              <Form.Select
-                aria-label='Default select example'
-                onChange={(e) => {
-                  console.log('유저등급 클릭함!!!', e.target.value);
-                  // setIsAdmin(e.target.value);
-                }}
-              >
-                <option value='default'>
-                  {selectedUser?.roles[0] ? '관리자' : '유저'}
-                </option>
-                <option value='select' disabled>
-                  선택해 주세요
-                </option>
-                <option value='false'>유저</option>
-                <option value='true'>관리자</option>
-              </Form.Select>
+              <Controller
+                name='roles'
+                control={control}
+                defaultValue={selectedUser?.roles[0]}
+                render={({ field }) => (
+                  <Form.Select
+                    {...field}
+                    aria-label='Default select example'
+                    onChange={(e) => {
+                      setValue('roles', e.target.value);
+                    }}
+                  >
+                    <option value='default'>
+                      {selectedUser?.roles[0] === 'admin' ? '관리자' : '유저'}
+                    </option>
+                    <option value='select' disabled>
+                      선택해 주세요
+                    </option>
+                    <option value='user'>유저</option>
+                    <option value='admin'>관리자</option>
+                  </Form.Select>
+                )}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -204,9 +261,21 @@ export default function UsersManagement() {
           </Button>
           <Button
             variant='primary'
-            // onClick={() => updateUserHandler(selectedUser?.id)}
+            onClick={() => updateUserHandler(selectedUser?.id)}
           >
-            수정하기
+            {loadingUpdateUser ? (
+              <>
+                <Spinner
+                  animation='border'
+                  size='sm'
+                  role='status'
+                  aria-hidden='true'
+                />
+                <span className='visually-hidden'>Loading...</span>
+              </>
+            ) : (
+              '수정하기'
+            )}
           </Button>
         </Modal.Footer>
       </Modal>
