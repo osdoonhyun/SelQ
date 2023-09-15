@@ -39,4 +39,40 @@ const useRegisterQuestion = () => {
   });
 };
 
-export { useRegisterQuestion };
+const editQuestion = async (questionId, editData) => {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  try {
+    const { status } = await serverApi.patch(
+      `/questions/${questionId}`,
+      editData,
+      config
+    );
+    if (status === 200) {
+      return { status, questionId };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const useEditQuestion = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (formData) => editQuestion(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['edit'],
+      });
+    },
+    onError: (error) => {
+      console.log('Edit Question Error', error.message);
+    },
+  });
+};
+
+export { useRegisterQuestion, useEditQuestion };

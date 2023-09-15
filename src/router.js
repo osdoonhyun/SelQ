@@ -10,6 +10,8 @@ import ResetPassword from './pages/resetPassword/ResetPassword';
 import RegisterQuestionForm from './pages/postingQuestion/RegisterQuestionForm';
 import MyPage from './pages/MyPage';
 import UsersManagement from './pages/UserManagement';
+import EditQuestion from './pages/postingQuestion/EditQuestion';
+
 import QuestionManagement from './pages/QuestionManagement';
 
 export const router = createBrowserRouter([
@@ -26,6 +28,7 @@ export const router = createBrowserRouter([
       { path: '/user', element: <MyPage /> },
 
       { path: '/admin/post/question', element: <RegisterQuestionForm /> },
+      { path: '/admin/edit/question/:questionId', element: <EditQuestion /> },
       { path: '/admin/users', element: <UsersManagement /> },
       { path: '/admin/questions', element: <QuestionManagement /> },
     ],
