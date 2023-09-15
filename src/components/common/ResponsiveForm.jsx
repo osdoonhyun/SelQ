@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Row, Col, Image } from 'react-bootstrap';
+import { Form, Row, Col, Image, Button } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
 
 const UsernameForm = ({ label, content, control, setValue }) => {
@@ -127,7 +127,22 @@ const ImageForm = ({ img }) => {
   );
 };
 
-export { UsernameForm, EmailForm, ImageForm };
+const DeleteForm = ({ showModal }) => {
+  return (
+    <Form.Group as={Row}>
+      <Form.Label column sm={2}>
+        회원 탈퇴
+      </Form.Label>
+      <Col sm={10}>
+        <Button variant='danger' onClick={showModal}>
+          회원 탈퇴
+        </Button>
+      </Col>
+    </Form.Group>
+  );
+};
+
+export { UsernameForm, EmailForm, ImageForm, DeleteForm };
 
 // const isMdLarger = window.innerWidth >= 768;
 // const formGroupProps = {};
