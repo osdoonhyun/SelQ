@@ -10,6 +10,7 @@ import ResetPassword from './pages/resetPassword/ResetPassword';
 import RegisterQuestionForm from './pages/postingQuestion/RegisterQuestionForm';
 import MyPage from './pages/MyPage';
 import UsersManagement from './pages/UserManagement';
+import QuestionManagement from './pages/QuestionManagement';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
 
       { path: '/admin/post/question', element: <RegisterQuestionForm /> },
       { path: '/admin/users', element: <UsersManagement /> },
+      { path: '/admin/questions', element: <QuestionManagement /> },
     ],
   },
   { path: '/login', element: <LogIn /> },
