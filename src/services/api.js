@@ -12,7 +12,7 @@ const getQuestionsByCategory = async (category) => {
   }
   const response = await serverApi.get(url);
 
-  return response.data.data;
+  return response.data.body.data;
 };
 
 const useQuestionsQuery = ({ category }) => {
@@ -24,9 +24,14 @@ const useQuestionsQuery = ({ category }) => {
 };
 
 const getQuestionDetailById = async (questionId) => {
-  const response = await serverApi.get(`/questions/${questionId}`);
-  console.log('Rseponse', response.data);
-  return response.data;
+  try {
+    const response = await serverApi.get(`/questions/${questionId}`);
+    if (response.status === 200) {
+      return response.data.body;
+    }
+  } catch (error) {
+    console.log('Get Question Detail Error', error.message);
+  }
 };
 
 const useQuestionDetailQuery = (questionId) => {
@@ -36,10 +41,26 @@ const useQuestionDetailQuery = (questionId) => {
   return queryData;
 };
 
+const getQuestionsByImportance = async () => {
+  const response = await serverApi.get('/questions');
+
+  const hasImportance = response.data.body.data.filter(
+    (question) => question.importance >= 1
+  );
+
+  return hasImportance;
+};
+
+const useImportantQuestionsQuery = () => {
+  const queryData = useQuery(['questions'], getQuestionsByImportance);
+
+  return queryData;
+};
+
 const getQuestionsByKeyword = async (keyword) => {
   const response = await serverApi.get('/questions');
 
-  const filteredQuestions = response.data.data.filter((question) => {
+  const filteredQuestions = response.data.body.data.filter((question) => {
     const lowQuestion = question.question.toLowerCase().trim();
     const lowercaseKeyword = keyword.toLowerCase().trim();
 
@@ -57,4 +78,10 @@ const useSearchQuestionsQuery = ({ searchInput: keyword }) => {
   return queryData;
 };
 
-export { useQuestionsQuery, useQuestionDetailQuery, useSearchQuestionsQuery };
+export {
+  useQuestionsQuery,
+  useQuestionDetailQuery,
+  useImportantQuestionsQuery,
+  useSearchQuestionsQuery,
+  serverApi,
+};
