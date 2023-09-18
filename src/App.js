@@ -22,8 +22,8 @@ function App() {
             <Provider store={store}>
               <RouterProvider router={router} />
             </Provider>
+            <ReactQueryDevtools initialIsOpen={false} />
           </CookiesProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </FontSizingProvider>
     </LayoutContainer>
