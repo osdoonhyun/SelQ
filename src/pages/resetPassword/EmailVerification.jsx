@@ -44,89 +44,83 @@ export default function EmailVerification({ onNext }) {
   };
 
   return (
-    <Container style={{ maxWidth: '343px' }}>
-      <Form onSubmit={handleSubmit(handleEmailVerification)}>
-        <Form.Label>가입한 이메일 주소를 입력해주세요.</Form.Label>
-        <Form.Group as={Col} controlId='formGridCity'>
-          <Form.Text className='text-muted'>
-            이메일 형식에 맞게 작성해주세요.
-          </Form.Text>
-          <Row>
-            <div className='d-flex'>
-              <Col>
-                <Controller
-                  name='email'
-                  control={control}
-                  defaultValue=''
-                  render={({ field }) => (
-                    <Form.Control
-                      {...field}
-                      type='email'
-                      placeholder='이메일'
-                      onChange={(e) => {
-                        setValue('email', e.target.value);
-                        setCheckBtnDisable(e.target.value === '');
-                      }}
-                      disabled={!sendBtnDisable}
-                    />
-                  )}
-                />
-              </Col>
-              <Col
-                xs='auto'
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  marginLeft: '10px',
-                }}
+    <Form onSubmit={handleSubmit(handleEmailVerification)}>
+      <Form.Label>가입한 이메일 주소를 입력해주세요.</Form.Label>
+      <Form.Group as={Col} controlId='formGridCity'>
+        <Form.Text className='text-muted'>
+          이메일 형식에 맞게 작성해주세요.
+        </Form.Text>
+        <Row>
+          <div className='d-flex'>
+            <Col>
+              <Controller
+                name='email'
+                control={control}
+                defaultValue=''
+                render={({ field }) => (
+                  <Form.Control
+                    {...field}
+                    type='email'
+                    placeholder='이메일'
+                    onChange={(e) => {
+                      setValue('email', e.target.value);
+                      setCheckBtnDisable(e.target.value === '');
+                    }}
+                    disabled={!sendBtnDisable}
+                  />
+                )}
+              />
+            </Col>
+            <Col
+              xs='auto'
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                marginLeft: '10px',
+              }}
+            >
+              <Button
+                onClick={handleCheckButton}
+                variant='primary'
+                disabled={checkBtnDisable}
               >
-                <Button
-                  onClick={handleCheckButton}
-                  variant='primary'
-                  disabled={checkBtnDisable}
-                >
-                  {loadingVerifyEmail ? (
-                    <div>
-                      <Spinner
-                        animation='border'
-                        size='sm'
-                        role='status'
-                        aria-hidden='true'
-                      />
-                      <span className='visually-hidden'>Loading...</span>
-                    </div>
-                  ) : sendBtnDisable ? (
-                    '확인'
-                  ) : (
-                    '확인완료'
-                  )}
-                </Button>
-              </Col>
-            </div>
-          </Row>
-        </Form.Group>
-        <div className='d-flex justify-content-center'>
-          <Button
-            className='mt-3 w-100'
-            type='submit'
-            disabled={sendBtnDisable}
-          >
-            {loadingSendEmail ? (
-              <>
-                <Spinner
-                  animation='border'
-                  size='sm'
-                  role='status'
-                  aria-hidden='true'
-                />
-                <span className='visually-hidden'>Loading...</span>
-              </>
-            ) : (
-              '이메일로 인증코드 보내기'
-            )}
-          </Button>
-        </div>
-      </Form>
-    </Container>
+                {loadingVerifyEmail ? (
+                  <div>
+                    <Spinner
+                      animation='border'
+                      size='sm'
+                      role='status'
+                      aria-hidden='true'
+                    />
+                    <span className='visually-hidden'>Loading...</span>
+                  </div>
+                ) : sendBtnDisable ? (
+                  '확인'
+                ) : (
+                  '확인완료'
+                )}
+              </Button>
+            </Col>
+          </div>
+        </Row>
+      </Form.Group>
+      <div className='d-flex justify-content-center'>
+        <Button className='mt-3 w-100' type='submit' disabled={sendBtnDisable}>
+          {loadingSendEmail ? (
+            <>
+              <Spinner
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+              />
+              <span className='visually-hidden'>Loading...</span>
+            </>
+          ) : (
+            '이메일로 인증코드 보내기'
+          )}
+        </Button>
+      </div>
+    </Form>
   );
 }

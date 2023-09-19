@@ -36,76 +36,70 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
   };
 
   return (
-    <Container style={{ maxWidth: '343px' }}>
-      <Form onSubmit={handleSubmit(handleEmailCodeVerification)}>
-        <Form.Group as={Col} className='mt-3'>
-          <Form.Label>이메일로 전송된 인증코드를 입력해주세요.</Form.Label>
-          <Row>
-            <div className='d-flex'>
-              <Col>
-                <Controller
-                  name='emailCode'
-                  control={control}
-                  defaultValue=''
-                  render={({ field }) => (
-                    <Form.Control
-                      {...field}
-                      type='text'
-                      placeholder='인증코드 6자리 입력'
-                      onChange={(e) => {
-                        setValue('emailCode', e.target.value);
-                        setCheckBtnDisable(e.target.value === '');
-                      }}
-                      disabled={!sendBtnDisable}
-                    />
-                  )}
-                />
-              </Col>
-              <Col
-                xs='auto'
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  marginLeft: '10px',
-                }}
+    <Form onSubmit={handleSubmit(handleEmailCodeVerification)}>
+      <Form.Group as={Col} className='mt-3'>
+        <Form.Label>이메일로 전송된 인증코드를 입력해주세요.</Form.Label>
+        <Row>
+          <div className='d-flex'>
+            <Col>
+              <Controller
+                name='emailCode'
+                control={control}
+                defaultValue=''
+                render={({ field }) => (
+                  <Form.Control
+                    {...field}
+                    type='text'
+                    placeholder='인증코드 6자리 입력'
+                    onChange={(e) => {
+                      setValue('emailCode', e.target.value);
+                      setCheckBtnDisable(e.target.value === '');
+                    }}
+                    disabled={!sendBtnDisable}
+                  />
+                )}
+              />
+            </Col>
+            <Col
+              xs='auto'
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                marginLeft: '10px',
+              }}
+            >
+              <Button
+                variant='primary'
+                onClick={handleCheckButton}
+                disabled={checkBtnDisable}
               >
-                <Button
-                  variant='primary'
-                  onClick={handleCheckButton}
-                  disabled={checkBtnDisable}
-                >
-                  {loadingCheckEmail ? (
-                    <>
-                      <Spinner
-                        animation='border'
-                        size='sm'
-                        role='status'
-                        aria-hidden='true'
-                      />
-                      <span className='visually-hidden'>Loading...</span>
-                    </>
-                  ) : sendBtnDisable ? (
-                    '확인'
-                  ) : (
-                    '확인완료'
-                  )}
-                </Button>
-              </Col>
-            </div>
-            {/* 시간 카운트 */}
-            {/* 재전송 버튼 */}
-          </Row>
-        </Form.Group>
-        <div className='d-flex justify-content-center'>
-          <Button
-            className='mt-3 w-100'
-            type='submit'
-            disabled={sendBtnDisable}
-          >
-            비밀번호 재설정하기
-          </Button>
-        </div>
-      </Form>
-    </Container>
+                {loadingCheckEmail ? (
+                  <>
+                    <Spinner
+                      animation='border'
+                      size='sm'
+                      role='status'
+                      aria-hidden='true'
+                    />
+                    <span className='visually-hidden'>Loading...</span>
+                  </>
+                ) : sendBtnDisable ? (
+                  '확인'
+                ) : (
+                  '확인완료'
+                )}
+              </Button>
+            </Col>
+          </div>
+          {/* 시간 카운트 */}
+          {/* 재전송 버튼 */}
+        </Row>
+      </Form.Group>
+      <div className='d-flex justify-content-center'>
+        <Button className='mt-3 w-100' type='submit' disabled={sendBtnDisable}>
+          비밀번호 재설정하기
+        </Button>
+      </div>
+    </Form>
   );
 }

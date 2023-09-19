@@ -4,13 +4,14 @@ import NewPassword from './NewPassword';
 import axios from 'axios';
 import LogIn from '../auth/LogIn';
 import EmailCodeVerification from './EmailCodeVerification';
+import { Container } from 'react-bootstrap';
 
 export default function ResetPassword() {
   const [step, setStep] = useState('이메일검증');
   const [userEmail, setUserEmail] = useState('');
 
   return (
-    <>
+    <Container style={{ maxWidth: '343px', marginTop: '40px' }}>
       {step === '이메일검증' && (
         <EmailVerification
           onNext={(email) => {
@@ -37,7 +38,7 @@ export default function ResetPassword() {
         />
       )}
       {step === '변경성공' && <LogIn />}
-    </>
+    </Container>
   );
 }
 
