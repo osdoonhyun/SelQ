@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SearchQuetions from './SearchQuetions';
 import { useSearchQuestionsQuery } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar() {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const defferedSearchInput = useDeferredValue(searchInput);
@@ -19,6 +21,11 @@ export default function SearchBar() {
   };
   const handleShow = () => setShow(true);
 
+  const questionClickHandler = (quesetionId) => {
+    navigate(`/questions/${quesetionId}`);
+    handleClose();
+  };
+
   return (
     <>
       <Button variant='Light' onClick={handleShow}>
@@ -27,19 +34,20 @@ export default function SearchBar() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginTop: '8px',
+            // marginTop: '8px',
           }}
         >
           <FontAwesomeIcon color='#B3B3B5' icon={faMagnifyingGlass} size='xl' />
-          <span
+          {/* <span
+            className='d-none d-md-block'
             style={{
               fontSize: '13px',
-              marginTop: '8px',
+              // marginTop: '8px',
               color: '#B3B3B5',
             }}
           >
             검색
-          </span>
+          </span> */}
         </div>
       </Button>
 
@@ -75,6 +83,7 @@ export default function SearchBar() {
               <SearchQuetions
                 searchResults={searchResults}
                 searchInput={defferedSearchInput}
+                questionClickHandler={questionClickHandler}
               />
             </div>
           </Suspense>

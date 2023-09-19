@@ -1,6 +1,10 @@
 import { SearchLi } from '../../styles/Styles';
 
-export default function SearchQuetions({ searchInput, searchResults }) {
+export default function SearchQuetions({
+  searchInput,
+  searchResults,
+  questionClickHandler,
+}) {
   if (searchInput === '') return null;
 
   if (searchResults && searchResults.length === 0) {
@@ -15,7 +19,9 @@ export default function SearchQuetions({ searchInput, searchResults }) {
     <ul style={{ padding: 0 }}>
       {searchResults &&
         searchResults.map(({ id, question }) => (
-          <SearchLi key={id}>{question}</SearchLi>
+          <SearchLi key={id} onClick={() => questionClickHandler(id)}>
+            {question}
+          </SearchLi>
         ))}
     </ul>
   );
