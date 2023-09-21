@@ -16,22 +16,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import useGetProfileInfo from '../services/authHook/getProfile';
+import useAuth from '../components/hooks/useAuth';
+import Pagination from '../components/common/Pagination';
+import Filter from '../components/common/Filter';
 
 export default function UsersManagement() {
-  const { data: users, refetch: refetchUsers } = useUsersQuery();
-  const { data: userInfo } = useGetProfileInfo();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterOptions, setFilterOptions] = useState({});
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isDeletionChecked, setIsDeletionChecked] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { handleSubmit, control, setValue, getValues } = useForm();
+  const { token } = useAuth();
+  const { data: users, refetch: refetchUsers } = useUsersQuery(
+    currentPage,
+    filterOptions
+  );
   const {
     mutateAsync: updateUser,
     isLoading: loadingUpdateUser,
     error: errorUpdateUser,
   } = useUpdateUserInfo();
-
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const { handleSubmit, control, setValue, getValues } = useForm();
 
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
@@ -43,6 +50,19 @@ export default function UsersManagement() {
   const handleShowDeleteModal = (user) => {
     setSelectedUser(user);
     setShowDeleteModal(true);
+  };
+
+  const handleOptionsClick = (item, label) => {
+    setFilterOptions({
+      ...filterOptions,
+      [label]: item,
+    });
+  };
+
+  const handleDeleteOption = (label) => {
+    const updatedOptions = { ...filterOptions };
+    delete updatedOptions[label];
+    setFilterOptions(updatedOptions);
   };
 
   const updateUserHandler = async (userId) => {
@@ -62,6 +82,7 @@ export default function UsersManagement() {
       await updateUser({
         userId,
         updatedInfo,
+        token,
       });
 
       refetchUsers();
@@ -72,8 +93,21 @@ export default function UsersManagement() {
     handleCloseEditModal();
   };
 
+  const handleDelete = (userId) => {
+    console.log('계정 삭제됨');
+    // 계정 삭제 로직
+    setIsDeletionChecked(false);
+  };
+
   return (
     <>
+      <h1>유저 관리페이지</h1>
+      <Filter
+        type='user'
+        filterOptions={filterOptions}
+        handleOptionsClick={handleOptionsClick}
+        handleDeleteOption={handleDeleteOption}
+      />
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -88,7 +122,7 @@ export default function UsersManagement() {
         </thead>
         <tbody>
           {users &&
-            users.data?.map((user, index) => (
+            users.users?.map((user, index) => (
               <tr key={user.id}>
                 <td>{index + 1}</td>
                 <td>{user.username}</td>
@@ -114,6 +148,13 @@ export default function UsersManagement() {
             ))}
         </tbody>
       </Table>
+      <div className='d-flex justify-content-center'>
+        <Pagination
+          currentPage={currentPage}
+          changePage={setCurrentPage}
+          paginatinoData={users?.meta}
+        />
+      </div>
 
       <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
         <Modal.Header closeButton>
@@ -166,8 +207,7 @@ export default function UsersManagement() {
           </Form>
           <Form.Check // prettier-ignore
             type={'checkbox'}
-            // checked={isChecked}
-            // onChange={() => setIsChecked(!isChecked)}
+            onChange={() => setIsDeletionChecked(!isDeletionChecked)}
             label='계정 삭제하시면 다시 되돌리지 못합니다. 정말 삭제하시겠습니까?'
           />
         </Modal.Body>
@@ -177,8 +217,8 @@ export default function UsersManagement() {
           </Button>
           <Button
             variant='danger'
-            // disabled={!isChecked}
-            // onClick={() => deleteUserHandler(selectedUser?.id)}
+            disabled={isDeletionChecked}
+            onClick={() => handleDelete(selectedUser?.id)}
           >
             계정 삭제
           </Button>
