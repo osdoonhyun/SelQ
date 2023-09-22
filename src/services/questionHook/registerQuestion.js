@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { serverApi } from '../api';
 
 const registerQuestion = async (formData) => {
-  const { question, answer } = formData;
-  const token = localStorage.getItem('token');
+  const { question, answer, token } = formData;
+
   const config = {
     headers: {
       Authorization: 'Bearer ' + token,
@@ -12,7 +12,7 @@ const registerQuestion = async (formData) => {
 
   try {
     const { data } = await serverApi.post('/questions', question, config);
-    const questionId = data.id;
+    const questionId = data.body.id;
 
     const { status } = await serverApi.post('/answers', {
       answers: answer.answers,
@@ -39,13 +39,13 @@ const useRegisterQuestion = () => {
   });
 };
 
-const editQuestion = async (questionId, editData) => {
-  const token = localStorage.getItem('token');
+const editQuestion = async ({ questionId, editData, token }) => {
   const config = {
     headers: {
       Authorization: 'Bearer ' + token,
     },
   };
+
   try {
     const { status } = await serverApi.patch(
       `/questions/${questionId}`,

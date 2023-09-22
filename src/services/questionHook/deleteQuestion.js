@@ -1,10 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { serverApi } from '../api';
 
-const deleteQuestion = async (questionId) => {
-  //config 해주어야 함
+const deleteQuestion = async ({ deletedId, token }) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
   try {
-    const { data } = await serverApi.delete(`/questions/${questionId}`);
+    const { data } = await serverApi.delete(`/questions/${deletedId}`, config);
     console.log('DELETE 성공', data);
     if (data.body === 200) {
       return data.body;
