@@ -1,108 +1,59 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Question from '../components/Question';
 import RandomQuestion from '../components/RandomQuestion';
 import Hint from '../components/common/Hint';
 import Answer from '../components/common/Answer';
+import { useQuestionsQuery } from '../services/api';
 
 export default function Home() {
-  const [questions, setQuestions] = useState([]);
-  const [nextQuestion, setNextQuestion] = useState({});
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [description, setDescription] = useState('');
-  const [hints, setHints] = useState('');
+  const [prevIndex, setPrevIndex] = useState(-1);
+  const [randomQuestion, setRandomQuestion] = useState({});
 
-  const getQuestions = async () => {
-    try {
-      const { data, status } = await axios.get(
-        'http://localhost:1337/api/questions?populate=*'
-      );
+  const { data: questions } = useQuestionsQuery({
+    category: selectedCategory,
+  });
 
-      if (status === 200) {
-        setQuestions(data.data);
-        setNextQuestion(getRandomQuestion(data.data, data.data.length));
-      }
-    } catch (error) {
-      console.log('Get Question Error', error.message);
+  // 가져온 데이터로 아래와 같이 데이터를 보여주고 다음 선택시 렌덤하게 돌려준다.
+  const getRandomQuestion = useCallback(() => {
+    if (questions && questions.length > 0) {
+      let randomIndex;
+
+      do {
+        randomIndex = Math.floor(Math.random() * questions.length);
+      } while (randomIndex === prevIndex);
+      setPrevIndex(randomIndex);
+      setRandomQuestion(questions[randomIndex]);
     }
-  };
+  }, [questions, prevIndex]);
 
-  const handleGetHints = async () => {
-    const hintId = nextQuestion.attributes?.hint?.data?.id;
-    if (!hintId) {
-      return;
-    }
-    try {
-      const { data, status } = await axios.get(
-        `http://localhost:1337/api/hints/${hintId}`
-      );
-      if (status === 200) {
-        setHints(data.data.attributes.hint);
-      }
-    } catch (error) {
-      console.log('Get Hints Error', error.message);
-    }
-  };
-
-  const handleGetAnswer = async () => {
-    const answerId = nextQuestion.attributes?.answer?.data?.id;
-    try {
-      const { data, status } = await axios.get(
-        `http://localhost:1337/api/answers/${answerId}`
-      );
-      if (status === 200) {
-        setDescription(data.data.attributes.description);
-      }
-    } catch (error) {
-      console.log('Answer Error', error.message);
-    }
-  };
-
-  const getNextQuestion = (category) => {
-    let randomQuestions = [...questions];
-
-    if (category !== 'All') {
-      randomQuestions = questions.filter(
-        (question) => question.attributes.category === category
-      );
-    }
-    const numberOfQuestions = randomQuestions.length;
-    const randomQuestion = getRandomQuestion(
-      randomQuestions,
-      numberOfQuestions
-    );
-
-    setNextQuestion(randomQuestion);
-  };
-
-  const getRandomQuestion = (questions, count) => {
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * count);
-    } while (questions[randomIndex] === nextQuestion);
-
-    return questions[randomIndex];
-  };
-
-  const handleDropdownCategorySelect = (eventKey) => {
+  const handleDropdownCategorySelect = useCallback((eventKey) => {
     setSelectedCategory(eventKey);
-  };
-
-  useEffect(() => {
-    getQuestions();
   }, []);
 
+  useEffect(() => {
+    if (questions) {
+      getRandomQuestion();
+    }
+  }, [questions]);
+
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <RandomQuestion
-        getNextQuestion={getNextQuestion}
         selectedCategory={selectedCategory}
+        getNextQuestion={getRandomQuestion}
         onSelect={handleDropdownCategorySelect}
       />
-      <Question questionId={nextQuestion.id} question={nextQuestion}>
-        <Hint hints={hints} onGetHints={handleGetHints} />
-        <Answer description={description} onGetAnswer={handleGetAnswer} />
+      <Question question={randomQuestion}>
+        <Hint hints={randomQuestion?.hints} />
+        <Answer answers={randomQuestion?.answers} />
       </Question>
-    </>
+    </div>
   );
 }
