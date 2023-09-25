@@ -7,7 +7,7 @@ const UsernameForm = ({ label, content, control, setValue }) => {
   return (
     <>
       {isMdOrLarger ? (
-        <Form.Group as={Row} className='mb-3'>
+        <Form.Group as={Row} className='mb-4'>
           <Form.Label column sm={2}>
             {label}
           </Form.Label>
@@ -27,7 +27,7 @@ const UsernameForm = ({ label, content, control, setValue }) => {
           </Col>
         </Form.Group>
       ) : (
-        <Form.Group as={Col}>
+        <Form.Group as={Col} className='mb-4'>
           <Form.Label>{label}</Form.Label>
           <Controller
             name='username'
@@ -57,7 +57,7 @@ const EmailForm = ({ label, email }) => {
   return (
     <>
       {isMdOrLarger ? (
-        <Form.Group as={Row} className='mb-3'>
+        <Form.Group as={Row} className='mb-4'>
           <Form.Label column sm={2}>
             {label}
           </Form.Label>
@@ -76,7 +76,7 @@ const EmailForm = ({ label, email }) => {
           </Col>
         </Form.Group>
       ) : (
-        <Form.Group as={Col}>
+        <Form.Group as={Col} className='mb-4'>
           <Form.Label>{label}</Form.Label>
           <Col>
             <Row>
@@ -103,7 +103,7 @@ const ImageForm = ({ img }) => {
   return (
     <>
       {isMdOrLarger ? (
-        <Form.Group as={Row} className='mb-3'>
+        <Form.Group as={Row} className='mb-4'>
           <Form.Label column sm={3}>
             프로필 이미지
           </Form.Label>
@@ -114,7 +114,7 @@ const ImageForm = ({ img }) => {
           </Col>
         </Form.Group>
       ) : (
-        <Form.Group as={Col}>
+        <Form.Group as={Col} className='mb-4'>
           <Form.Label>프로필 이미지</Form.Label>
 
           <Col>

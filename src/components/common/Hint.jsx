@@ -27,7 +27,7 @@ export default function Hint({ hints }) {
             marginTop: '0.8rem',
           }}
         >
-          <ul>
+          <ul style={{ padding: 0 }}>
             {hints?.map((hint, index) => (
               <li key={index}>
                 <CustomBadge text={hint} />
