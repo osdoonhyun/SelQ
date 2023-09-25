@@ -56,19 +56,9 @@ export default function FontSizeSettings() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginTop: '8px',
           }}
         >
           <FontAwesomeIcon color='#B3B3B5' icon={faGear} size='xl' />
-          <span
-            style={{
-              fontSize: '13px',
-              marginTop: '8px',
-              color: '#B3B3B5',
-            }}
-          >
-            설정
-          </span>
         </div>
       </Button>
 

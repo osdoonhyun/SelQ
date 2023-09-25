@@ -81,7 +81,12 @@ export default function EmailVerification({ onNext }) {
             >
               <Button
                 onClick={handleCheckButton}
-                variant='primary'
+                variant='Light'
+                style={{
+                  backgroundColor: '#2f93ea',
+                  border: '1px solid #2f93ea',
+                  color: '#fff',
+                }}
                 disabled={checkBtnDisable}
               >
                 {loadingVerifyEmail ? (
@@ -105,7 +110,17 @@ export default function EmailVerification({ onNext }) {
         </Row>
       </Form.Group>
       <div className='d-flex justify-content-center'>
-        <Button className='mt-3 w-100' type='submit' disabled={sendBtnDisable}>
+        <Button
+          variant='Light'
+          style={{
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
+          }}
+          className='mt-3 w-100'
+          type='submit'
+          disabled={sendBtnDisable}
+        >
           {loadingSendEmail ? (
             <>
               <Spinner

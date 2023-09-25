@@ -7,6 +7,7 @@ export const HeaderNav = styled(Nav)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 8px 12px;
 
     & > * {
       margin-top: 8px;
@@ -47,6 +48,15 @@ export const StyledBadge = styled.span`
 `;
 
 export const HomeNextButton = styled(Button)`
+  color: #313030;
+  background-color: #f9f9f9;
+  border: 1px solid #c0c0ce;
+  &:hover {
+    background-color: #5bacee;
+  }
+`;
+
+export const HomeCategoryButton = styled(DropdownButton)`
   color: #313030;
   background-color: #f9f9f9;
   border: 1px solid #c0c0ce;
@@ -115,8 +125,29 @@ export const QuestionTitle = styled.div`
   cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
 `;
 
+export const SearchLi = styled.li`
+  list-style: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #626468;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #a8d0f2;
+  }
+`;
+
+export const MenuNavLink = styled(Nav.Link)`
+  &:hover {
+    color: #868e96;
+  }
+`;
+
 // #F7F6F7 -> 밝은 회색 (Header, Footer)
 // 아이콘 선택 안되었을때 #B3B3B5 -> 조금 어두운 회색
 // 선택되었을때 파란색 #5bacee
 // 선택되었을때 밝은 파랑: #A8D0F2
+// 진한 파랑 : #2f93ea
 // 글자색 검정: #313030 흰색: #f0f4f5
+// 등록 글자 회삭: #1e235a66

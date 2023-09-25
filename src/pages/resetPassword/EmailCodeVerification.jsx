@@ -69,7 +69,12 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
               }}
             >
               <Button
-                variant='primary'
+                variant='Light'
+                style={{
+                  backgroundColor: '#2f93ea',
+                  border: '1px solid #2f93ea',
+                  color: '#fff',
+                }}
                 onClick={handleCheckButton}
                 disabled={checkBtnDisable}
               >
@@ -96,7 +101,17 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
         </Row>
       </Form.Group>
       <div className='d-flex justify-content-center'>
-        <Button className='mt-3 w-100' type='submit' disabled={sendBtnDisable}>
+        <Button
+          variant='Light'
+          style={{
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
+          }}
+          className='mt-3 w-100'
+          type='submit'
+          disabled={sendBtnDisable}
+        >
           비밀번호 재설정하기
         </Button>
       </div>

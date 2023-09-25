@@ -192,16 +192,19 @@ export default function SignUp() {
           </Col>
         </Form.Group>
         <Button
+          variant='Light'
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             width: '127px',
             height: '38px',
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
           }}
           onClick={verifyRegisteredEmailHandler}
           className='mb-3'
-          variant='primary'
           disabled={btnDisable || !verificationBtnDisable}
         >
           {loadingVerifyEmail || loadingSendEmail ? (
@@ -336,7 +339,12 @@ export default function SignUp() {
 
         <Button
           onClick={verifyRegisteredEmailHandler}
-          variant='primary'
+          variant='Light'
+          style={{
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
+          }}
           type='submit'
           className='w-100 mt-3'
         >
@@ -357,7 +365,10 @@ export default function SignUp() {
       </Form>
 
       <p className='mt-3' style={{ textAlign: 'center' }}>
-        이미 아이디가 있으신가요? <a href='/login'>로그인</a>
+        이미 아이디가 있으신가요?{' '}
+        <a style={{ color: '#2f93ea' }} href='/login'>
+          로그인
+        </a>
       </p>
     </Container>
   );

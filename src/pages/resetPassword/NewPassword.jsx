@@ -45,8 +45,15 @@ export default function NewPassword() {
 
       <div className='d-flex justify-content-center mt-4'>
         <Button
-          style={{ height: '55px', width: '330px', padding: '15px 10px' }}
-          variant='primary'
+          variant='Light'
+          style={{
+            height: '55px',
+            width: '330px',
+            padding: '15px 10px',
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
+          }}
           type='submit'
         >
           비밀번호 변경하기

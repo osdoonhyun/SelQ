@@ -74,8 +74,13 @@ export default function PostQuestion({ onNext }) {
     <Container>
       <Form onSubmit={postingQuestion}>
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-          <Form.Label>질문*</Form.Label>
+          <Form.Label>
+            질문
+            <span style={{ position: 'relative', top: '-3px' }}>*</span>
+          </Form.Label>
+
           <Form.Control
+            style={{ height: '120px' }}
             as='textarea'
             type='text'
             placeholder='질문을 등록하세요.'
@@ -90,7 +95,9 @@ export default function PostQuestion({ onNext }) {
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-          <Form.Label>중요도*</Form.Label>
+          <Form.Label>
+            중요도<span style={{ position: 'relative', top: '-3px' }}>*</span>
+          </Form.Label>
           <Form.Select
             value={questionFormData.importance}
             onChange={(e) =>
@@ -111,7 +118,9 @@ export default function PostQuestion({ onNext }) {
         </Form.Group>
 
         <Form.Group className='mb-3'>
-          <Form.Label>카테고리*</Form.Label>
+          <Form.Label>
+            카테고리<span style={{ position: 'relative', top: '-3px' }}>*</span>
+          </Form.Label>
           <Form.Select
             value={questionFormData.category}
             onChange={(e) =>
@@ -148,22 +157,50 @@ export default function PostQuestion({ onNext }) {
               />
             </Col>
             <Col>
-              <Button disabled={hintBtnDisable} onClick={handleAddHint}>
+              <Button
+                variant='Light'
+                style={{
+                  backgroundColor: '#2f93ea',
+                  border: '1px solid #2f93ea',
+                  color: '#fff',
+                }}
+                disabled={hintBtnDisable}
+                onClick={handleAddHint}
+              >
                 추가
               </Button>
             </Col>
           </Row>
-          <Stack direction='horizontal' gap={2}>
+          <Stack className='mt-3' direction='horizontal' gap={2}>
             {questionFormData.hints?.map((hint, index) => (
-              <Badge bg='primary' key={index}>
-                {hint}
+              <Badge
+                bg='#5bacee'
+                style={{
+                  fontSize: '0.8rem',
+                  color: '#fff',
+                  letterSpacing: '0.1rem',
+                  backgroundColor: '#5bacee',
+                }}
+                key={index}
+                className='d-flex justify-content-center align-items-center'
+              >
+                <span style={{ marginRight: '5px' }}>{hint}</span>
                 <CloseButton onClick={() => handleDeleteHint(index)} />
               </Badge>
             ))}
           </Stack>
         </Form.Group>
 
-        <Button disabled={nextBtnDisable} variant='primary' type='submit'>
+        <Button
+          style={{
+            backgroundColor: '#2f93ea',
+            border: '1px solid #2f93ea',
+            color: '#fff',
+          }}
+          disabled={nextBtnDisable}
+          variant='Light'
+          type='submit'
+        >
           다음
         </Button>
       </Form>

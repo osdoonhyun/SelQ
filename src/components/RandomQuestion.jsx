@@ -28,33 +28,20 @@ export default function RandomQuestion({
           style={{
             color: '#313030',
             backgroundColor: '#f9f9f9',
+            border: '1px solid #c0c0ce',
           }}
-          variant='outline-dark'
+          variant='Light'
           as={ButtonGroup}
           title={selectedCategory}
           id='bg-nested-dropdown'
           onSelect={onSelect}
         >
-          {CATEGORIES.map((category, index) => (
+          {CATEGORIES.map(({ category }, index) => (
             <HomeDropdownItem key={index} eventKey={category}>
               {category}
             </HomeDropdownItem>
           ))}
         </DropdownButton>
-
-        {/* <HomeDropdownButton
-          variant='outline-dark'
-          as={ButtonGroup}
-          title={selectedCategory}
-          id='bg-nested-dropdown'
-          onSelect={onSelect}
-        >
-          {CATEGORIES.map((category, index) => (
-            <HomeDropdownItem key={index} eventKey={category}>
-              {category}
-            </HomeDropdownItem>
-          ))}
-        </HomeDropdownButton> */}
       </ButtonGroup>
     </div>
   );

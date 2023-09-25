@@ -11,7 +11,8 @@ export default function Root() {
           width: '100%',
           padding: '10px',
           minHeight: 'calc(100vh - 150px)',
-          margin: 'auto',
+          maxWidth: '1080px',
+          margin: '0 auto',
         }}
       >
         <Outlet />

@@ -9,21 +9,22 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useLogInHandler from '../../services/authHook/logIn';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../slices/auth';
 
 export default function LogIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
-
-  const { isLoading, error, mutateAsync, data } = useLogInHandler();
 
   const loginHandler = async (values) => {
     const logInInfo = {
       email: values.email,
       password: values.password,
     };
-    await mutateAsync(logInInfo);
+
+    dispatch(logIn(logInInfo));
     navigate('/');
   };
 
@@ -31,11 +32,21 @@ export default function LogIn() {
     <Container
       style={{
         maxWidth: '330px',
+        padding: '140px 0',
       }}
     >
       <Form onSubmit={handleSubmit(loginHandler)}>
         <Form.Group as={Col}>
-          <Row className='justify-content-center'>Sel-Q</Row>
+          <Row
+            style={{
+              fontSize: '2rem',
+              fontWeight: 500,
+              color: '#5bacee',
+            }}
+            className='justify-content-center mb-4'
+          >
+            Sel-Q
+          </Row>
         </Form.Group>
         <Form.Group controlId='formBasic'>
           <Row className='mb-2 justify-content-center'>
@@ -56,11 +67,18 @@ export default function LogIn() {
         {/* {isLoading && <h1>...loading</h1>} */}
         <div className='d-flex justify-content-center mt-4'>
           <Button
-            style={{ height: '55px', width: '330px', padding: '15px 10px' }}
-            variant='primary'
+            style={{
+              height: '55px',
+              width: '330px',
+              padding: '15px 10px',
+              backgroundColor: '#2f93ea',
+              border: '1px solid #2f93ea',
+              color: '#fff',
+            }}
+            variant='Light'
             type='submit'
           >
-            {isLoading ? (
+            {/* {isLoading ? (
               <div>
                 <Spinner
                   animation='border'
@@ -72,7 +90,8 @@ export default function LogIn() {
               </div>
             ) : (
               '로그인'
-            )}
+            )} */}
+            로그인
           </Button>
         </div>
       </Form>
@@ -80,10 +99,14 @@ export default function LogIn() {
       <div className='d-flex justify-content-center mt-3'>
         <Nav as='ul'>
           <Nav.Item as='li'>
-            <Nav.Link href='/password/new'>비밀번호 재설정</Nav.Link>
+            <Nav.Link style={{ color: '#5bacee' }} href='/password/new'>
+              비밀번호 재설정
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item as='li'>
-            <Nav.Link href='/signup'>회원가입</Nav.Link>
+            <Nav.Link style={{ color: '#5bacee' }} href='/signup'>
+              회원가입
+            </Nav.Link>
           </Nav.Item>
         </Nav>
       </div>
