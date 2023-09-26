@@ -144,6 +144,12 @@ export const MenuNavLink = styled(Nav.Link)`
   }
 `;
 
+export const ErrorMessage = styled.p`
+  padding-top: 4px;
+  font-size: 14px;
+  color: #e53e3e;
+`;
+
 // #F7F6F7 -> 밝은 회색 (Header, Footer)
 // 아이콘 선택 안되었을때 #B3B3B5 -> 조금 어두운 회색
 // 선택되었을때 파란색 #5bacee

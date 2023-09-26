@@ -17,6 +17,33 @@ import {
   useCheckEmailVerification,
 } from '../../services/authHook/signUp';
 import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { ErrorMessage } from '../../styles/Styles';
+
+const signUpSchema = yup.object().shape({
+  email: yup.string().required('이메일을 입력해 주세요.'),
+  emailCategory: yup.string().required('이메일 카테고리를 선택해 주세요.'),
+  password: yup
+    .string()
+    .required('새 비밀번호를 입력해 주세요.')
+    .min(8, '8자 이상 입력해 주세요.')
+    .matches(
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+      '최소 하나의 대문자, 특수문자를 포함해야 합니다.'
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
+    .required('새 비밀번호 확인을 입력해 주세요.'),
+  username: yup
+    .string()
+    .min(2, '최소 2글자 이상 입력해 주세요.')
+    .max(15, '최대 15글자까지 입력 가능합니다.'),
+  fourteenOverAgree: yup.bool().oneOf([true]),
+  termsOfUseAgree: yup.bool().oneOf([true]),
+  personalInfoAgree: yup.bool().oneOf([true]),
+});
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -24,10 +51,17 @@ export default function SignUp() {
   const [verificationBtnDisable, setVerificationBtnDisable] = useState(true);
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeList, setAgreeList] = useState(AGREE_LIST);
 
-  const { handleSubmit, register, watch, control } = useForm();
+  const {
+    handleSubmit,
+    register,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signUpSchema),
+  });
 
   const email = watch('email');
   const emailCategory = watch('emailCategory');
@@ -143,7 +177,6 @@ export default function SignUp() {
     } else {
       setBtnDisable(true);
     }
-    // setBtnDisable(userInfo.email !== '' && userInfo.emailCategory !== '');
   }, [email, emailCategory]);
 
   return (
@@ -152,19 +185,21 @@ export default function SignUp() {
         maxWidth: '380px',
       }}
     >
+      <h1 className='mt-5 mb-4' style={{ fontSize: '2rem' }}>
+        회원가입
+      </h1>
       <Form onSubmit={handleSubmit(signUpHandler)}>
         <Form.Group as={Col}>
-          <Form.Label>회원가입</Form.Label>
           <Row className='justify-content-center'>
             SNS 계정으로 간편하게 회원가입
           </Row>
           <Row className='justify-content-center'>구글</Row>
         </Form.Group>
         <hr />
-        <Form.Group as={Row} className='mb-3' controlId='formBasicEmail'>
-          <Form.Label className='text-muted'>이메일</Form.Label>
+
+        <Form.Group as={Row} controlId='formEmail'>
+          <Form.Label>이메일</Form.Label>
           <Col>
-            {/* TODO: Feedback 추가하기 */}
             <Form.Control
               type='text'
               placeholder='이메일'
@@ -182,15 +217,16 @@ export default function SignUp() {
             <span>@</span>
           </Col>
           <Col>
-            {/* TODO: 직접 입력 구현하기 */}
             <Form.Select {...register('emailCategory', { required: true })}>
-              <option className='text-muted'>선택해주세요</option>
+              <option className='text-muted'>선택해 주세요</option>
               {EMAIL_LIST.map((email, index) => (
                 <option key={index}>{email}</option>
               ))}
             </Form.Select>
           </Col>
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
         </Form.Group>
+
         <Button
           variant='Light'
           style={{
@@ -208,7 +244,7 @@ export default function SignUp() {
           disabled={btnDisable || !verificationBtnDisable}
         >
           {loadingVerifyEmail || loadingSendEmail ? (
-            <div>
+            <>
               <Spinner
                 animation='border'
                 size='sm'
@@ -216,7 +252,7 @@ export default function SignUp() {
                 aria-hidden='true'
               />
               <span className='visually-hidden'>Loading...</span>
-            </div>
+            </>
           ) : verificationBtnDisable ? (
             '이메일 인증하기'
           ) : (
@@ -225,8 +261,8 @@ export default function SignUp() {
         </Button>
 
         {isVerifiedEmail && (
-          <Form.Group className='mb-3'>
-            <Form.Text>이메일로 전송된 인증코드를 입력해주세요.</Form.Text>
+          <Form.Group className='mb-3' controlId='formEmailVerification'>
+            <Form.Text>이메일로 전송된 인증코드를 입력해 주세요.</Form.Text>
             <Form.Control
               type='text'
               placeholder='인증코드 6자리 입력'
@@ -236,7 +272,12 @@ export default function SignUp() {
             {/* TODO: 타이머 기능 추가 */}
             <Button
               className='mt-3'
-              variant='primary'
+              variant='Light'
+              style={{
+                backgroundColor: '#2f93ea',
+                border: '1px solid #2f93ea',
+                color: '#fff',
+              }}
               onClick={checkEmailVerificationHandler}
             >
               {loadingCheckEmail ? (
@@ -255,43 +296,46 @@ export default function SignUp() {
             </Button>
           </Form.Group>
         )}
-        <Form.Group className='mb-3'>
+
+        <Form.Group className='mb-3' controlId='formPassword'>
           <Form.Label>비밀번호</Form.Label>
           <br />
-
           <Form.Text>
-            대문자, 특수문자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+            대문자, 특수문자를 포함한 8자 이상의 비밀번호를 입력해 주세요.
           </Form.Text>
           <Form.Control
             type='text'
             placeholder='비밀번호'
             {...register('password', { required: true })}
           />
+          <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </Form.Group>
-        {/* TODO: 위 비밀번호와 같은지 유효성 검사 로직 필요 */}
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+
+        <Form.Group className='mb-3' controlId='formConfirmPassword'>
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             type='text'
             placeholder='비밀번호 확인'
+            {...register('confirmPassword', { required: true })}
           />
+          <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+
+        <Form.Group className='mb-3' controlId='formUsername'>
           <Form.Label>닉네임</Form.Label>
           <br />
           <Form.Text className='text-muted'>
-            다른 유저와 겹치지 않도록 입력해주세요. (2~15자)
+            다른 유저와 겹치지 않도록 입력해 주세요. (2~15자)
           </Form.Text>
           <Form.Control
             {...register('username', { required: true })}
             type='text'
             placeholder='별명 (2~15자)'
           />
+          <ErrorMessage>{errors.username?.message}</ErrorMessage>
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+        <Form.Group className='mb-3' controlId='formTerms'>
           <Form.Label>약관 동의</Form.Label>
           <div
             style={{
@@ -304,8 +348,8 @@ export default function SignUp() {
               render={({ field }) => (
                 <Form.Check
                   type='checkbox'
-                  label='전체동의 (선택항목에 대한 동의 포함)'
-                  value='전체동의'
+                  label='전체 동의 (선택항목에 대한 동의 포함)'
+                  value='전체 동의'
                   checked={
                     !agreeList?.some((agree) => agree?.isChecked !== true)
                   }
@@ -317,11 +361,12 @@ export default function SignUp() {
             />
             <hr />
             {agreeList.map((agree, index) => (
-              <Controller
-                key={index}
-                name={agree.value}
-                render={({ field }) => (
-                  <>
+              <div key={index}>
+                <Controller
+                  name={agree.value}
+                  control={control}
+                  defaultValue={false}
+                  render={({ field }) => (
                     <Form.Check
                       type='checkbox'
                       onChange={(e) => handleAgreeCheckList(e, field)}
@@ -329,16 +374,19 @@ export default function SignUp() {
                       label={agree.label}
                       value={agree.label}
                     />
-                  </>
-                )}
-                control={control}
-              />
+                  )}
+                />
+              </div>
             ))}
           </div>
+          {(errors.fourteenOverAgree ||
+            errors.termsOfUseAgree ||
+            errors.personalInfoAgree) && (
+            <ErrorMessage>필수 항목을 체크하세요.</ErrorMessage>
+          )}
         </Form.Group>
 
         <Button
-          onClick={verifyRegisteredEmailHandler}
           variant='Light'
           style={{
             backgroundColor: '#2f93ea',

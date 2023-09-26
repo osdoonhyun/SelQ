@@ -12,11 +12,35 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../slices/auth';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { ErrorMessage } from '../../styles/Styles';
+
+const loginSchema = yup.object({
+  email: yup
+    .string()
+    .email('올바른 이메일 형식이 아닙니다.')
+    .required('이메일을 입력해 주세요.'),
+  password: yup
+    .string()
+    .required('비밀번호를 입력해 주세요.')
+    .min(8, '8자 이상 입력해 주세요.')
+    .matches(
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+      '최소 하나의 대문자, 특수문자를 포함해야 합니다.'
+    ),
+});
 
 export default function LogIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
 
   const loginHandler = async (values) => {
     const logInInfo = {
@@ -24,7 +48,7 @@ export default function LogIn() {
       password: values.password,
     };
 
-    dispatch(logIn(logInInfo));
+    await dispatch(logIn(logInInfo));
     navigate('/');
   };
 
@@ -55,12 +79,14 @@ export default function LogIn() {
               {...register('email', { required: true })}
               placeholder='이메일'
             />
+            <ErrorMessage>{errors.email?.message}</ErrorMessage>
             <Form.Control
               style={{ height: '50px', width: '330px' }}
               {...register('password', { required: true })}
               type='text'
               placeholder='비밀번호'
             />
+            <ErrorMessage>{errors.password?.message}</ErrorMessage>
           </Row>
         </Form.Group>
 
@@ -78,19 +104,6 @@ export default function LogIn() {
             variant='Light'
             type='submit'
           >
-            {/* {isLoading ? (
-              <div>
-                <Spinner
-                  animation='border'
-                  size='sm'
-                  role='status'
-                  aria-hidden='true'
-                />
-                <span className='visually-hidden'>Loading...</span>
-              </div>
-            ) : (
-              '로그인'
-            )} */}
             로그인
           </Button>
         </div>

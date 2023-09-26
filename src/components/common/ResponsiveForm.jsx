@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Row, Col, Image, Button } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
+import { ErrorMessage } from '../../styles/Styles';
 
-const UsernameForm = ({ label, content, control, setValue }) => {
+const UsernameForm = ({ label, content, control, setValue, errors }) => {
   const isMdOrLarger = window.innerWidth >= 988;
   return (
     <>
       {isMdOrLarger ? (
-        <Form.Group as={Row} className='mb-4'>
+        <Form.Group as={Row}>
           <Form.Label column sm={2}>
             {label}
           </Form.Label>
@@ -20,14 +21,17 @@ const UsernameForm = ({ label, content, control, setValue }) => {
                   {...field}
                   type='text'
                   value={field.value || content || ''}
-                  onChange={(e) => setValue('username', e.target.value)}
+                  onChange={(e) => {
+                    setValue('username', e.target.value);
+                    field.onChange(e);
+                  }}
                 />
               )}
             />
           </Col>
         </Form.Group>
       ) : (
-        <Form.Group as={Col} className='mb-4'>
+        <Form.Group as={Col}>
           <Form.Label>{label}</Form.Label>
           <Controller
             name='username'
@@ -43,6 +47,7 @@ const UsernameForm = ({ label, content, control, setValue }) => {
           />
         </Form.Group>
       )}
+      <ErrorMessage className='mb-4'>{errors}</ErrorMessage>
     </>
   );
 };
