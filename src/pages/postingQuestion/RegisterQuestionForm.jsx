@@ -94,12 +94,18 @@ export default function RegisterQuestionForm() {
           }}
         />
       )}
-      {step === '등록성공' &&
-        (() => {
-          setTimeout(() => {
-            navigate(`/questions/${answerFormData?.question}`);
-          }, 1000);
-        })()}
+      {step === '등록성공' && (
+        <>
+          <h1 style={{ fontSize: '2rem' }} className='mt-5'>
+            등록한 게시물로 이동 중...
+          </h1>
+          {(() => {
+            setTimeout(() => {
+              navigate(`/questions/${answerFormData?.question}`);
+            }, 2000);
+          })()}
+        </>
+      )}
     </Container>
   );
 }

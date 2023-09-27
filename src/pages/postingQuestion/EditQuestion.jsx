@@ -15,6 +15,7 @@ import { useQuestionDetailQuery } from '../../services/api';
 import { CATEGORIES } from '../../constant/constants';
 import { useEditQuestion } from '../../services/questionHook/registerQuestion';
 import { useEffect, useState } from 'react';
+import useAuth from '../../components/hooks/useAuth';
 
 export default function EditQuestion() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function EditQuestion() {
   const [editBtnDisable, setEditBtnDisable] = useState(true);
 
   const { data: question } = useQuestionDetailQuery(questionId);
+  const { token } = useAuth();
 
   const { handleSubmit, register, getValues, control, watch, setValue } =
     useForm();
@@ -72,8 +74,9 @@ export default function EditQuestion() {
     if (areArraysEqual) {
       updatedData.hints = [...hints];
     }
-
     console.log('UPDATEDDATA', updatedData);
+    // 질문 수정 로직
+    editQuestion({ editData: updatedData, questionId, token });
   };
 
   useEffect(() => {
@@ -86,7 +89,9 @@ export default function EditQuestion() {
     <Container>
       <Form onSubmit={handleSubmit(editQuestionHandler)}>
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-          <Form.Label>질문*</Form.Label>
+          <Form.Label>
+            질문<span style={{ position: 'relative', top: '-3px' }}>*</span>
+          </Form.Label>
           <Controller
             name='question'
             control={control}
@@ -109,7 +114,10 @@ export default function EditQuestion() {
               className='mb-3'
               controlId='exampleForm.ControlTextarea1'
             >
-              <Form.Label>중요도*</Form.Label>
+              <Form.Label>
+                중요도
+                <span style={{ position: 'relative', top: '-3px' }}>*</span>
+              </Form.Label>
               <Controller
                 name='importance'
                 control={control}
@@ -133,7 +141,10 @@ export default function EditQuestion() {
           </Col>
           <Col>
             <Form.Group className='mb-3'>
-              <Form.Label>카테고리*</Form.Label>
+              <Form.Label>
+                카테고리
+                <span style={{ position: 'relative', top: '-3px' }}>*</span>
+              </Form.Label>
               <Controller
                 name='category'
                 control={control}

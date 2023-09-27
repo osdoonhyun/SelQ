@@ -15,7 +15,8 @@ export default function RegisterQuestion({
   error,
   onNext,
 }) {
-  const onClickNext = () => {
+  const onClickNext = (e) => {
+    e.preventDefault();
     onNext();
   };
 
@@ -24,11 +25,11 @@ export default function RegisterQuestion({
       <Form onSubmit={onClickNext}>
         <Form.Group className='mb-3' controlId='form.ControlQuestion'>
           <Form.Label>질문</Form.Label>
-          <div style={{ color: '#1e235a66' }}>
+          <div style={{ color: '#1e235a66', minHeight: '50px' }}>
             <ReactMarkdown children={question.question} />
           </div>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='form.ControlImportance'>
+        <Form.Group className='mb-4' controlId='form.ControlImportance'>
           <Stack direction='horizontal' gap={5}>
             <div className='d-flex flex-column'>
               <Form.Label>카테고리</Form.Label>
@@ -41,13 +42,7 @@ export default function RegisterQuestion({
           </Stack>
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='form.ControlHint'>
-          {/* <Form.Label>힌트</Form.Label>
-          {question.hints?.map((hint, index) => (
-            <Badge bg='primary' key={index}>
-              {hint}
-            </Badge>
-          ))} */}
+        <Form.Group className='mb-4' controlId='form.ControlHint'>
           <div className='d-flex flex-column'>
             <Form.Label>힌트</Form.Label>
             <div className='d-flex flex-wrap'>
@@ -71,8 +66,7 @@ export default function RegisterQuestion({
         </Form.Group>
         <Form.Group className='mb-3' controlId='form.ControlAnswer'>
           <Form.Label>답변</Form.Label>
-          <div style={{ color: '#1e235a66' }}>
-            {/* <ReactMarkdown children={question.question} /> */}
+          <div style={{ color: '#1e235a66', minHeight: '70px' }}>
             <ReactMarkdown children={answer.answers} />
           </div>
         </Form.Group>
