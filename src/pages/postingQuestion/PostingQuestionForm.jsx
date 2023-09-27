@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PostQuestion from './PostQuestion';
-import PostAnswer from './PostAnswer';
-import RegisterQuestion from './RegisterQuestion';
+import QuestionInput from './QuestionInput';
+import AnswerInput from './AnswerInput';
+import Confirmation from './Confirmation';
 import { useRegisterQuestion } from '../../services/questionHook/registerQuestion';
 import useAuth from '../../components/hooks/useAuth';
 import ProgressBar from '../../components/common/ProgressBar';
 import { Container } from 'react-bootstrap';
 
-export default function RegisterQuestionForm() {
+export default function PostingQuestionForm() {
   const navigate = useNavigate();
   const { token } = useAuth();
 
@@ -43,7 +43,7 @@ export default function RegisterQuestionForm() {
     >
       <ProgressBar steps={steps} currentStep={currentStep} />
       {step === '질문입력' && (
-        <PostQuestion
+        <QuestionInput
           onNext={async (data) => {
             setQuestionFormData({
               question: data.question,
@@ -57,7 +57,7 @@ export default function RegisterQuestionForm() {
         />
       )}
       {step === '답변입력' && (
-        <PostAnswer
+        <AnswerInput
           question={questionFormData.question}
           onNext={async (data) => {
             setAnswerFormData({
@@ -70,7 +70,7 @@ export default function RegisterQuestionForm() {
         />
       )}
       {step === '등록하기' && (
-        <RegisterQuestion
+        <Confirmation
           question={questionFormData}
           answer={answerFormData}
           isLoading={loadingRegister}
@@ -102,7 +102,7 @@ export default function RegisterQuestionForm() {
           {(() => {
             setTimeout(() => {
               navigate(`/questions/${answerFormData?.question}`);
-            }, 2000);
+            }, 1000);
           })()}
         </>
       )}

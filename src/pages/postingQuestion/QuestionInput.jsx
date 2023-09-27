@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 import { CATEGORIES } from '../../constant/constants';
 
-export default function PostQuestion({ onNext }) {
+export default function QuestionInput({ onNext }) {
   const [questionFormData, setQuestionFormData] = useState({
     question: '',
     importance: 0,

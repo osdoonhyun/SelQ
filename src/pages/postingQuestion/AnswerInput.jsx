@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
-export default function PostAnswer({ question, onNext }) {
+export default function AnswerInput({ question, onNext }) {
   const [answers, setAnswers] = useState('');
 
   const postingAnswer = (e) => {

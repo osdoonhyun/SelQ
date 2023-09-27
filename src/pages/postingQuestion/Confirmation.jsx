@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
-export default function RegisterQuestion({
+export default function Confirmation({
   question,
   answer,
   isLoading,
