@@ -20,6 +20,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../../styles/Styles';
+import Timer from '../../components/ui/Timer';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required('이메일을 입력해 주세요.'),
@@ -52,6 +53,7 @@ export default function SignUp() {
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
   const [agreeList, setAgreeList] = useState(AGREE_LIST);
+  const [timerRestart, setTimerRestart] = useState(false);
 
   const {
     handleSubmit,
@@ -137,6 +139,12 @@ export default function SignUp() {
     }
   };
 
+  const handleResendEmail = async () => {
+    const userEmail = email + '@' + emailCategory;
+    await sendEmail(userEmail);
+    setTimerRestart((prev) => !prev);
+  };
+
   // 이메일 인증 코드 확인 로직
   const checkEmailVerificationHandler = async () => {
     const userEmail = email + '@' + emailCategory;
@@ -188,6 +196,7 @@ export default function SignUp() {
       <h1 className='mt-5 mb-4' style={{ fontSize: '2rem' }}>
         회원가입
       </h1>
+
       <Form onSubmit={handleSubmit(signUpHandler)}>
         <Form.Group as={Col}>
           <Row className='justify-content-center'>
@@ -269,7 +278,21 @@ export default function SignUp() {
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
             />
-            {/* TODO: 타이머 기능 추가 */}
+            <div>
+              <Form.Text style={{ color: '#828C94' }}>
+                이메일을 받지 못하셨나요?{` `}
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a
+                  href='#'
+                  onClick={handleResendEmail}
+                  style={{ color: '#828C94' }}
+                >
+                  이메일 재전송하기
+                </a>
+              </Form.Text>
+            </div>
+            <Timer key={timerRestart} />
+
             <Button
               className='mt-3'
               variant='Light'
