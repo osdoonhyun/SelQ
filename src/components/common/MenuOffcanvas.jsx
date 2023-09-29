@@ -1,67 +1,124 @@
-import { Link, useLocation } from 'react-router-dom';
-const { Offcanvas, Nav } = require('react-bootstrap');
+import { NavItems } from '../../constant/constants';
+import { MenuNavLink } from '../../styles/Styles';
 
-function isPathMatch(targetPath, currentPath) {
-  if (targetPath === '/') {
-    return currentPath === '/';
-  }
+const {
+  Offcanvas,
+  Nav,
+  Button,
+  Image,
+  Stack,
+  Row,
+  Col,
+} = require('react-bootstrap');
 
-  const cleanTargetPath = targetPath.endsWith('/')
-    ? targetPath.slice(0, -1)
-    : targetPath;
-  const cleanCurrentPath = currentPath.endsWith('/')
-    ? currentPath.slice(0, -1)
-    : currentPath;
-  return cleanCurrentPath.startsWith(cleanTargetPath);
-}
-
-const NavItem = ({ href, text }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const isActive = isPathMatch(href, currentPath);
-
+export default function MenuOffcanvas({
+  user,
+  isLoggedIn,
+  show,
+  onHide,
+  logOut,
+}) {
+  console.log('USER', user);
+  console.log(user ? 'USER' : '없음');
   return (
-    <Nav.Link as={Link} to={href}>
-      <span
-        style={{ fontSize: '13px', color: isActive ? '#5BACEE' : '#B3B3B5' }}
-      >
-        {text}
-      </span>
-    </Nav.Link>
-  );
-};
-export default function MenuOffcanvas({ show, onHide }) {
-  return (
-    <Offcanvas show={show} onHide={onHide}>
+    <Offcanvas
+      style={{
+        fontFamily: 'BMHANNAPro',
+      }}
+      className='d-md-none'
+      show={show}
+      onHide={onHide}
+    >
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Sel-Q</Offcanvas.Title>
-        {/* {userInfo ? (
-          //로그인 관리자
-          userInfo.roles[0] === 'admin' ? (
-            <>
-              <Nav.Link href='/admin/post/question'>질문 등록</Nav.Link>
-              <Nav.Link href='/admin/users'>유저 관리</Nav.Link>
-            </>
-          ) : (
-            // 로그인 일반유저
-            <Nav.Link className='d-inline-block' href='/user'>
-              마이페이지
-            </Nav.Link>
-          )
-        ) : (
-          // 비로그인 시 */}
-        <>
-          <Nav.Link href='/login'>로그인</Nav.Link>
-          <Nav.Link href='/signup'>회원가입</Nav.Link>
-        </>
-        {/* )} */}
+        <Offcanvas.Title
+          style={{ color: '#5bacee', fontWeight: '600', fontSize: '26px' }}
+        >
+          Sel-Q
+        </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <NavItem href='/' text='홈' />
-        <NavItem href='/questions' text='질문목록' />
-        <NavItem href='/importants' text='중요질문' />
-        <NavItem href='/importants' text='북마크' />
+        {user !== null ? (
+          <Row>
+            <Col xs='auto'>
+              <Image
+                src={
+                  user?.profileImg ||
+                  'http://www.gravatar.com/avatar/04b828795157ecfab4594b7765d9cf84?d=retro'
+                }
+                alt={user?.profileImg}
+                roundedCircle
+                style={{ width: '50px', height: '50px' }}
+              />
+            </Col>
+            <Col>
+              <Stack gap={2} className='col-md-5 mx-auto'>
+                <span>{user?.username}</span>
+                <span style={{ color: '#adb5bd' }}>
+                  {user?.roles && user?.roles[0] === 'admin'
+                    ? '관리자'
+                    : '일반유저'}
+                </span>
+              </Stack>
+            </Col>
+          </Row>
+        ) : (
+          <Stack className='mx-2' direction='horizontal' gap={3}>
+            <Nav.Link href='/login'>로그인</Nav.Link>
+            <Nav.Link href='/signup'>회원가입</Nav.Link>
+          </Stack>
+        )}
+
+        <hr />
+
+        <ul className='list-unstyled mx-3 my-4'>
+          {NavItems?.map(({ path, label }, index) => (
+            <li className='my-3' key={index}>
+              <MenuNavLink href={path} onClick={onHide}>
+                {label}
+              </MenuNavLink>
+            </li>
+          ))}
+        </ul>
+        <hr />
+
+        {/* ADMIN의 경우 */}
+        <ul className='list-unstyled mx-3 my-4'>
+          {user?.roles && user?.roles[0] === 'admin' && (
+            <>
+              <li>
+                <MenuNavLink className='my-3 ' href='/admin/post/question'>
+                  질문등록
+                </MenuNavLink>
+              </li>
+              <li>
+                <MenuNavLink className='my-3 ' href='/admin/questions'>
+                  질문관리
+                </MenuNavLink>
+              </li>
+              <li>
+                <MenuNavLink className='my-3 ' href='/admin/users'>
+                  유저관리
+                </MenuNavLink>
+              </li>
+            </>
+          )}
+          {isLoggedIn && (
+            <li>
+              <MenuNavLink className='my-3' href='/user'>
+                마이페이지
+              </MenuNavLink>
+            </li>
+          )}
+        </ul>
       </Offcanvas.Body>
+
+      {isLoggedIn && (
+        <div className='d-flex justify-content-end'>
+          <Button onClick={logOut} className='w-50 mb-2' variant='Light'>
+            로그아웃
+          </Button>
+        </div>
+      )}
     </Offcanvas>
   );
 }

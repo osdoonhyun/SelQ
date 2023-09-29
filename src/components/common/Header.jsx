@@ -1,8 +1,20 @@
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { faHouse, faList, faBars } from '@fortawesome/free-solid-svg-icons';
+import {
+  Button,
+  Container,
+  Dropdown,
+  Image,
+  Nav,
+  Navbar,
+} from 'react-bootstrap';
+import {
+  faHouse,
+  faList,
+  faBars,
+  faStar,
+} from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Row } from 'react-bootstrap';
@@ -10,7 +22,9 @@ import { HeaderIcon, HeaderNav } from '../../styles/Styles';
 import SearchBar from '../ui/SearchBar';
 import FontSizeSettings from '../ui/FontSizeSettings';
 import MenuOffcanvas from './MenuOffcanvas';
-import useGetProfileInfo from '../../services/authHook/getProfile';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../slices/auth';
+import useAuth from '../hooks/useAuth';
 
 function isPathMatch(targetPath, currentPath) {
   if (targetPath === '/') {
@@ -39,7 +53,7 @@ const NavItem = ({ href, icon, text }) => {
         $isActive={isActive}
       />
       <span
-        style={{ fontSize: '14px', color: isActive ? '#5BACEE' : '#B3B3B5' }}
+        style={{ fontSize: '15px', color: isActive ? '#5BACEE' : '#B3B3B5' }}
       >
         {text}
       </span>
@@ -48,14 +62,35 @@ const NavItem = ({ href, icon, text }) => {
 };
 
 export default function Header() {
-  const { data: userInfo } = useGetProfileInfo();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showDropdown, setShowDropdown] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const { isLoggedIn, user } = useAuth();
 
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
   const handleShowOffcanvas = () => setShowOffcanvas(true);
+
+  const handleUserMenuClick = (path) => {
+    navigate(path);
+    setShowDropdown(!showDropdown);
+  };
+
+  const logOutHandler = () => {
+    dispatch(logOut());
+
+    if (showOffcanvas) {
+      handleCloseOffcanvas();
+    }
+    navigate('/');
+  };
+
   return (
     <>
-      <Container className='d-none d-md-block w-100'>
+      <Container
+        style={{ paddingBottom: '10px', maxWidth: '1080px', margin: '0 auto' }}
+        className='d-none d-md-block w-100'
+      >
         <Row className='align-items-center'>
           <Col md={2}>
             <Navbar.Brand
@@ -74,54 +109,130 @@ export default function Header() {
             <HeaderNav className='me-auto'>
               <NavItem href='/' icon={faHouse} text='홈' />
               <NavItem href='/questions' icon={faList} text='질문목록' />
-              <NavItem href='/importants' icon={faBookmark} text='중요질문' />
-              <NavItem href='/importants' icon={faBookmark} text='북마크' />
+              <NavItem href='/importants' icon={faStar} text='중요질문' />
+              <NavItem href='/bookmarks' icon={faBookmark} text='북마크' />
             </HeaderNav>
           </Col>
-          <Col className='d-flex justify-content-end' md={5}>
+          <Col className='d-flex justify-content-end align-items-center' md={5}>
             <SearchBar />
-            {/* admin일 경우 글쓰기 버튼 추가
-            로그인시 마이페이지 */}
-            <Nav className='ml-auto'>
-              {userInfo ? (
-                // 로그인 했는데 admin
-                userInfo.roles[0] === 'admin' ? (
-                  <>
-                    <Nav.Link
-                      className='d-inline-block'
-                      href='/admin/post/question'
-                    >
-                      질문 등록
-                    </Nav.Link>
-                    <Nav.Link className='d-inline-block' href='/admin/users'>
-                      유저 관리
-                    </Nav.Link>
-                  </>
-                ) : (
-                  <>
-                    <Nav.Link className='d-inline-block' href='/user'>
-                      마이페이지
-                    </Nav.Link>
-                  </>
-                )
-              ) : (
-                // 비로그인시
+
+            <div>
+              {user && isLoggedIn ? (
                 <>
-                  <Nav.Link className='d-inline-block' href='/login'>
-                    로그인
-                  </Nav.Link>
-                  <Nav.Link className='d-inline-block' href='/signup'>
-                    회원가입
-                  </Nav.Link>
+                  <Button
+                    variant='Ligth'
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  >
+                    <Dropdown
+                      show={showDropdown}
+                      onToggle={() => setShowDropdown(!showDropdown)}
+                    >
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          // marginTop: '8px',
+                        }}
+                        className='d-none d-md-flex align-items-center'
+                      >
+                        <Image
+                          src={
+                            user?.profileImg ||
+                            'http://www.gravatar.com/avatar/04b828795157ecfab4594b7765d9cf84?d=retro'
+                          }
+                          alt={user.profileImg}
+                          roundedCircle
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                        {/* {user?.profileImg !== '' ? (
+                        <Image
+                          src={user.profileImg}
+                          alt={user.profileImg}
+                          roundedCircle
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                      ) : (
+                        <HeaderIcon
+                          className='d-none d-md-block'
+                          icon={faCircleUser}
+                          style={{ width: '40px', height: '40px' }}
+                        />
+                      )} */}
+                        {/* <span
+                      style={{
+                        fontSize: '13px',
+                        marginTop: '8px',
+                        color: '#B3B3B5',
+                      }}
+                    >
+                      유저
+                    </span> */}
+                      </div>
+
+                      <Dropdown.Menu>
+                        {user?.roles && user?.roles[0] === 'admin' && (
+                          <>
+                            <Dropdown.Item
+                              onClick={() =>
+                                handleUserMenuClick('/admin/post/question')
+                              }
+                            >
+                              질문 등록
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() =>
+                                handleUserMenuClick('/admin/questions')
+                              }
+                            >
+                              질문 관리
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() =>
+                                handleUserMenuClick('/admin/users')
+                              }
+                            >
+                              유저 관리
+                            </Dropdown.Item>
+                          </>
+                        )}
+                        <Dropdown.Item
+                          onClick={() => handleUserMenuClick('/user')}
+                        >
+                          마이페이지
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={logOutHandler}>
+                          로그아웃
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Button>
                 </>
+              ) : (
+                <div className='d-flex justify-content'>
+                  <Button
+                    onClick={() => navigate('/login')}
+                    style={{ color: '#B3B3B5' }}
+                    variant='Light'
+                  >
+                    로그인
+                  </Button>
+                  <Button
+                    onClick={() => navigate('/signup')}
+                    style={{ color: '#B3B3B5' }}
+                    variant='Light'
+                  >
+                    회원가입
+                  </Button>
+                </div>
               )}
-            </Nav>
+            </div>
             <FontSizeSettings />
           </Col>
         </Row>
       </Container>
 
-      <div style={{ padding: '5px 10px' }} className='d-md-none'>
+      <div className='d-md-none'>
         <Row>
           <Col className='d-flex justify-content-start'>
             <Button onClick={handleShowOffcanvas} variant='light'>
@@ -150,7 +261,7 @@ export default function Header() {
           </Col>
         </Row>
 
-        <Row>
+        <Row style={{ marginTop: '-12px' }}>
           <Col>
             <HeaderNav
               style={{
@@ -161,14 +272,20 @@ export default function Header() {
             >
               <NavItem href='/' icon={faHouse} text='홈' />
               <NavItem href='/questions' icon={faList} text='질문목록' />
-              <NavItem href='/importants' icon={faBookmark} text='중요질문' />
-              <NavItem href='/importants' icon={faBookmark} text='북마크' />
+              <NavItem href='/importants' icon={faStar} text='중요질문' />
+              <NavItem href='/bookmarks' icon={faBookmark} text='북마크' />
             </HeaderNav>
           </Col>
         </Row>
       </div>
 
-      <MenuOffcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} />
+      <MenuOffcanvas
+        isLoggedIn={isLoggedIn}
+        user={user}
+        show={showOffcanvas}
+        onHide={handleCloseOffcanvas}
+        logOut={logOutHandler}
+      />
     </>
   );
 }
