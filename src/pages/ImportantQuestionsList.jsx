@@ -2,40 +2,47 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CustomBadge from '../components/ui/CustomBadge';
 import ImportanceCount from '../components/ImportanceCount';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../components/context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
+import { useImportantQuestionsQuery } from '../services/api';
+import Pagination from '../components/common/Pagination';
+import { ImportantQuestionsFilterOptions } from '../constant/constants';
 
 export default function ImportantQuestionsList() {
   const { fontSizing, calcFontSize } = useFontSize();
-  const [importantQuestions, setImportantQuestions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedFilterOption, setSelectedFilterOption] = useState('');
 
-  const getImportantQuestions = async () => {
-    try {
-      const { data, status } = await axios.get(
-        'http://localhost:1337/api/importants?populate=*'
-      );
+  const { data: importantQuestions } = useImportantQuestionsQuery(
+    currentPage,
+    selectedFilterOption
+  );
 
-      if (status === 200) {
-        setImportantQuestions(data.data);
-      }
-    } catch (error) {
-      console.log('Important Questions List Error', error.message);
-    }
+  const handleFilterOptionClick = (eventKey) => {
+    setSelectedFilterOption(eventKey);
   };
-
-  useEffect(() => {
-    getImportantQuestions();
-  }, []);
 
   return (
     <>
-      {importantQuestions.map((question, index) => (
-        <LinkContainer
-          to={`/importants/${question?.attributes?.question?.data?.id}`}
-          key={question.id}
+      <div className='d-flex justify-content-end'>
+        <DropdownButton
+          variant='Light'
+          id='dropdown-item-button'
+          onSelect={handleFilterOptionClick}
+          title='중요도'
         >
+          {ImportantQuestionsFilterOptions?.map((filterOption, index) => (
+            <Dropdown.Item key={index} eventKey={filterOption.label}>
+              {filterOption.label}
+            </Dropdown.Item>
+          ))}
+        </DropdownButton>
+      </div>
+
+      {importantQuestions?.data?.map((question, index) => (
+        <LinkContainer to={`/importants/${question.id}`} key={question.id}>
           <div>
             <Row
               style={{
@@ -51,16 +58,13 @@ export default function ImportantQuestionsList() {
                 </QuestionQ>
               </Col>
               <Col className='d-flex justify-content-end align-items-center'>
-                <ImportanceCount
-                  importanceId={question?.id}
-                  importance={question?.attributes?.importantLevel}
-                  questionId={question?.attributes.question.data.id}
-                />
+                <ImportanceCount importance={question.importance} />
               </Col>
             </Row>
             <div
               style={{
-                marginBottom: index === importantQuestions.length - 1 && '50px',
+                marginBottom:
+                  index === importantQuestions?.data.length - 1 && '50px',
               }}
             >
               <QuestionTitle
@@ -68,15 +72,20 @@ export default function ImportantQuestionsList() {
                 mb='0.5rem'
                 cursor={'pointer'}
               >
-                {question.attributes?.question.data.attributes.title}
+                {question.question}
               </QuestionTitle>
-              <CustomBadge
-                text={question.attributes?.question.data.attributes.category}
-              />
+              <CustomBadge text={question.category} />
             </div>
           </div>
         </LinkContainer>
       ))}
+      <div className='d-flex justify-content-center'>
+        <Pagination
+          currentPage={currentPage}
+          changePage={setCurrentPage}
+          paginatinoData={importantQuestions?.meta}
+        />
+      </div>
     </>
   );
 }

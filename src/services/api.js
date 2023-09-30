@@ -25,14 +25,8 @@ const useQuestionsQuery = ({ category }) => {
   return queryData;
 };
 
-const getAllQuestions = async (page) => {
-  const params = {
-    params: {
-      take: 10,
-      page,
-    },
-  };
-  const response = await serverApi.get('/questions', params);
+const getAllQuestions = async () => {
+  const response = await serverApi.get('/questions');
 
   return response.data.body;
 };
@@ -87,10 +81,22 @@ const filterQuestions = (questions, filterOption) => {
   return questions;
 };
 
+const getQuestions = async (page) => {
+  const params = {
+    params: {
+      take: 10,
+      page,
+    },
+  };
+  const response = await serverApi.get('/questions', params);
+
+  return response.data.body;
+};
+
 const useQuestionsByFilteringQuery = (currentPage, filterOption) => {
   const queryData = useQuery(
     ['questions', currentPage],
-    () => getAllQuestions(currentPage),
+    () => getQuestions(currentPage),
     {
       select: (data) => ({
         ...data,
@@ -136,9 +142,29 @@ const getQuestionsByImportance = async (page) => {
   return response.data.body;
 };
 
-const useImportantQuestionsQuery = (currentPage) => {
-  const queryData = useQuery(['questions', currentPage], () =>
-    getQuestionsByImportance(currentPage)
+const filterImportantQuestions = (questions, filterOption) => {
+  switch (filterOption) {
+    case '높은순':
+      return questions?.sort((a, b) => b.importance - a.importance);
+    case '낮은순':
+      return questions?.sort((a, b) => a.importance - b.importance);
+    default:
+      break;
+  }
+
+  return questions;
+};
+
+const useImportantQuestionsQuery = (currentPage, filterOption) => {
+  const queryData = useQuery(
+    ['questions', currentPage],
+    () => getQuestionsByImportance(currentPage),
+    {
+      select: (data) => ({
+        ...data,
+        questions: filterImportantQuestions(data.data, filterOption),
+      }),
+    }
   );
 
   return queryData;
