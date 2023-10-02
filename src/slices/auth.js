@@ -10,7 +10,7 @@ const logIn = createAsyncThunk('user/logIn', async (userInput) => {
       return getCookie('Authentication');
     }
   } catch (error) {
-    throw error;
+    throw error?.response?.data?.message;
   }
 });
 
@@ -42,6 +42,7 @@ const logOut = createAsyncThunk('user/logOut', () => {
 const initialState = {
   isLoggedIn: false,
   user: null,
+  error: null,
   token: null,
 };
 
@@ -57,6 +58,8 @@ const userSlice = createSlice({
     });
     builder.addCase(logIn.rejected, (state, action) => {
       state.isLoggedIn = false;
+      state.error = action.payload;
+
       console.log('로그인 실패!');
     });
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
