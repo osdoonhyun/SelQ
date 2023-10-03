@@ -68,8 +68,31 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       console.log('유저정보 가져오기 성공!', action);
     });
-    builder.addCase(getUserInfo.rejected, (state, action) => {
+    builder.addCase(getUserInfo.rejected, async (state, action) => {
       console.log('유저정보 가져오기 실패!');
+      // accessToken 만료시 토큰 재발급 로직
+      if (action.error.message === 'Request failed with status code 401') {
+        const refreshToken = getCookie('Refresh');
+        const config = {
+          headers: {
+            Authorization: 'Bearer ' + refreshToken,
+          },
+        };
+        try {
+          const { status } = await serverApi.get('/auth/refresh', config);
+
+          if (status === 200) {
+            const newAccessToken = getCookie('Authentication');
+            sessionStorage.setItem('accessToken', newAccessToken);
+
+            return await getUserInfo();
+          }
+        } catch (error) {
+          console.error('AccessToken 재발급 실패:', error);
+          alert('로그인을 다시 해주세요.');
+        }
+      }
+
       state.isLoggedIn = false;
       state.user = null;
     });
