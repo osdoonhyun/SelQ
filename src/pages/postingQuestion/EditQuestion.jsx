@@ -22,6 +22,7 @@ export default function EditQuestion() {
   const { questionId } = useParams();
   const [newHint, setNewHint] = useState('');
   const [hints, setHints] = useState([]);
+  const [hintBtnDisable, setHintBtnDisable] = useState(true);
   const [editBtnDisable, setEditBtnDisable] = useState(true);
 
   const { data: question } = useQuestionDetailQuery(questionId);
@@ -66,7 +67,7 @@ export default function EditQuestion() {
 
     const importanceValue = getValues('importance');
     if (importanceValue !== '' && importanceValue !== question?.importance) {
-      updatedData.importance = importanceValue;
+      updatedData.importance = Number(importanceValue);
     }
 
     const areArraysEqual =
@@ -77,7 +78,16 @@ export default function EditQuestion() {
     console.log('UPDATEDDATA', updatedData);
     // 질문 수정 로직
     editQuestion({ editData: updatedData, questionId, token });
+    navigate(-1);
   };
+
+  useEffect(() => {
+    if (newHint !== '') {
+      setHintBtnDisable(false);
+    } else {
+      setHintBtnDisable(true);
+    }
+  }, [newHint]);
 
   useEffect(() => {
     if (question?.hints) {
@@ -98,6 +108,7 @@ export default function EditQuestion() {
             defaultValue={question?.question || ''}
             render={({ field }) => (
               <Form.Control
+                style={{ height: '80px' }}
                 {...field}
                 as='textarea'
                 type='text'
@@ -187,17 +198,33 @@ export default function EditQuestion() {
                   </Col>
                   <Col>
                     <Button
-                      // disabled={hintAddBtnDisable}
+                      variant='Light'
+                      style={{
+                        backgroundColor: '#2f93ea',
+                        border: '1px solid #2f93ea',
+                        color: '#fff',
+                      }}
+                      disabled={hintBtnDisable}
                       onClick={handleAddHint}
                     >
                       추가
                     </Button>
                   </Col>
                 </Row>
-                <Stack direction='horizontal' gap={2}>
+                <Stack className='mt-3' direction='horizontal' gap={2}>
                   {hints?.map((hint, index) => (
-                    <Badge bg='primary' key={index}>
-                      {hint}
+                    <Badge
+                      bg='#5bacee'
+                      style={{
+                        fontSize: '0.8rem',
+                        color: '#fff',
+                        letterSpacing: '0.1rem',
+                        backgroundColor: '#5bacee',
+                      }}
+                      key={index}
+                      className='d-flex justify-content-center align-items-center'
+                    >
+                      <span style={{ marginRight: '5px' }}>{hint}</span>
                       <CloseButton onClick={() => handleDeleteHint(index)} />
                     </Badge>
                   ))}
@@ -208,7 +235,9 @@ export default function EditQuestion() {
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-          <Form.Label>답변*</Form.Label>
+          <Form.Label>
+            답변<span style={{ position: 'relative', top: '-3px' }}>*</span>
+          </Form.Label>
           <Controller
             name='answer'
             control={control}
@@ -216,6 +245,7 @@ export default function EditQuestion() {
             render={({ field }) => (
               <Form.Control
                 {...field}
+                style={{ height: '180px' }}
                 as='textarea'
                 type='text'
                 value={field.value || question?.answers[0]?.answers}

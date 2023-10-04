@@ -39,7 +39,9 @@ const useRegisterQuestion = () => {
   });
 };
 
-const editQuestion = async ({ questionId, editData, token }) => {
+const editQuestion = async (formData) => {
+  const { questionId, editData, token } = formData;
+
   const config = {
     headers: {
       Authorization: 'Bearer ' + token,
@@ -52,6 +54,7 @@ const editQuestion = async ({ questionId, editData, token }) => {
       editData,
       config
     );
+
     if (status === 200) {
       return { status, questionId };
     }
