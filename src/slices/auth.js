@@ -14,7 +14,7 @@ const logIn = createAsyncThunk('user/logIn', async (userInput) => {
   }
 });
 
-const getUserInfo = createAsyncThunk('user/userInfo', async () => {
+const getUserInfo = createAsyncThunk('user/userInfo', async (_, thunkAPI) => {
   const accessToken = sessionStorage.getItem('accessToken');
   const config = {
     headers: {
@@ -24,19 +24,59 @@ const getUserInfo = createAsyncThunk('user/userInfo', async () => {
 
   try {
     const { data, status } = await serverApi.get('/auth', config);
-
     if (status === 200) {
       return { userInfo: data.body, token: accessToken };
     }
   } catch (error) {
-    console.log('Get User Info Error', error.message);
-    throw error;
+    if (error?.response?.statusText === 'Unauthorized') {
+      return getNewAccessToken(thunkAPI);
+    } else {
+      throw error;
+    }
   }
 });
 
+const getNewAccessToken = async (thunkAPI) => {
+  const refreshToken = getCookie('Refresh');
+  try {
+    const newAccessToken = await thunkAPI.dispatch(
+      refreshAccessToken(refreshToken)
+    );
+    sessionStorage.setItem('accessToken', newAccessToken.payload);
+    return thunkAPI.dispatch(getUserInfo());
+  } catch (error) {
+    return thunkAPI.rejectWithValue({
+      message: 'Failed to refresh accessToken',
+    });
+  }
+};
+
+const refreshAccessToken = createAsyncThunk(
+  'user/refreshAccessToken',
+  async (refreshToken) => {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + refreshToken,
+      },
+    };
+
+    try {
+      const { status } = await serverApi.get('/auth/refresh', config);
+
+      if (status === 200) {
+        const newAccessToken = getCookie('Authentication');
+        return newAccessToken;
+      }
+    } catch (error) {
+      console.error('AccessToken 재발급 실패:', error.message);
+    }
+  }
+);
+
 const logOut = createAsyncThunk('user/logOut', () => {
   sessionStorage.removeItem('accessToken');
-  // removeCookie('Authentication');
+  removeCookie('Authentication');
+  removeCookie('Refresh');
 });
 
 const initialState = {
@@ -59,47 +99,23 @@ const userSlice = createSlice({
     builder.addCase(logIn.rejected, (state, action) => {
       state.isLoggedIn = false;
       state.error = action.payload;
-
       console.log('로그인 실패!');
     });
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload.userInfo;
       state.token = action.payload.token;
-      console.log('유저정보 가져오기 성공!', action);
+      console.log('유저정보 가져오기 성공!');
     });
-    builder.addCase(getUserInfo.rejected, async (state, action) => {
-      console.log('유저정보 가져오기 실패!');
-      // accessToken 만료시 토큰 재발급 로직
-      if (action.error.message === 'Request failed with status code 401') {
-        const refreshToken = getCookie('Refresh');
-        const config = {
-          headers: {
-            Authorization: 'Bearer ' + refreshToken,
-          },
-        };
-        try {
-          const { status } = await serverApi.get('/auth/refresh', config);
-
-          if (status === 200) {
-            const newAccessToken = getCookie('Authentication');
-            sessionStorage.setItem('accessToken', newAccessToken);
-
-            return await getUserInfo();
-          }
-        } catch (error) {
-          console.error('AccessToken 재발급 실패:', error);
-          alert('로그인을 다시 해주세요.');
-        }
-      }
-
+    builder.addCase(getUserInfo.rejected, (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
+      console.log('유저정보 가져오기 실패!');
     });
     builder.addCase(logOut.fulfilled, (state, action) => {
-      console.log('로그아웃!!');
       state.isLoggedIn = false;
       state.user = null;
+      console.log('로그아웃!!');
     });
   },
 });
