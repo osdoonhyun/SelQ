@@ -7,7 +7,10 @@ export default function useAuth() {
   const { isLoggedIn, user, token } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    const accessToken = sessionStorage.getItem('accessToken');
+    if (accessToken) {
+      dispatch(getUserInfo());
+    }
   }, [dispatch]);
 
   return { isLoggedIn, user, token };
