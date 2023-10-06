@@ -10,6 +10,7 @@ import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { CookiesProvider } from 'react-cookie';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const client = new QueryClient();
 
@@ -20,7 +21,11 @@ function App() {
         <QueryClientProvider client={client}>
           <CookiesProvider>
             <Provider store={store}>
-              <RouterProvider router={router} />
+              <GoogleOAuthProvider
+                clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_KEY}
+              >
+                <RouterProvider router={router} />
+              </GoogleOAuthProvider>
             </Provider>
             <ReactQueryDevtools initialIsOpen={false} />
           </CookiesProvider>
