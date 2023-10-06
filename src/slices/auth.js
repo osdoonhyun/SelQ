@@ -43,7 +43,8 @@ const getNewAccessToken = async (thunkAPI) => {
       refreshAccessToken(refreshToken)
     );
     sessionStorage.setItem('accessToken', newAccessToken.payload);
-    return thunkAPI.dispatch(getUserInfo());
+    thunkAPI.dispatch(getUserInfo());
+    return;
   } catch (error) {
     return thunkAPI.rejectWithValue({
       message: 'Failed to refresh accessToken',
@@ -68,7 +69,7 @@ const refreshAccessToken = createAsyncThunk(
         return newAccessToken;
       }
     } catch (error) {
-      console.error('AccessToken 재발급 실패:', error.message);
+      throw error;
     }
   }
 );
@@ -78,6 +79,9 @@ const logOut = createAsyncThunk('user/logOut', () => {
   removeCookie('Authentication');
   removeCookie('Refresh');
 });
+// sessionStorage.removeItem('accessToken');
+// removeCookie('Authentication');
+// removeCookie('Refresh');
 
 const initialState = {
   isLoggedIn: false,
@@ -105,12 +109,20 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
       state.user = action.payload.userInfo;
       state.token = action.payload.token;
-      console.log('유저정보 가져오기 성공!');
+      console.log('유저정보 가져오기 성공!', state, action);
     });
     builder.addCase(getUserInfo.rejected, (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
-      console.log('유저정보 가져오기 실패!');
+      console.log('유저정보 가져오기 실패!', action);
+    });
+    builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
+      console.log('토큰 재발급 성공!+++++++++++', state, action);
+      state.token = action.payload;
+    });
+    builder.addCase(refreshAccessToken.rejected, (state, action) => {
+      state.error = action.error.message;
+      console.log('토큰 재발급 실패!', action);
     });
     builder.addCase(logOut.fulfilled, (state, action) => {
       state.isLoggedIn = false;
