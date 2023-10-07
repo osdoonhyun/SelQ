@@ -25,7 +25,7 @@ const getUserInfo = createAsyncThunk('user/userInfo', async (_, thunkAPI) => {
   try {
     const { data, status } = await serverApi.get('/auth', config);
     if (status === 200) {
-      return { userInfo: data.body, token: accessToken };
+      return { userInfo: data?.body, token: accessToken };
     }
   } catch (error) {
     if (error?.response?.statusText === 'Unauthorized') {
@@ -79,9 +79,6 @@ const logOut = createAsyncThunk('user/logOut', () => {
   removeCookie('Authentication');
   removeCookie('Refresh');
 });
-// sessionStorage.removeItem('accessToken');
-// removeCookie('Authentication');
-// removeCookie('Refresh');
 
 const initialState = {
   isLoggedIn: false,
@@ -107,8 +104,8 @@ const userSlice = createSlice({
     });
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       state.isLoggedIn = true;
-      state.user = action.payload.userInfo;
-      state.token = action.payload.token;
+      state.user = action.payload?.userInfo;
+      state.token = action.payload?.token;
       console.log('유저정보 가져오기 성공!', state, action);
     });
     builder.addCase(getUserInfo.rejected, (state, action) => {
@@ -127,7 +124,12 @@ const userSlice = createSlice({
     builder.addCase(logOut.fulfilled, (state, action) => {
       state.isLoggedIn = false;
       state.user = null;
-      console.log('로그아웃!!');
+      state.error = null;
+      state.token = null;
+      console.log('로그아웃 성공!!', state, action);
+    });
+    builder.addCase(logOut.rejected, (state, action) => {
+      console.log('로그아웃 실패!!', state, action);
     });
   },
 });
