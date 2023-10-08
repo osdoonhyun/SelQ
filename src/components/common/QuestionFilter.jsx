@@ -17,6 +17,9 @@ export default function QuestionFilter({
   handleDeleteOption,
   handleCategoryClick,
   handleDeleteCategoryOption,
+  importanceOption,
+  handleImportanceOptionCheck,
+  handleImportanceClick,
 }) {
   return (
     <>
@@ -59,6 +62,59 @@ export default function QuestionFilter({
                 <Form.Check
                   type='checkbox'
                   onChange={(e) => handleOptionCheck(e, filterOption.label)}
+                  checked={option.isChecked}
+                  value={option.value}
+                />
+                <span className='ms-auto'>{option.value}</span>
+              </Stack>
+            ))}
+          </>
+        </DropdownButton>
+      ))}
+
+      {importanceOption?.map((filterOption) => (
+        <DropdownButton
+          className='p-1'
+          onToggle={(isOpen) => {
+            if (!isOpen) {
+              handleImportanceClick(filterOption.label, importanceOption);
+            }
+          }}
+          variant='Light'
+          as={ButtonGroup}
+          key={filterOption.label}
+          id={`dropdown-variants-${filterOption.label}`}
+          title={filterOption.label}
+        >
+          <>
+            <Stack style={{ padding: '0 16px' }} direction='horizontal'>
+              <Form.Check
+                type='checkbox'
+                value='전체선택'
+                tag={filterOption.label}
+                onChange={(e) =>
+                  handleImportanceOptionCheck(e, filterOption.label)
+                }
+                checked={importanceOption
+                  .find(
+                    (optionGroup) => optionGroup.label === filterOption.label
+                  )
+                  ?.options.every((option) => option.isChecked)}
+              />
+              <span className='ms-auto'>전체선택</span>
+            </Stack>
+            <hr />
+            {filterOption.options.map((option, index) => (
+              <Stack
+                key={index}
+                style={{ padding: '0 16px' }}
+                direction='horizontal'
+              >
+                <Form.Check
+                  type='checkbox'
+                  onChange={(e) =>
+                    handleImportanceOptionCheck(e, filterOption.label)
+                  }
                   checked={option.isChecked}
                   value={option.value}
                 />

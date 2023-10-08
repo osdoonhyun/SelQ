@@ -26,7 +26,11 @@ const useQuestionsQuery = ({ category }) => {
 };
 
 const getAllQuestions = async () => {
-  const response = await serverApi.get('/questions');
+  const response = await serverApi.get('/questions', {
+    params: {
+      take: 50,
+    },
+  });
 
   return response.data.body;
 };
@@ -37,71 +41,52 @@ const useAllQuestionsQuery = () => {
   return queryData;
 };
 
-const filterQuestions = (questions, filterOption) => {
+const getQueryString = (filterOption) => {
   const { 카테고리, 중요도, 날짜 } = filterOption;
+  let queryString = '';
 
-  if (카테고리 && filterOption) {
-    const filterCategories = filterOption?.카테고리 || [];
-    const filteredQuestions = [];
-
-    filterCategories?.forEach((option) => {
-      if (option.isChecked) {
-        const filteredQuestionsForCategory = questions?.filter(
-          (question) => question.category === option.label
-        );
-        filteredQuestions.push(...filteredQuestionsForCategory);
-      }
-    });
-
-    return filteredQuestions;
+  if (날짜 === '최신순') {
+    queryString += '&order=DESC';
+  } else if (날짜 === '오래된순') {
+    queryString += '&order=ASC';
   }
 
-  switch (중요도) {
-    case '높은순':
-      return questions?.sort((a, b) => b.importance - a.importance);
-    case '낮은순':
-      return questions?.sort((a, b) => a.importance - b.importance);
-    default:
-      break;
+  if (카테고리 && 카테고리.length > 0) {
+    const categoryLabels = 카테고리.map((category) => category.label);
+    queryString += `&category=${categoryLabels.join('&category=')}`;
   }
 
-  switch (날짜) {
-    case '최신순':
-      return questions?.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-    case '오래된순':
-      return questions?.sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-      );
-    default:
-      break;
+  if (중요도 && 중요도.length > 0) {
+    const importanceLabels = 중요도.map((importance) => importance.label);
+    queryString += `&importance=${importanceLabels.join('&importance=')}`;
   }
-
-  return questions;
+  return queryString;
 };
 
-const getQuestions = async (page) => {
-  const params = {
+const getFilteredQuestions = async (page, queryString) => {
+  const response = await serverApi.get(`/questions?${queryString}`, {
     params: {
       take: 10,
       page,
     },
-  };
-  const response = await serverApi.get('/questions', params);
+  });
 
   return response.data.body;
 };
 
-const useQuestionsByFilteringQuery = (currentPage, filterOption) => {
+const useFilteredQuestionQuery = (currentPage, filterOption) => {
+  const queryString = getQueryString(filterOption);
+  const queryKey =
+    filterOption.size > 0
+      ? ['questions', currentPage, filterOption]
+      : ['questions', currentPage];
+
+  console.log('QUERY KEY', queryKey);
   const queryData = useQuery(
-    ['questions', currentPage],
-    () => getQuestions(currentPage),
+    queryKey,
+    () => getFilteredQuestions(currentPage, queryString),
     {
-      select: (data) => ({
-        ...data,
-        questions: filterQuestions(data.data, filterOption),
-      }),
+      keepPreviousData: true,
     }
   );
 
@@ -164,6 +149,7 @@ const useImportantQuestionsQuery = (currentPage, filterOption) => {
         ...data,
         questions: filterImportantQuestions(data.data, filterOption),
       }),
+      keepPreviousData: true,
     }
   );
 
@@ -184,9 +170,8 @@ const getQuestionsByKeyword = async (keyword) => {
 };
 
 const useSearchQuestionsQuery = ({ searchInput: keyword }) => {
-  const queryData = useQuery(['questions', keyword], () =>
-    getQuestionsByKeyword(keyword)
-  );
+  const queryKey = keyword.length > 0 ? ['questions', keyword] : ['questions'];
+  const queryData = useQuery(queryKey, () => getQuestionsByKeyword(keyword));
 
   return queryData;
 };
@@ -194,7 +179,7 @@ const useSearchQuestionsQuery = ({ searchInput: keyword }) => {
 export {
   useQuestionsQuery,
   useAllQuestionsQuery,
-  useQuestionsByFilteringQuery,
+  useFilteredQuestionQuery,
   useQuestionDetailQuery,
   useImportantQuestionsQuery,
   useSearchQuestionsQuery,

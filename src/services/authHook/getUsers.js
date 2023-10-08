@@ -3,10 +3,10 @@ import { serverApi } from '../api';
 
 const getUsers = async (page) => {
   const params = {
-    // params: {
-    //   take: 10,
-    //   page,
-    // },
+    params: {
+      take: 10,
+      page,
+    },
   };
   const response = await serverApi.get('/users', params);
 
@@ -71,6 +71,7 @@ const useUsersQuery = (currentPage, filterOption) => {
         ...data,
         users: filterUsers(data.data, filterOption),
       }),
+      keepPreviousData: true,
     }
   );
 
