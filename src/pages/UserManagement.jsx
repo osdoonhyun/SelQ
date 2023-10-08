@@ -99,6 +99,10 @@ export default function UsersManagement() {
     setIsDeletionChecked(false);
   };
 
+  const startIndex = (currentPage - 1) * 10;
+  const endIndex = startIndex + 9;
+  const displayedUsers = users?.users?.slice(startIndex, endIndex + 1);
+
   return (
     <>
       <h1>유저 관리페이지</h1>
@@ -111,26 +115,94 @@ export default function UsersManagement() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
+            <th className='text-center d-none d-md-table-cell'>#</th>
             <th>닉네임</th>
             <th>계정</th>
-            <th>가입 날짜</th>
-            <th>유저 권한</th>
-            <th>가입 유형</th>
-            <th>옵션</th>
+            <th className='text-center text-nowrap'>가입 날짜</th>
+            <th className='text-center text-nowrap'>유저 권한</th>
+            <th className='text-center text-nowrap'>가입 유형</th>
+            <th className='text-center'>옵션</th>
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users.users?.map((user, index) => (
+          {displayedUsers &&
+            displayedUsers.map((user, index) => (
               <tr key={user.id}>
-                <td>{index + 1}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.createdAt.slice(0, 10)}</td>
-                <td>{user.roles[0] === 'admin' ? '관리자' : '유저'}</td>
-                <td>{user.provider === 'local' ? '로컬' : '소셜'}</td>
-                <td>
+                <td className='text-center align-middle p-0 d-none d-md-table-cell'>
+                  {index + 1 + (currentPage - 1) * 10}
+                </td>
+                <td
+                  className='align-middle d-md-none'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100px',
+                  }}
+                >
+                  {user.username}
+                </td>
+                <td
+                  className='align-middle  d-none d-md-table-cell'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {user.username}
+                </td>
+
+                <td
+                  className='align-middle d-md-none'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100px',
+                  }}
+                >
+                  {user.email}
+                </td>
+                <td
+                  className='align-middle  d-none d-md-table-cell'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {user.email}
+                </td>
+
+                <td
+                  className='text-center align-middle d-md-none'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100px',
+                  }}
+                >
+                  {user.createdAt.slice(0, 10)}
+                </td>
+                <td
+                  className='text-center align-middle  d-none d-md-table-cell'
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {user.createdAt.slice(0, 10)}
+                </td>
+                <td className='text-center align-middle'>
+                  {user.roles[0] === 'admin' ? '관리자' : '유저'}
+                </td>
+                <td className='text-center align-middle'>
+                  {user.provider === 'local' ? '로컬' : '소셜'}
+                </td>
+                <td className='text-center align-middle'>
                   <DropdownButton
                     id='dropdown-basic-button'
                     variant='light'
