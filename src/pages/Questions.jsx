@@ -7,19 +7,19 @@ import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../components/context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
-import { useQuestionsQuery } from '../services/api';
+import { useAllQuestionsQuery } from '../services/api';
 
 export default function Questions() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { fontSizing, calcFontSize } = useFontSize();
 
-  const { data: questions } = useQuestionsQuery({ category: 'all' });
+  const { data: questions } = useAllQuestionsQuery();
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  const filteredQuestions = questions?.filter(
+  const filteredQuestions = questions?.data?.filter(
     (question) =>
       selectedCategory === 'all' || question.category === selectedCategory
   );
@@ -27,7 +27,7 @@ export default function Questions() {
   return (
     <>
       <CategoryCarousel
-        questions={questions}
+        questions={questions?.data}
         onClickCategory={handleCategoryClick}
         selectedCategory={selectedCategory}
       />
