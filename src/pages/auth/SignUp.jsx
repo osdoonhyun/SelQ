@@ -8,7 +8,7 @@ import {
   Table,
 } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { AGREE_LIST, EMAIL_LIST } from '../../constant/constants';
+import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
 import {
   useSignUpHandler,
@@ -53,7 +53,7 @@ export default function SignUp() {
   const [verificationBtnDisable, setVerificationBtnDisable] = useState(true);
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
-  const [agreeList, setAgreeList] = useState(AGREE_LIST);
+  const [agreeList, setAgreeList] = useState(TERMS_AND_CONDITIONS);
   const [timerRestart, setTimerRestart] = useState(false);
 
   const {

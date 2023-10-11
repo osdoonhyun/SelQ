@@ -7,7 +7,7 @@ import {
   Form,
   Stack,
 } from 'react-bootstrap';
-import { QuestionFilterOptions } from '../../constant/constants';
+import { DATE_FILTER_OPTION } from '../../constant/constants';
 
 export default function QuestionFilter({
   filterOptions,
@@ -125,7 +125,7 @@ export default function QuestionFilter({
         </DropdownButton>
       ))}
 
-      {QuestionFilterOptions?.map((filterOption) => (
+      {DATE_FILTER_OPTION?.map((filterOption) => (
         <DropdownButton
           className='p-1'
           variant='Light'

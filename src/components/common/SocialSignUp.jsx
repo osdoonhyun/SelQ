@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Container, Form, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { AGREE_LIST } from '../../constant/constants';
+import { TERMS_AND_CONDITIONS } from '../../constant/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '../../styles/Styles';
 import * as yup from 'yup';
@@ -21,7 +21,7 @@ const signUpSchema = yup.object().shape({
 });
 
 export default function SocialSignUp() {
-  const [agreeList, setAgreeList] = useState(AGREE_LIST);
+  const [agreeList, setAgreeList] = useState(TERMS_AND_CONDITIONS);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import {
   DropdownButton,
   Stack,
 } from 'react-bootstrap';
-import { UserFilterOptions } from '../../constant/constants';
+import { USER_FILTER_OPTIONS } from '../../constant/constants';
 
 export default function Filter({
   type,
@@ -16,7 +16,7 @@ export default function Filter({
 }) {
   return (
     <>
-      {UserFilterOptions.map((filterOption) => (
+      {USER_FILTER_OPTIONS.map((filterOption) => (
         <DropdownButton
           className='p-1'
           variant='Light'

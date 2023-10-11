@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  CategoryFilterOption,
-  ImportanceFilterOption,
+  CATEGORY_FILTER_OPTION,
+  IMPORTANCE_FILTER_OPTION,
 } from '../constant/constants';
 import { useFilteredQuestionQuery } from '../services/api';
 import {
@@ -80,9 +80,9 @@ export default function QuestionManagement() {
     handleDeleteModalClose();
   };
 
-  const [categoryOption, setCategoryOption] = useState(CategoryFilterOption);
+  const [categoryOption, setCategoryOption] = useState(CATEGORY_FILTER_OPTION);
   const [importanceOption, setImportanceOption] = useState(
-    ImportanceFilterOption
+    IMPORTANCE_FILTER_OPTION
   );
 
   // TODO: handleOptionCheck, handleImportanceOptionCheck 리팩토링할 것.

@@ -1,4 +1,4 @@
-import { NavItems } from '../../constant/constants';
+import { PAGES_PATH } from '../../constant/constants';
 import { MenuNavLink } from '../../styles/Styles';
 
 const {
@@ -71,7 +71,7 @@ export default function MenuOffcanvas({
         <hr />
 
         <ul className='list-unstyled mx-3 my-4'>
-          {NavItems?.map(({ path, label }, index) => (
+          {PAGES_PATH?.map(({ path, label }, index) => (
             <li className='my-3' key={index}>
               <MenuNavLink href={path} onClick={onHide}>
                 {label}
