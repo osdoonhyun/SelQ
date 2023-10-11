@@ -11,7 +11,7 @@ import PostingQuestionForm from './pages/postingQuestion/PostingQuestionForm';
 import MyPage from './pages/MyPage';
 import UsersManagement from './pages/UserManagement';
 import EditQuestion from './pages/postingQuestion/EditQuestion';
-
+import BookmarkedQuestions from './pages/BookmarkedQuestions';
 import QuestionManagement from './pages/QuestionManagement';
 import SocialSignUp from './components/common/SocialSignUp';
 
@@ -25,6 +25,7 @@ export const router = createBrowserRouter([
       { path: '/questions/:questionId', element: <QuestionDetail /> },
       { path: '/importants', element: <ImportantQuestionsList /> },
       { path: '/importants/:questionId', element: <QuestionDetail /> },
+      { path: '/bookmarks', element: <BookmarkedQuestions /> },
       { path: '/password/new', element: <ResetPassword /> },
       { path: '/user', element: <MyPage /> },
       { path: '/signup/social', element: <SocialSignUp /> },
