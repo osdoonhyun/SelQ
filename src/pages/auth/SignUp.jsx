@@ -61,6 +61,7 @@ export default function SignUp() {
     register,
     watch,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signUpSchema),
@@ -104,21 +105,11 @@ export default function SignUp() {
       profileImg: '',
       provider: 'local',
 
-      fourteenOverAgree: values.fourteenOverAgree
-        ? true
-        : values.fourteenOverAgree === undefined && allTrue,
-      termsOfUseAgree: values.termsOfUseAgree
-        ? true
-        : values.termsOfUseAgree === undefined && allTrue,
-      personalInfoAgree: values.personalInfoAgree
-        ? true
-        : values.personalInfoAgree === undefined && allTrue,
-      marketingConsent: values.marketingConsent
-        ? true
-        : values.marketingConsent === undefined && allTrue,
-      smsAndEventAgree: values.smsAndEventAgree
-        ? true
-        : values.smsAndEventAgree === undefined && allTrue,
+      fourteenOverAgree: allTrue || !!values.fourteenOverAgree,
+      termsOfUseAgree: allTrue || !!values.termsOfUseAgree,
+      personalInfoAgree: allTrue || !!values.personalInfoAgree,
+      marketingConsent: allTrue || !!values.marketingConsent,
+      smsAndEventAgree: allTrue || !!values.smsAndEventAgree,
     };
 
     await signUp(signUpInfo);
@@ -162,21 +153,27 @@ export default function SignUp() {
     }
   };
 
-  const handleAgreeCheckList = (e, field) => {
+  const handleAgreeCheckList = (e, field, setFieldValue) => {
     const { value, checked } = e.target;
 
-    if (value === '전체동의') {
+    if (value === '전체 동의') {
       let tempAgree = agreeList.map((agree) => ({
         ...agree,
         isChecked: checked,
       }));
       setAgreeList(tempAgree);
+
+      tempAgree.forEach((agree) => {
+        setFieldValue(agree.value, checked);
+      });
     } else {
       let tempAgree = agreeList.map((agree) =>
         agree.label === value ? { ...agree, isChecked: checked } : agree
       );
       setAgreeList(tempAgree);
+      setFieldValue(value, checked);
     }
+
     field.onChange(checked);
   };
 
@@ -379,7 +376,7 @@ export default function SignUp() {
                   checked={
                     !agreeList?.some((agree) => agree?.isChecked !== true)
                   }
-                  onChange={(e) => handleAgreeCheckList(e, field)}
+                  onChange={(e) => handleAgreeCheckList(e, field, setValue)}
                 />
               )}
               name='allTrue'
@@ -395,7 +392,7 @@ export default function SignUp() {
                   render={({ field }) => (
                     <Form.Check
                       type='checkbox'
-                      onChange={(e) => handleAgreeCheckList(e, field)}
+                      onChange={(e) => handleAgreeCheckList(e, field, setValue)}
                       checked={field.value || agree.isChecked}
                       label={agree.label}
                       value={agree.label}
