@@ -37,7 +37,7 @@ export default function Answer({ answers }) {
             letterSpacing: '0.1rem',
           }}
         >
-          <ul>
+          <ul style={{ padding: 0 }}>
             {answers?.map((answer, index) => (
               <li key={index}>
                 <ReactMarkdown children={answer.answers} />

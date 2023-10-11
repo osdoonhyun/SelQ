@@ -51,6 +51,7 @@ export const HomeNextButton = styled(Button)`
   color: #313030;
   background-color: #f9f9f9;
   border: 1px solid #c0c0ce;
+  border-radius: 5px;
   &:hover {
     background-color: #5bacee;
   }
@@ -147,7 +148,14 @@ export const MenuNavLink = styled(Nav.Link)`
 export const ErrorMessage = styled.p`
   padding-top: 4px;
   font-size: 14px;
-  color: #e53e3e;
+  color: #ff7777;
+`;
+
+export const StyledTd = styled.td`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: ${(props) => props.maxWidth};
 `;
 
 // #F7F6F7 -> 밝은 회색 (Header, Footer)

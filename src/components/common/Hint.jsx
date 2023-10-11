@@ -25,9 +25,10 @@ export default function Hint({ hints }) {
           id='example-collapse-text'
           style={{
             marginTop: '0.8rem',
+            flexWrap: 'wrap',
           }}
         >
-          <ul style={{ padding: 0 }}>
+          <ul className='d-flex p-0'>
             {hints?.map((hint, index) => (
               <li key={index}>
                 <CustomBadge text={hint} />
