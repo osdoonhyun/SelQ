@@ -13,6 +13,7 @@ import UsersManagement from './pages/UserManagement';
 import EditQuestion from './pages/postingQuestion/EditQuestion';
 
 import QuestionManagement from './pages/QuestionManagement';
+import SocialSignUp from './components/common/SocialSignUp';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: '/importants/:questionId', element: <QuestionDetail /> },
       { path: '/password/new', element: <ResetPassword /> },
       { path: '/user', element: <MyPage /> },
+      { path: '/signup/social', element: <SocialSignUp /> },
 
       { path: '/admin/post/question', element: <PostingQuestionForm /> },
       { path: '/admin/edit/question/:questionId', element: <EditQuestion /> },
