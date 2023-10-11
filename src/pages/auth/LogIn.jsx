@@ -16,6 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../../styles/Styles';
 import ErrorToast from '../../components/common/ErrorToast';
+import SocialGoogleLogIn from '../../components/common/SocialGoogleLogIn';
 
 const loginSchema = yup.object({
   email: yup
@@ -135,10 +136,16 @@ export default function LogIn() {
 
         <hr />
 
-        <Row className='justify-content-center'>
+        <Row
+          style={{ fontSize: '0.9rem' }}
+          className='justify-content-center mt-4 mb-3 text-muted'
+        >
           SNS 계정으로 간편하게 로그인하기
         </Row>
-        <Row className='justify-content-center'>구글</Row>
+
+        <Row className='justify-content-center mt-2 mx-1'>
+          <SocialGoogleLogIn />
+        </Row>
       </Container>
 
       <ErrorToast
