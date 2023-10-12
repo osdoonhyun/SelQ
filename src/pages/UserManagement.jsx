@@ -9,7 +9,7 @@ import {
   Table,
 } from 'react-bootstrap';
 import {
-  useUpdateUserInfo,
+  useUpdateUserInfoByAdmin,
   useUsersQuery,
 } from '../services/authHook/getUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,7 +38,7 @@ export default function UsersManagement() {
     mutateAsync: updateUser,
     isLoading: loadingUpdateUser,
     error: errorUpdateUser,
-  } = useUpdateUserInfo();
+  } = useUpdateUserInfoByAdmin();
 
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);

@@ -97,7 +97,7 @@ const updateUserByAdmin = async ({ userId, updatedInfo, token }) => {
   }
 };
 
-const useUpdateUserInfo = () => {
+const useUpdateUserInfoByAdmin = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (userInfo) => updateUserByAdmin(userInfo),
@@ -128,7 +128,7 @@ const updateUser = async ({ updatedInfo, token }) => {
   }
 };
 
-const useUpdateUser = () => {
+const useUpdateUserInfoByUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (updatedInfo) => updateUser(updatedInfo),
@@ -143,4 +143,4 @@ const useUpdateUser = () => {
   });
 };
 
-export { useUsersQuery, useUpdateUserInfo, useUpdateUser };
+export { useUsersQuery, useUpdateUserInfoByAdmin, useUpdateUserInfoByUser };

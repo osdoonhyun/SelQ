@@ -6,7 +6,7 @@ import {
   EmailForm,
   DeleteForm,
 } from '../components/common/ResponsiveForm';
-import { useUpdateUser } from '../services/authHook/getUsers';
+import { useUpdateUserInfoByUser } from '../services/authHook/getUsers';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
@@ -33,7 +33,7 @@ export default function MyPage() {
     mutateAsync: updateUser,
     isLoading: loadingUpdateUser,
     error: errorUpdateUser,
-  } = useUpdateUser();
+  } = useUpdateUserInfoByUser();
 
   const {
     handleSubmit,
