@@ -1,4 +1,4 @@
-import { PAGES_PATH } from '../../constant/constants';
+import { PAGES_PATH } from '../../constant/paths';
 import { MenuNavLink } from '../../styles/Styles';
 import {
   Offcanvas,

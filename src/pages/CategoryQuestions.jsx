@@ -2,11 +2,11 @@ import { Fragment, useState } from 'react';
 import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';
-import { useFontSize } from '../components/context/FontSizingProvider';
+import { useFontSize } from '../context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import { useAllQuestionsQuery } from '../services/api';
 
-export default function Questions() {
+export default function CategoryQuestions() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { fontSizing, calcFontSize } = useFontSize();
 

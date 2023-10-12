@@ -4,11 +4,11 @@ import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
 import Confirmation from './Confirmation';
 import { useRegisterQuestion } from '../../services/questionHook/registerQuestion';
-import useAuth from '../../components/hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import ProgressBar from '../../components/common/ProgressBar';
 import { Container } from 'react-bootstrap';
 
-export default function PostingQuestionForm() {
+export default function PostingQuestion() {
   const navigate = useNavigate();
   const { token } = useAuth();
 

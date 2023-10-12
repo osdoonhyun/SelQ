@@ -1,19 +1,19 @@
 import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../../constant/constants';
+import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../constant/signUp';
 import { useNavigate } from 'react-router-dom';
 import {
   useSignUpHandler,
   useVerifyRegisteredEmail,
   useSendEmailVerification,
   useCheckEmailVerification,
-} from '../../services/authHook/signUp';
+} from '../services/authHook/signUp';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { ErrorMessage } from '../../styles/Styles';
-import Timer from '../../components/ui/Timer';
-import SocialGoogleLogIn from '../../components/common/SocialGoogleLogIn';
+import { ErrorMessage } from '../styles/Styles';
+import Timer from '../components/ui/Timer';
+import SocialGoogleLogIn from '../components/common/SocialGoogleLogIn';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required('이메일을 입력해 주세요.'),

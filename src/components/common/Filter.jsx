@@ -6,7 +6,7 @@ import {
   DropdownButton,
   Stack,
 } from 'react-bootstrap';
-import { USER_FILTER_OPTIONS } from '../../constant/constants';
+import { USER_FILTER_OPTIONS } from '../../constant/filters';
 
 export default function Filter({
   filterOptions,

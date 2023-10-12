@@ -1,4 +1,4 @@
-import { FONT_SIZE_OPTIONS } from '../../constant/constants';
+import { FONT_SIZE_OPTIONS } from '../constant/options';
 
 function remToPx(remFont) {
   const baseFontSize = 16;

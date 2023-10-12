@@ -8,9 +8,9 @@ import {
   Popover,
   Row,
 } from 'react-bootstrap';
-import { FontSizingContext } from '../context/FontSizingProvider';
-import { getTargetIndex } from '../utils/utils';
-import { FONT_SIZE_OPTIONS } from '../../constant/constants';
+import { FontSizingContext } from '../../context/FontSizingProvider';
+import { getTargetIndex } from '../../utils/fontSize';
+import { FONT_SIZE_OPTIONS } from '../../constant/options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 

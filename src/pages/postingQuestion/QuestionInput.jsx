@@ -9,7 +9,7 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { CATEGORIES } from '../../constant/constants';
+import { CATEGORIES } from '../../constant/categories';
 
 export default function QuestionInput({ onNext }) {
   const [questionFormData, setQuestionFormData] = useState({

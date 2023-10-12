@@ -2,7 +2,7 @@ import { useState } from 'react';
 import EmailVerification from './EmailVerification';
 import NewPassword from './NewPassword';
 import axios from 'axios';
-import LogIn from '../auth/LogIn';
+import LogIn from '../LogIn';
 import EmailCodeVerification from './EmailCodeVerification';
 import { Container } from 'react-bootstrap';
 

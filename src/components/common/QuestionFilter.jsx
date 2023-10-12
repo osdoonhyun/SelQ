@@ -7,7 +7,7 @@ import {
   Form,
   Stack,
 } from 'react-bootstrap';
-import { DATE_FILTER_OPTION } from '../../constant/constants';
+import { DATE_FILTER_OPTION } from '../../constant/filters';
 
 export default function QuestionFilter({
   filterOptions,

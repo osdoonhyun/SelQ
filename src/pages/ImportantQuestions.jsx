@@ -12,13 +12,13 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useFontSize } from '../components/context/FontSizingProvider';
+import { useFontSize } from '../context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import { useFilteredQuestionQuery } from '../services/api';
 import Pagination from '../components/common/Pagination';
-import { IMPORTANCE_FILTER_OPTION } from '../constant/constants';
+import { IMPORTANCE_FILTER_OPTION } from '../constant/filters';
 
-export default function ImportantQuestionsList() {
+export default function ImportantQuestions() {
   const { fontSizing, calcFontSize } = useFontSize();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilterOption, setSelectedFilterOption] = useState({});

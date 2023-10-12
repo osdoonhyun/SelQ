@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Button, Container, Form, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { TERMS_AND_CONDITIONS } from '../../constant/constants';
+import { TERMS_AND_CONDITIONS } from '../../constant/signUp';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '../../styles/Styles';
 import * as yup from 'yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSignUpHandler } from '../../services/authHook/signUp';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../../slices/auth';
+import { logIn } from '../../store/Slices/auth';
 
 const signUpSchema = yup.object().shape({
   username: yup

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CATEGORIES } from '../../constant/constants';
+import { CATEGORIES } from '../../constant/categories';
 import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 import { StyledBadge, StyledButton } from '../../styles/Styles';
 

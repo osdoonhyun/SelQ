@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import GoBackButton from '../components/ui/GoBackButton';
 import ImportanceCount from '../components/ImportanceCount';
-import { useFontSize } from '../components/context/FontSizingProvider';
+import { useFontSize } from '../context/FontSizingProvider';
 import Answer from '../components/common/Answer';
 import Hint from '../components/common/Hint';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';

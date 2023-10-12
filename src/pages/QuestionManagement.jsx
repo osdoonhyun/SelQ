@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   CATEGORY_FILTER_OPTION,
   IMPORTANCE_FILTER_OPTION,
-} from '../constant/constants';
+} from '../constant/filters';
 import { useFilteredQuestionQuery } from '../services/api';
 import {
   Button,
@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useDeleteQuestion } from '../services/questionHook/deleteQuestion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import useAuth from '../components/hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import QuestionFilter from '../components/common/QuestionFilter';
 import Pagination from '../components/common/Pagination';
 

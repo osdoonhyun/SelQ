@@ -9,7 +9,7 @@ import {
 import { useUpdateUser } from '../services/authHook/getUsers';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import useAuth from '../components/hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 

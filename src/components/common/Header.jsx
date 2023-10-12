@@ -23,8 +23,8 @@ import SearchBar from '../ui/SearchBar';
 import FontSizeSettings from '../ui/FontSizeSettings';
 import MenuOffcanvas from './MenuOffcanvas';
 import { useDispatch } from 'react-redux';
-import { logOut } from '../../slices/auth';
-import useAuth from '../hooks/useAuth';
+import { logOut } from '../../store/Slices/auth';
+import useAuth from '../../hooks/useAuth';
 
 function isPathMatch(targetPath, currentPath) {
   if (targetPath === '/') {

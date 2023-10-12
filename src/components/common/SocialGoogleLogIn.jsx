@@ -4,7 +4,7 @@ import { serverApi } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { logIn } from '../../slices/auth';
+import { logIn } from '../../store/Slices/auth';
 import Google from '../../assets/icon/oauth/google.svg';
 
 export default function SocialGoogleLogIn() {

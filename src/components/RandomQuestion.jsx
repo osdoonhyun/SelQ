@@ -1,5 +1,5 @@
 import { ButtonGroup, DropdownButton } from 'react-bootstrap';
-import { CATEGORIES } from '../constant/constants';
+import { CATEGORIES } from '../constant/categories';
 import { HomeDropdownItem, HomeNextButton } from '../styles/Styles';
 
 export default function RandomQuestion({

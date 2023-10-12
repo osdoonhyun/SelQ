@@ -3,12 +3,12 @@ import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../../slices/auth';
+import { logIn } from '../store/Slices/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { ErrorMessage } from '../../styles/Styles';
-import ErrorToast from '../../components/common/ErrorToast';
-import SocialGoogleLogIn from '../../components/common/SocialGoogleLogIn';
+import { ErrorMessage } from '../styles/Styles';
+import ErrorToast from '../components/common/ErrorToast';
+import SocialGoogleLogIn from '../components/common/SocialGoogleLogIn';
 
 const loginSchema = yup.object({
   email: yup

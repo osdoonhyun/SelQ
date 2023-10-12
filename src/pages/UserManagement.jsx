@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import useAuth from '../components/hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import Pagination from '../components/common/Pagination';
 import Filter from '../components/common/Filter';
 
