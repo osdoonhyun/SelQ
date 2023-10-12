@@ -74,14 +74,36 @@ const getFilteredQuestions = async (page, queryString) => {
   return response.data.body;
 };
 
+const parseFilterOptionsToQueryKeys = (filterOption) => {
+  const parsedFilter = {};
+
+  for (const key in filterOption) {
+    const value = filterOption[key];
+    if (Array.isArray(value)) {
+      parsedFilter[key] = value.map((item) => item.label);
+    } else {
+      parsedFilter[key] = value;
+    }
+  }
+
+  for (const key in parsedFilter) {
+    if (Array.isArray(parsedFilter[key]) && parsedFilter[key].length === 0) {
+      delete parsedFilter[key];
+    }
+  }
+
+  return parsedFilter;
+};
+
 const useFilteredQuestionQuery = (currentPage, filterOption) => {
   const queryString = getQueryString(filterOption);
+  const filterKey = parseFilterOptionsToQueryKeys(filterOption);
+
   const queryKey =
-    filterOption.size > 0
-      ? ['questions', currentPage, filterOption]
+    Object.keys(filterKey).length > 0
+      ? ['questions', currentPage, filterKey]
       : ['questions', currentPage];
 
-  console.log('QUERY KEY', queryKey);
   const queryData = useQuery(
     queryKey,
     () => getFilteredQuestions(currentPage, queryString),
@@ -119,10 +141,6 @@ const getQuestionsByImportance = async (page) => {
     },
   };
   const response = await serverApi.get('/questions', params);
-
-  const hasImportance = response.data.body.data.filter(
-    (question) => question.importance >= 1
-  );
 
   return response.data.body;
 };
