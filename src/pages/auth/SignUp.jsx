@@ -1,12 +1,4 @@
-import {
-  Container,
-  Form,
-  Row,
-  Col,
-  Button,
-  Spinner,
-  Table,
-} from 'react-bootstrap';
+import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../../constant/constants';
 import { useNavigate } from 'react-router-dom';
@@ -121,11 +113,9 @@ export default function SignUp() {
     const response = await verifyEmail(userEmail);
 
     if (response === true) {
-      // 등록된 이메일
       alert('이미 가입된 이메일입니다.');
       return;
     } else {
-      // 등록된 이메일이 아니면 이메일로 메일 전송
       await sendEmail(userEmail);
       setIsVerifiedEmail(true);
     }
@@ -137,7 +127,6 @@ export default function SignUp() {
     setTimerRestart((prev) => !prev);
   };
 
-  // 이메일 인증 코드 확인 로직
   const checkEmailVerificationHandler = async () => {
     const userEmail = email + '@' + emailCategory;
     const response = await checkEmail({

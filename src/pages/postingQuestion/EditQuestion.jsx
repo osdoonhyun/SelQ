@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Controller, set, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Badge,
   Button,
@@ -23,13 +23,11 @@ export default function EditQuestion() {
   const [newHint, setNewHint] = useState('');
   const [hints, setHints] = useState([]);
   const [hintBtnDisable, setHintBtnDisable] = useState(true);
-  const [editBtnDisable, setEditBtnDisable] = useState(true);
 
   const { data: question } = useQuestionDetailQuery(questionId);
   const { token } = useAuth();
 
-  const { handleSubmit, register, getValues, control, watch, setValue } =
-    useForm();
+  const { handleSubmit, getValues, control, setValue } = useForm();
 
   const {
     mutateAsync: editQuestion,
@@ -49,7 +47,6 @@ export default function EditQuestion() {
     const updatedHints = [...hints];
     updatedHints.splice(index, 1);
     setHints(updatedHints);
-    console.log('삭제됨', updatedHints);
   };
 
   const editQuestionHandler = () => {
@@ -75,8 +72,7 @@ export default function EditQuestion() {
     if (areArraysEqual) {
       updatedData.hints = [...hints];
     }
-    console.log('UPDATEDDATA', updatedData);
-    // 질문 수정 로직
+
     editQuestion({ editData: updatedData, questionId, token });
     navigate(-1);
   };
@@ -255,16 +251,6 @@ export default function EditQuestion() {
           />
         </Form.Group>
 
-        {/* <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-          <Form.Label>답변*</Form.Label>
-          <Form.Control
-            type='textarea'
-            placeholder='답변을 등록하세요.'
-            value={answers}
-            onChange={(e) => setAnswers(e.target.value)}
-          />
-        </Form.Group> */}
-
         <Button variant='light' type='submit'>
           수정
         </Button>
@@ -275,7 +261,6 @@ export default function EditQuestion() {
         >
           취소
         </Button>
-        {/* </Form.Group> */}
       </Form>
     </Container>
   );

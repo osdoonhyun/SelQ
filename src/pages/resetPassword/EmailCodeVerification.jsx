@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { useCheckEmailVerification } from '../../services/authHook/signUp';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -16,7 +16,6 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
   } = useCheckEmailVerification();
 
   const handleCheckButton = async () => {
-    // 이메일 인증 코드 검증 API
     const emailCode = getValues('emailCode');
     const response = await checkEmail({
       email: userEmail,

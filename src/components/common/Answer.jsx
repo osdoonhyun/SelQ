@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Collapse } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useFontSize } from '../context/FontSizingProvider';
 import { StyledButton } from '../../styles/Styles';

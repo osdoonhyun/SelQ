@@ -27,7 +27,6 @@ const useSignUpHandler = () => {
   });
 };
 
-// 이메일 확인
 const verifyRegisteredEmail = async (email) => {
   try {
     const { status } = await serverApi.post('/users/email', {
@@ -62,7 +61,6 @@ const useVerifyRegisteredEmail = () => {
   });
 };
 
-// 이메일 인증
 const sendEmailVerification = async (email) => {
   try {
     const { status, statusText } = await serverApi.post('/auth/email/send', {
@@ -92,10 +90,9 @@ const useSendEmailVerification = () => {
   });
 };
 
-// 이메일 인증 확인
 const checkEmailVerification = async (data) => {
   const { email, code } = data;
-  console.log('EMAIL, CODE', email, code);
+
   try {
     const { status } = await serverApi.post('/auth/email/check', {
       email,

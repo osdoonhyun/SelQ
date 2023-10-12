@@ -148,13 +148,3 @@ const DeleteForm = ({ showModal }) => {
 };
 
 export { UsernameForm, EmailForm, ImageForm, DeleteForm };
-
-// const isMdLarger = window.innerWidth >= 768;
-// const formGroupProps = {};
-// const LabelProps = {};
-// if (isMdLarger) {
-//   formGroupProps.as = Row;
-//   formGroupProps.className = 'mb-3';
-// } else {
-//   formGroupProps.as = Col;
-// }

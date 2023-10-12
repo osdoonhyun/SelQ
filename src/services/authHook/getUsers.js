@@ -78,7 +78,6 @@ const useUsersQuery = (currentPage, filterOption) => {
   return queryData;
 };
 
-// admin 유저 관리
 const updateUserByAdmin = async ({ userId, updatedInfo, token }) => {
   const config = {
     headers: {
@@ -113,7 +112,6 @@ const useUpdateUserInfo = () => {
   });
 };
 
-// 유저 마이페이지
 const updateUser = async ({ updatedInfo, token }) => {
   const config = {
     headers: {

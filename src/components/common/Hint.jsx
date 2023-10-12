@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Collapse } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 import CustomBadge from '../ui/CustomBadge';
 import { StyledButton } from '../../styles/Styles';
 

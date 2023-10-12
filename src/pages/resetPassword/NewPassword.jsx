@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -31,6 +30,7 @@ export default function NewPassword() {
   });
 
   const newPasswordHandler = async (data) => {
+    // TODO: 비밀번호 재설정 로직
     console.log('NEW PASSWORD', data.password, data.confirmPassword);
   };
 

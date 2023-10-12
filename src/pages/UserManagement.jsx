@@ -95,7 +95,7 @@ export default function UsersManagement() {
 
   const handleDelete = (userId) => {
     console.log('계정 삭제됨');
-    // 계정 삭제 로직
+    // TODO: 계정 삭제 로직
     setIsDeletionChecked(false);
   };
 
@@ -107,7 +107,6 @@ export default function UsersManagement() {
     <>
       <h1>유저 관리페이지</h1>
       <Filter
-        type='user'
         filterOptions={filterOptions}
         handleOptionsClick={handleOptionsClick}
         handleDeleteOption={handleDeleteOption}

@@ -34,20 +34,9 @@ export default function SearchBar() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            // marginTop: '8px',
           }}
         >
           <FontAwesomeIcon color='#B3B3B5' icon={faMagnifyingGlass} size='xl' />
-          {/* <span
-            className='d-none d-md-block'
-            style={{
-              fontSize: '13px',
-              // marginTop: '8px',
-              color: '#B3B3B5',
-            }}
-          >
-            검색
-          </span> */}
         </div>
       </Button>
 

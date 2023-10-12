@@ -101,12 +101,6 @@ export const HomeDropdownButton = styled(DropdownButton)`
   &:hover {
     background-color: #5bacee;
   }
-  /* color: #313030;
-  background-color: #f9f9f9;
-  border: 1px solid #c0c0ce;
-  &:hover {
-    background-color: #5bacee;
-  } */
 `;
 
 export const HomeDropdownItem = styled(Dropdown.Item)``;

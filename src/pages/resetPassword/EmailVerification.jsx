@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import {
   useSendEmailVerification,
   useVerifyRegisteredEmail,

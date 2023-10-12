@@ -13,8 +13,6 @@ export default function Pagination({
   paginatinoData,
 }) {
   const pageCount = paginatinoData?.pageCount || 0;
-  // const { page, take, itemCount, pageCount, hasPreviousPage, hasNextPage } =
-  //   paginatinoData;
 
   const handlePageChange = (page) => {
     changePage(page);

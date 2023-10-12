@@ -9,7 +9,7 @@ const deleteQuestion = async ({ deletedId, token }) => {
   };
   try {
     const { data } = await serverApi.delete(`/questions/${deletedId}`, config);
-    console.log('DELETE 성공', data);
+
     if (data.body === 200) {
       return data.body;
     }

@@ -97,7 +97,3 @@ export default function Confirmation({
     </Container>
   );
 }
-
-// 전체 Question, Answer를 보여준다.
-// 수정페이지 -> 수정하기 버튼
-// 등록페이지 -> 등록하기 버튼

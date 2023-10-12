@@ -1,7 +1,6 @@
 import { PAGES_PATH } from '../../constant/constants';
 import { MenuNavLink } from '../../styles/Styles';
-
-const {
+import {
   Offcanvas,
   Nav,
   Button,
@@ -9,7 +8,7 @@ const {
   Stack,
   Row,
   Col,
-} = require('react-bootstrap');
+} from 'react-bootstrap';
 
 export default function MenuOffcanvas({
   user,
@@ -18,8 +17,6 @@ export default function MenuOffcanvas({
   onHide,
   logOut,
 }) {
-  console.log('USER', user);
-  console.log(user ? 'USER' : '없음');
   return (
     <Offcanvas
       style={{

@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BackButton } from '../../styles/Styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -61,7 +61,7 @@ export default function MyPage() {
   const handleShow = () => setShow(true);
 
   const handleDelete = () => {
-    //회원탈퇴 로직
+    //TODO: 회원탈퇴 로직
     console.log('탈퇴됨');
     handleClose();
   };

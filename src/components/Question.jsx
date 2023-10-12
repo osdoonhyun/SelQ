@@ -1,6 +1,4 @@
-import { Badge, Button, Col, Container, Row, Stack } from 'react-bootstrap';
-import Hint from './common/Hint';
-import Answer from './common/Answer';
+import { Col, Row } from 'react-bootstrap';
 import { Fragment } from 'react';
 import ImportanceCount from './ImportanceCount';
 import { useFontSize } from './context/FontSizingProvider';

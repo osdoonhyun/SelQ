@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuestionInput from './QuestionInput';
@@ -109,8 +108,3 @@ export default function PostingQuestionForm() {
     </Container>
   );
 }
-
-// 1. 질문 입력, 중요도, 카테고리 입력 -> postQuestion
-// 2. 질문에 대한 대답 입력 -> postAnswer
-// 3. 등록 -> RegisterQuestion : 수정하기 기능도 추가될 예정
-// 4. 등록성공 -> 등록된 질문으로 이동

@@ -1,7 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
-import axios from 'axios';
-import { CATEGORIES } from '../constant/constants';
-import { Badge, Button } from 'react-bootstrap';
+import { Fragment, useState } from 'react';
 import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
 import CategoryCarousel from '../components/ui/CategoryCarousel';

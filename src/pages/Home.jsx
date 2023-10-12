@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import Question from '../components/Question';
 import RandomQuestion from '../components/RandomQuestion';
@@ -15,7 +14,6 @@ export default function Home() {
     category: selectedCategory,
   });
 
-  // 가져온 데이터로 아래와 같이 데이터를 보여주고 다음 선택시 렌덤하게 돌려준다.
   const getRandomQuestion = useCallback(() => {
     if (questions && questions.length > 0) {
       let randomIndex;

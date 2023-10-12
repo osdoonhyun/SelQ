@@ -9,7 +9,6 @@ import {
 import { USER_FILTER_OPTIONS } from '../../constant/constants';
 
 export default function Filter({
-  type,
   filterOptions,
   handleOptionsClick,
   handleDeleteOption,

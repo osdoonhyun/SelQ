@@ -132,7 +132,6 @@ export default function Header() {
                           display: 'flex',
                           flexDirection: 'column',
                           alignItems: 'center',
-                          // marginTop: '8px',
                         }}
                         className='d-none d-md-flex align-items-center'
                       >
@@ -145,29 +144,6 @@ export default function Header() {
                           roundedCircle
                           style={{ width: '40px', height: '40px' }}
                         />
-                        {/* {user?.profileImg !== '' ? (
-                        <Image
-                          src={user.profileImg}
-                          alt={user.profileImg}
-                          roundedCircle
-                          style={{ width: '40px', height: '40px' }}
-                        />
-                      ) : (
-                        <HeaderIcon
-                          className='d-none d-md-block'
-                          icon={faCircleUser}
-                          style={{ width: '40px', height: '40px' }}
-                        />
-                      )} */}
-                        {/* <span
-                      style={{
-                        fontSize: '13px',
-                        marginTop: '8px',
-                        color: '#B3B3B5',
-                      }}
-                    >
-                      유저
-                    </span> */}
                       </div>
 
                       <Dropdown.Menu>
