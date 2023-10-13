@@ -7,8 +7,7 @@ import { ErrorMessage } from '../../styles/Styles';
 import * as yup from 'yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSignUpHandler } from '../../services/authHook/signUp';
-import { useDispatch } from 'react-redux';
-import { logIn } from '../../store/Slices/auth';
+import { serverApi } from '../../services/api';
 
 const signUpSchema = yup.object().shape({
   username: yup
@@ -24,7 +23,6 @@ export default function SocialSignUp() {
   const [agreeList, setAgreeList] = useState(TERMS_AND_CONDITIONS);
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -42,7 +40,8 @@ export default function SocialSignUp() {
     error: errorSignUp,
   } = useSignUpHandler();
 
-  const userInfo = location.state.userInfo;
+  const userInfo = location.state.userInfo?.userInfo;
+  const accessToken = location.state.token;
 
   const handleAgreeCheckList = (e, field, setFieldValue) => {
     const { value, checked } = e.target;
@@ -74,9 +73,9 @@ export default function SocialSignUp() {
     const allTrue = values.allTrue;
     const signUpInfo = {
       username: values.username,
-      email: userInfo?.email,
-      profileImg: userInfo.picture || '',
-      provider: 'google',
+      // email: userInfo?.email,
+      // profileImg: userInfo.picture || '',
+      // provider: 'google',
 
       fourteenOverAgree: allTrue || !!values.fourteenOverAgree,
       termsOfUseAgree: allTrue || !!values.termsOfUseAgree,
@@ -86,9 +85,24 @@ export default function SocialSignUp() {
     };
 
     // TODO: 회원가입시 비밀번호 없는 상태로 요청
-    // await signUp(signUpInfo);
-    // await dispatch(logIn({ email: userInfo?.email }));
-    // navigate('/');
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+      },
+    };
+
+    try {
+      const { status } = await serverApi.patch(
+        '/auth/update',
+        signUpInfo,
+        config
+      );
+      if (status === 200) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.log('소셜 로그인(회원가입) 에러 발생');
+    }
   };
 
   return (
@@ -117,7 +131,7 @@ export default function SocialSignUp() {
             {...register('username', { required: true })}
             type='text'
             placeholder='별명 (2~15자)'
-            defaultValue={userInfo?.name || ''}
+            defaultValue={userInfo?.username || ''}
           />
           <ErrorMessage>{errors.username?.message}</ErrorMessage>
         </Form.Group>
