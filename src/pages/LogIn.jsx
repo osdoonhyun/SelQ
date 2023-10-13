@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../styles/Styles';
 import ErrorToast from '../components/common/ErrorToast';
-import SocialGoogleLogIn from '../components/common/SocialGoogleLogIn';
+import SocialLogInButton from '../components/common/SocialLogInButton';
 
 const loginSchema = yup.object({
   email: yup
@@ -136,7 +136,7 @@ export default function LogIn() {
         </Row>
 
         <Row className='justify-content-center mt-2 mx-1'>
-          <SocialGoogleLogIn />
+          <SocialLogInButton />
         </Row>
       </Container>
 

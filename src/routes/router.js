@@ -10,7 +10,7 @@ import ResetPassword from '../pages/ResetPassword';
 import PostingQuestion from '../pages/PostingQuestion';
 import MyPage from '../pages/MyPage';
 import UsersManagement from '../pages/UserManagement';
-import EditQuestion from '../pages/PostingQuestion/EditQuestion';
+import EditQuestion from '../pages/EditQuestion';
 import BookmarkedQuestions from '../pages/BookmarkedQuestions';
 import QuestionManagement from '../pages/QuestionManagement';
 import SocialSignUp from '../components/common/SocialSignUp';

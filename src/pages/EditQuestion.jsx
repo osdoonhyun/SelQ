@@ -11,11 +11,11 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { useQuestionDetailQuery } from '../../services/api';
-import { CATEGORIES } from '../../constant/categories';
-import { useEditQuestion } from '../../services/questionHook/registerQuestion';
+import { useQuestionDetailQuery } from '../services/api';
+import { CATEGORIES } from '../constant/categories';
+import { useEditQuestion } from '../services/questionHook/registerQuestion';
 import { useEffect, useState } from 'react';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 export default function EditQuestion() {
   const navigate = useNavigate();

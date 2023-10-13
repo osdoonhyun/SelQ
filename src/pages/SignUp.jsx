@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../styles/Styles';
 import Timer from '../components/ui/Timer';
-import SocialGoogleLogIn from '../components/common/SocialGoogleLogIn';
+import SocialLogInButton from '../components/common/SocialLogInButton';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required('이메일을 입력해 주세요.'),
@@ -190,7 +190,7 @@ export default function SignUp() {
             SNS 계정으로 간편하게 회원가입
           </Row>
           <Row className='justify-content-center mt-2 mb-4 mx-1'>
-            <SocialGoogleLogIn />
+            <SocialLogInButton />
           </Row>
         </Form.Group>
         <hr />
