@@ -19,7 +19,8 @@ function App() {
           <CookiesProvider>
             <Provider store={store}>
               <GoogleOAuthProvider
-                clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_KEY}
+                clientId='576753327119-i9c1nu641mopb30hu7lhrncv0fa4oknn.apps.googleusercontent.com'
+                // clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_KEY}
               >
                 <RouterProvider router={router} />
               </GoogleOAuthProvider>
