@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function AnswerInput({ question, onNext }) {
   const [answers, setAnswers] = useState('');
@@ -18,7 +19,7 @@ export default function AnswerInput({ question, onNext }) {
           <Form.Label>
             질문<span style={{ position: 'relative', top: '-3px' }}>*</span>
           </Form.Label>
-          <div style={{ color: '#1e235a66' }}>
+          <div style={{ color: GREYS.DARKEST }}>
             <ReactMarkdown children={question} />
           </div>
         </Form.Group>
@@ -39,9 +40,9 @@ export default function AnswerInput({ question, onNext }) {
 
         <Button
           style={{
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           disabled={!answers}
           variant='Light'

@@ -7,6 +7,7 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function Confirmation({
   question,
@@ -25,7 +26,7 @@ export default function Confirmation({
       <Form onSubmit={onClickNext}>
         <Form.Group className='mb-3' controlId='form.ControlQuestion'>
           <Form.Label>질문</Form.Label>
-          <div style={{ color: '#1e235a66', minHeight: '50px' }}>
+          <div style={{ color: GREYS.DARKEST, minHeight: '50px' }}>
             <ReactMarkdown children={question.question} />
           </div>
         </Form.Group>
@@ -33,11 +34,13 @@ export default function Confirmation({
           <Stack direction='horizontal' gap={5}>
             <div className='d-flex flex-column'>
               <Form.Label>카테고리</Form.Label>
-              <span style={{ color: '#1e235a66' }}>{question.category}</span>
+              <span style={{ color: GREYS.DARKEST }}>{question.category}</span>
             </div>
             <div className='d-flex flex-column align-items-center'>
               <Form.Label>중요도</Form.Label>
-              <span style={{ color: '#1e235a66' }}>{question.importance}</span>
+              <span style={{ color: GREYS.DARKEST }}>
+                {question.importance}
+              </span>
             </div>
           </Stack>
         </Form.Group>
@@ -48,12 +51,12 @@ export default function Confirmation({
             <div className='d-flex flex-wrap'>
               {question.hints?.map((hint, index) => (
                 <Badge
-                  bg='#5bacee'
+                  bg={MAIN.MEDIUM}
                   style={{
                     fontSize: '0.8rem',
-                    color: '#fff',
+                    color: GREYS.LIGHTER,
                     letterSpacing: '0.1rem',
-                    backgroundColor: '#5bacee',
+                    backgroundColor: MAIN.MEDIUM,
                   }}
                   key={index}
                   className='d-flex justify-content-center align-items-center mx-1'
@@ -66,7 +69,7 @@ export default function Confirmation({
         </Form.Group>
         <Form.Group className='mb-3' controlId='form.ControlAnswer'>
           <Form.Label>답변</Form.Label>
-          <div style={{ color: '#1e235a66', minHeight: '70px' }}>
+          <div style={{ color: GREYS.DARKEST, minHeight: '70px' }}>
             <ReactMarkdown children={answer.answers} />
           </div>
         </Form.Group>
@@ -74,9 +77,9 @@ export default function Confirmation({
           variant='Light'
           type='submit'
           style={{
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
         >
           {isLoading ? (

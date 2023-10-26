@@ -14,6 +14,7 @@ import * as yup from 'yup';
 import { ErrorMessage } from '../styles/Styles';
 import Timer from '../components/ui/Timer';
 import SocialLogInButton from '../components/common/SocialLogInButton';
+import { MAIN, GREYS } from '../styles/variables';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required('이메일을 입력해 주세요.'),
@@ -233,9 +234,9 @@ export default function SignUp() {
             alignItems: 'center',
             width: '127px',
             height: '38px',
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           onClick={verifyRegisteredEmailHandler}
           className='mb-3'
@@ -268,13 +269,13 @@ export default function SignUp() {
               onChange={(e) => setVerificationCode(e.target.value)}
             />
             <div>
-              <Form.Text style={{ color: '#828C94' }}>
+              <Form.Text style={{ color: GREYS.DARK }}>
                 이메일을 받지 못하셨나요?{` `}
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a
                   href='#'
                   onClick={handleResendEmail}
-                  style={{ color: '#828C94' }}
+                  style={{ color: GREYS.DARK }}
                 >
                   이메일 재전송하기
                 </a>
@@ -286,9 +287,9 @@ export default function SignUp() {
               className='mt-3'
               variant='Light'
               style={{
-                backgroundColor: '#2f93ea',
-                border: '1px solid #2f93ea',
-                color: '#fff',
+                backgroundColor: MAIN.DARK,
+                border: `1px solid ${MAIN.DARK}`,
+                color: GREYS.LIGHTER,
               }}
               onClick={checkEmailVerificationHandler}
             >
@@ -351,7 +352,7 @@ export default function SignUp() {
           <Form.Label>약관 동의</Form.Label>
           <div
             style={{
-              border: '1px solid #B3B3B5',
+              border: `1px solid ${GREYS.MEDIUM}`,
               padding: '18px',
               borderRadius: '5px',
             }}
@@ -401,9 +402,9 @@ export default function SignUp() {
         <Button
           variant='Light'
           style={{
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           type='submit'
           className='w-100 mt-3'
@@ -426,7 +427,7 @@ export default function SignUp() {
 
       <p className='mt-3' style={{ textAlign: 'center' }}>
         이미 아이디가 있으신가요?{' '}
-        <a style={{ color: '#2f93ea' }} href='/login'>
+        <a style={{ color: MAIN.DARK }} href='/login'>
           로그인
         </a>
       </p>

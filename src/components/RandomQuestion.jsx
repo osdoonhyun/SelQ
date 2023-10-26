@@ -1,6 +1,7 @@
 import { ButtonGroup, DropdownButton } from 'react-bootstrap';
 import { CATEGORIES } from '../constant/categories';
 import { HomeDropdownItem, HomeNextButton } from '../styles/Styles';
+import { GREYS } from '../styles/variables';
 
 export default function RandomQuestion({
   selectedCategory,
@@ -22,9 +23,9 @@ export default function RandomQuestion({
 
         <DropdownButton
           style={{
-            color: '#313030',
-            backgroundColor: '#f9f9f9',
-            border: '1px solid #c0c0ce',
+            color: GREYS.DARKEST,
+            backgroundColor: GREYS.LIGHTEST,
+            border: `1px solid ${GREYS.LIGHT}`,
           }}
           variant='Light'
           as={ButtonGroup}

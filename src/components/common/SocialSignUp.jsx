@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSignUpHandler } from '../../services/authHook/signUp';
 import { serverApi } from '../../services/api';
+import { MAIN, GREYS } from '../../styles/variables';
 
 const signUpSchema = yup.object().shape({
   username: yup
@@ -140,7 +141,7 @@ export default function SocialSignUp() {
           <Form.Label>약관 동의</Form.Label>
           <div
             style={{
-              border: '1px solid #B3B3B5',
+              border: `1px solid ${GREYS.MEDIUM}`,
               padding: '18px',
               borderRadius: '5px',
             }}
@@ -190,9 +191,9 @@ export default function SocialSignUp() {
         <Button
           variant='Light'
           style={{
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           type='submit'
           className='w-100 mt-3'

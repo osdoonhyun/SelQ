@@ -8,6 +8,7 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { DATE_FILTER_OPTION } from '../../constant/filters';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function QuestionFilter({
   filterOptions,
@@ -150,12 +151,12 @@ export default function QuestionFilter({
           Array.isArray(filterOptions[label]) ? (
             filterOptions[label].map((option, optionIndex) => (
               <Badge
-                bg='#5bacee'
+                bg={MAIN.MEDIUM}
                 style={{
                   fontSize: '0.8rem',
-                  color: '#fff',
+                  color: GREYS.LIGHTER,
                   letterSpacing: '0.1rem',
-                  backgroundColor: '#5bacee',
+                  backgroundColor: MAIN.MEDIUM,
                 }}
                 key={optionIndex}
                 className='d-flex justify-content-center align-items-center '
@@ -174,12 +175,12 @@ export default function QuestionFilter({
             ))
           ) : (
             <Badge
-              bg='#5bacee'
+              bg={MAIN.MEDIUM}
               style={{
                 fontSize: '0.8rem',
-                color: '#fff',
+                color: GREYS.LIGHTER,
                 letterSpacing: '0.1rem',
-                backgroundColor: '#5bacee',
+                backgroundColor: MAIN.MEDIUM,
               }}
               key={index}
               className='d-flex justify-content-center align-items-center '

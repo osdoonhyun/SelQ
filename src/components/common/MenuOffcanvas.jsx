@@ -9,6 +9,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function MenuOffcanvas({
   user,
@@ -28,7 +29,7 @@ export default function MenuOffcanvas({
     >
       <Offcanvas.Header closeButton>
         <Offcanvas.Title
-          style={{ color: '#5bacee', fontWeight: '600', fontSize: '26px' }}
+          style={{ color: MAIN.MEDIUM, fontWeight: '600', fontSize: '26px' }}
         >
           Sel-Q
         </Offcanvas.Title>
@@ -50,7 +51,7 @@ export default function MenuOffcanvas({
             <Col>
               <Stack gap={2} className='col-md-5 mx-auto'>
                 <span>{user?.username}</span>
-                <span style={{ color: '#adb5bd' }}>
+                <span style={{ color: GREYS.MEDIUM }}>
                   {user?.roles && user?.roles[0] === 'admin'
                     ? '관리자'
                     : '일반유저'}

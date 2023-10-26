@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
+import { MAIN, GREYS, RED } from './variables';
 import styled, { css } from 'styled-components';
 
 export const HeaderNav = styled(Nav)`
@@ -16,7 +17,7 @@ export const HeaderNav = styled(Nav)`
 `;
 
 export const HeaderIcon = styled(FontAwesomeIcon)`
-  color: ${({ $isActive }) => ($isActive ? '#5BACEE' : '#B3B3B5')};
+  color: ${({ $isActive }) => ($isActive ? MAIN.MEDIUM : GREYS.MEDIUM)};
 `;
 
 export const StyledButton = styled.button`
@@ -26,14 +27,14 @@ export const StyledButton = styled.button`
   border-radius: 8px;
   font-size: 14px;
   line-height: 1.5;
-  color: #313030;
-  background-color: #f9f9f9;
-  border: 1px solid #c0c0ce;
+  color: ${GREYS.DARKEST};
+  background-color: ${GREYS.LIGHTER};
+  border: 1px solid ${GREYS.LIGHT};
 
   ${({ selected }) =>
     selected &&
     css`
-      border: 2px solid #5bacee;
+      border: 2px solid ${MAIN.MEDIUM};
     `}
 `;
 
@@ -43,35 +44,35 @@ export const StyledBadge = styled.span`
   padding: 3px 7px;
   border-radius: 3px;
   line-height: 1.3;
-  color: #f9f9f9;
-  background-color: ${({ selected }) => (selected ? '#a8d0f2' : '#b3b3b5')};
+  color: ${GREYS.LIGHTEST};
+  background-color: ${({ selected }) => (selected ? MAIN.LIGHT : GREYS.MEDIUM)};
 `;
 
 export const HomeNextButton = styled(Button)`
-  color: #313030;
-  background-color: #f9f9f9;
-  border: 1px solid #c0c0ce;
+  color: ${GREYS.DARKEST};
+  background-color: ${GREYS.LIGHTEST};
+  border: 1px solid ${GREYS.LIGHT};
   border-radius: 5px;
   &:hover {
-    background-color: #5bacee;
+    background-color: ${MAIN.MEDIUM};
   }
 `;
 
 export const HomeCategoryButton = styled(DropdownButton)`
-  color: #313030;
-  background-color: #f9f9f9;
-  border: 1px solid #c0c0ce;
+  color: ${GREYS.DARKEST};
+  background-color: ${GREYS.LIGHTEST};
+  border: 1px solid ${GREYS.LIGHT};
   &:hover {
-    background-color: #5bacee;
+    background-color: ${MAIN.MEDIUM};
   }
 `;
 
 export const DeleteButton = styled(Button)`
-  color: #f9f9f9;
-  background-color: #5bacee;
-  border: 1px solid #a8d0f2;
+  color: ${GREYS.LIGHTEST};
+  background-color: ${MAIN.MEDIUM};
+  border: 1px solid ${MAIN.LIGHT};
   &:hover {
-    background-color: #a8d0f2;
+    background-color: ${MAIN.LIGHT};
   }
 `;
 
@@ -86,20 +87,20 @@ export const BackButton = styled.button`
   text-align: left;
   /* vertical-align: justify; */
 
-  color: #313030;
-  background-color: #f9f9f9;
-  border: 1px solid #c0c0ce;
+  color: ${GREYS.DARKEST};
+  background-color: ${GREYS.LIGHTEST};
+  border: 1px solid ${GREYS.LIGHT};
   border-radius: 10px;
   &:hover {
-    background-color: #5bacee;
-    color: #f9f9f9;
+    background-color: ${MAIN.MEDIUM};
+    color: ${GREYS.LIGHTEST};
   }
 `;
 
 // TODO: (수정 필요)이것만 하면 DropdownButton 속성이 안됨
 export const HomeDropdownButton = styled(DropdownButton)`
   &:hover {
-    background-color: #5bacee;
+    background-color: ${MAIN.MEDIUM};
   }
 `;
 
@@ -124,25 +125,25 @@ export const SearchLi = styled.li`
   list-style: none;
   padding: 10px;
   border-radius: 5px;
-  color: #626468;
+  color: ${GREYS.DARKER};
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #a8d0f2;
+    background-color: ${MAIN.LIGHT};
   }
 `;
 
 export const MenuNavLink = styled(Nav.Link)`
   &:hover {
-    color: #868e96;
+    color: ${GREYS.DARK};
   }
 `;
 
 export const ErrorMessage = styled.p`
   padding-top: 4px;
   font-size: 14px;
-  color: #ff7777;
+  color: ${RED};
 `;
 
 export const StyledTd = styled.td`
@@ -152,10 +153,14 @@ export const StyledTd = styled.td`
   max-width: ${(props) => props.maxWidth};
 `;
 
-// #F7F6F7 -> 밝은 회색 (Header, Footer)
+// #F7F6F7 -> 밝은 회색 (조금 어두운 흰색정도?)(Header, Footer)
 // 아이콘 선택 안되었을때 #B3B3B5 -> 조금 어두운 회색
-// 선택되었을때 파란색 #5bacee
-// 선택되었을때 밝은 파랑: #A8D0F2
+// 더 어두운 회색 ${GREYS.DARK}
+// 진한 회색 ${GREYS.DARKER}
+
+// 선택되었을때 밝은 파랑: ${MAIN.LIGHT}
+// 선택되었을때 파란색 ${MAIN.MEDIUM}
 // 진한 파랑 : #2f93ea
-// 글자색 검정: #313030 흰색: #f0f4f5
+
+// 글자색 검정: ${GREYS.DARKEST} 흰색: #f0f4f5
 // 등록 글자 회삭: #1e235a66

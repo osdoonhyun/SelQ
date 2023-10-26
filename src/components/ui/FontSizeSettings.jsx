@@ -13,6 +13,7 @@ import { getTargetIndex } from '../../utils/fontSize';
 import { FONT_SIZE_OPTIONS } from '../../constant/options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function FontSizeSettings() {
   const { fontSizing, handleFontSizing } = useContext(FontSizingContext);
@@ -58,7 +59,7 @@ export default function FontSizeSettings() {
             alignItems: 'center',
           }}
         >
-          <FontAwesomeIcon color='#B3B3B5' icon={faGear} size='xl' />
+          <FontAwesomeIcon color={GREYS.MEDIUM} icon={faGear} size='xl' />
         </div>
       </Button>
 
@@ -105,7 +106,7 @@ export default function FontSizeSettings() {
                       style={{
                         border:
                           (selectedFontCard || fontSizing) === variant &&
-                          '3px solid #5bacee',
+                          `3px solid ${MAIN.MEDIUM}`,
                       }}
                     >
                       <Card.Body

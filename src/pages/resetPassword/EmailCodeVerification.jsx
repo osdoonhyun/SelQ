@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { useCheckEmailVerification } from '../../services/authHook/signUp';
 import { Controller, useForm } from 'react-hook-form';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function EmailCodeVerification({ onNext, userEmail }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -70,9 +71,9 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
               <Button
                 variant='Light'
                 style={{
-                  backgroundColor: '#2f93ea',
-                  border: '1px solid #2f93ea',
-                  color: '#fff',
+                  backgroundColor: MAIN.DARK,
+                  border: `1px solid ${MAIN.DARK}`,
+                  color: GREYS.LIGHTER,
                 }}
                 onClick={handleCheckButton}
                 disabled={checkBtnDisable}
@@ -103,9 +104,9 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
         <Button
           variant='Light'
           style={{
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           className='mt-3 w-100'
           type='submit'

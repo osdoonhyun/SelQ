@@ -5,6 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SearchQuetions from './SearchQuetions';
 import { useSearchQuestionsQuery } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function SearchBar() {
   const navigate = useNavigate();
@@ -36,7 +37,11 @@ export default function SearchBar() {
             alignItems: 'center',
           }}
         >
-          <FontAwesomeIcon color='#B3B3B5' icon={faMagnifyingGlass} size='xl' />
+          <FontAwesomeIcon
+            color={GREYS.MEDIUM}
+            icon={faMagnifyingGlass}
+            size='xl'
+          />
         </div>
       </Button>
 
@@ -46,7 +51,7 @@ export default function SearchBar() {
             style={{ width: '100%', display: 'flex', alignItems: 'center' }}
           >
             <FontAwesomeIcon
-              color='#B3B3B5'
+              color={GREYS.MEDIUM}
               icon={faMagnifyingGlass}
               size='xl'
             />
@@ -57,7 +62,7 @@ export default function SearchBar() {
                 padding: '2px 6px',
                 border: 0,
                 borderRadius: '4px',
-                outline: '2px solid  #A8D0F2',
+                outline: `2px solid  ${MAIN.LIGHT}`,
               }}
               placeholder='Search Questions'
               value={searchInput}

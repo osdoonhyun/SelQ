@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { ErrorMessage } from '../styles/Styles';
 import ErrorToast from '../components/common/ErrorToast';
 import SocialLogInButton from '../components/common/SocialLogInButton';
+import { MAIN, GREYS } from '../styles/variables';
 
 const loginSchema = yup.object({
   email: yup
@@ -67,7 +68,7 @@ export default function LogIn() {
               style={{
                 fontSize: '2rem',
                 fontWeight: 500,
-                color: '#5bacee',
+                color: MAIN.MEDIUM,
               }}
               className='justify-content-center mb-4'
             >
@@ -99,9 +100,9 @@ export default function LogIn() {
                 height: '55px',
                 width: '330px',
                 padding: '15px 10px',
-                backgroundColor: '#2f93ea',
-                border: '1px solid #2f93ea',
-                color: '#fff',
+                backgroundColor: MAIN.DARK,
+                border: `1px solid ${MAIN.DARK}`,
+                color: GREYS.LIGHTER,
               }}
               variant='Light'
               type='submit'
@@ -114,12 +115,12 @@ export default function LogIn() {
         <div className='d-flex justify-content-center mt-3'>
           <Nav as='ul'>
             <Nav.Item as='li'>
-              <Nav.Link style={{ color: '#5bacee' }} href='/password/new'>
+              <Nav.Link style={{ color: MAIN.MEDIUM }} href='/password/new'>
                 비밀번호 재설정
               </Nav.Link>
             </Nav.Item>
             <Nav.Item as='li'>
-              <Nav.Link style={{ color: '#5bacee' }} href='/signup'>
+              <Nav.Link style={{ color: MAIN.MEDIUM }} href='/signup'>
                 회원가입
               </Nav.Link>
             </Nav.Item>

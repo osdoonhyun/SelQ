@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../../styles/Styles';
+import { MAIN, GREYS } from '../../styles/variables';
 
 const newPasswordSchema = yup.object({
   password: yup
@@ -87,9 +88,9 @@ export default function NewPassword() {
             height: '55px',
             width: '330px',
             padding: '15px 10px',
-            backgroundColor: '#2f93ea',
-            border: '1px solid #2f93ea',
-            color: '#fff',
+            backgroundColor: MAIN.DARK,
+            border: `1px solid ${MAIN.DARK}`,
+            color: GREYS.LIGHTER,
           }}
           type='submit'
         >

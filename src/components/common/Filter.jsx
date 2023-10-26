@@ -7,6 +7,7 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { USER_FILTER_OPTIONS } from '../../constant/filters';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function Filter({
   filterOptions,
@@ -39,12 +40,12 @@ export default function Filter({
       <Stack direction='horizontal' gap={2} className='p-2'>
         {Object.keys(filterOptions).map((label, index) => (
           <Badge
-            bg='#5bacee'
+            bg={MAIN.MEDIUM}
             style={{
               fontSize: '0.8rem',
-              color: '#fff',
+              color: GREYS.LIGHTER,
               letterSpacing: '0.1rem',
-              backgroundColor: '#5bacee',
+              backgroundColor: MAIN.MEDIUM,
             }}
             key={index}
             className='d-flex justify-content-center align-items-center '

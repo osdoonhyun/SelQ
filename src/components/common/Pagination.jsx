@@ -6,6 +6,7 @@ import {
   faChevronRight,
   faAnglesRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function Pagination({
   currentPage,
@@ -22,7 +23,7 @@ export default function Pagination({
     <PaginationTool>
       <PaginationTool.First onClick={() => handlePageChange(1)}>
         <FontAwesomeIcon
-          style={{ color: '#5bacee' }}
+          style={{ color: MAIN.MEDIUM }}
           icon={faAnglesLeft}
           size='lg'
         />
@@ -31,7 +32,7 @@ export default function Pagination({
         onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
       >
         <FontAwesomeIcon
-          style={{ color: '#5bacee' }}
+          style={{ color: MAIN.MEDIUM }}
           icon={faChevronLeft}
           size='sm'
         />
@@ -43,7 +44,7 @@ export default function Pagination({
           linkStyle={
             index + 1 === currentPage
               ? {
-                  backgroundColor: '#5bacee',
+                  backgroundColor: MAIN.MEDIUM,
                 }
               : {}
           }
@@ -51,7 +52,7 @@ export default function Pagination({
         >
           <span
             style={{
-              color: index + 1 === currentPage ? '#f0f4f5' : '#5bacee',
+              color: index + 1 === currentPage ? GREYS.LIGHTEST : MAIN.MEDIUM,
             }}
           >
             {index + 1}
@@ -63,14 +64,14 @@ export default function Pagination({
         onClick={() => handlePageChange(Math.min(currentPage + 1, pageCount))}
       >
         <FontAwesomeIcon
-          style={{ color: '#5bacee' }}
+          style={{ color: MAIN.MEDIUM }}
           icon={faChevronRight}
           size='sm'
         />
       </PaginationTool.Next>
       <PaginationTool.Last onClick={() => handlePageChange(pageCount)}>
         <FontAwesomeIcon
-          style={{ color: '#5bacee' }}
+          style={{ color: MAIN.MEDIUM }}
           icon={faAnglesRight}
           size='lg'
         />

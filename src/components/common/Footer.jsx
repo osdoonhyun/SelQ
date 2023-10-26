@@ -1,3 +1,5 @@
+import { GREYS } from '../../styles/variables';
+
 export default function Footer() {
   return (
     <div
@@ -9,8 +11,8 @@ export default function Footer() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#F7F6F7',
-        color: '#313030',
+        backgroundColor: GREYS.LIGHTER,
+        color: GREYS.DARKEST,
       }}
     >
       @ 2023. shinseunghyun all rights reserved.

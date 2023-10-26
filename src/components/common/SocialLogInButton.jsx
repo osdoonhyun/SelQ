@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 import { logIn } from '../../store/Slices/auth';
 import Google from '../../assets/icon/oauth/google.svg';
 import { getCookie } from '../../config/cookie';
+import { GREYS } from '../../styles/variables';
 
 export default function SocialLogInButton() {
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ export default function SocialLogInButton() {
   return (
     <Button
       variant='Light'
-      style={{ border: '1px solid #bdbdbd' }}
+      style={{ border: `1px solid ${GREYS.MEDIUM}` }}
       onClick={socialLogin}
     >
       <div
@@ -132,7 +133,7 @@ export default function SocialLogInButton() {
         }}
       >
         <img src={Google} alt='Google 아이콘' style={{ width: '24px' }} />
-        <span style={{ color: '#0c0b0b66' }}>구글 계정으로 계속하기</span>
+        <span style={{ color: GREYS.DARKEST }}>구글 계정으로 계속하기</span>
       </div>
     </Button>
   );

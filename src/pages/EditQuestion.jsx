@@ -16,6 +16,7 @@ import { CATEGORIES } from '../constant/categories';
 import { useEditQuestion } from '../services/questionHook/registerQuestion';
 import { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
+import { MAIN, GREYS } from '../styles/variables';
 
 export default function EditQuestion() {
   const navigate = useNavigate();
@@ -196,9 +197,9 @@ export default function EditQuestion() {
                     <Button
                       variant='Light'
                       style={{
-                        backgroundColor: '#2f93ea',
-                        border: '1px solid #2f93ea',
-                        color: '#fff',
+                        backgroundColor: MAIN.DARK,
+                        border: `1px solid ${MAIN.DARK}`,
+                        color: GREYS.LIGHTER,
                       }}
                       disabled={hintBtnDisable}
                       onClick={handleAddHint}
@@ -210,12 +211,12 @@ export default function EditQuestion() {
                 <Stack className='mt-3' direction='horizontal' gap={2}>
                   {hints?.map((hint, index) => (
                     <Badge
-                      bg='#5bacee'
+                      bg={MAIN.MEDIUM}
                       style={{
                         fontSize: '0.8rem',
-                        color: '#fff',
+                        color: GREYS.LIGHTER,
                         letterSpacing: '0.1rem',
-                        backgroundColor: '#5bacee',
+                        backgroundColor: MAIN.MEDIUM,
                       }}
                       key={index}
                       className='d-flex justify-content-center align-items-center'

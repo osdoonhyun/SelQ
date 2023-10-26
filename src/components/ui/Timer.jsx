@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RED } from '../../styles/variables';
 
 export default function Timer() {
   const [timeLeft, setTimeLeft] = useState(180);
@@ -24,7 +25,7 @@ export default function Timer() {
   }, [timeLeft]);
 
   return (
-    <div style={{ color: '#FF7777' }}>
+    <div style={{ color: RED }}>
       {expired ? '인증코드가 만료되었습니다.' : `${minutes}:${seconds}`}
     </div>
   );
