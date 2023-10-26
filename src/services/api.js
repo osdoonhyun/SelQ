@@ -176,8 +176,11 @@ const useImportantQuestionsQuery = (currentPage, filterOption) => {
 };
 
 const getQuestionsByKeyword = async (keyword) => {
-  const response = await serverApi.get('/questions');
-
+  const response = await serverApi.get('/questions', {
+    params: {
+      take: 50,
+    },
+  });
   const filteredQuestions = response.data.body.data.filter((question) => {
     const lowQuestion = question.question.toLowerCase().trim();
     const lowercaseKeyword = keyword.toLowerCase().trim();
