@@ -1,7 +1,5 @@
-## 자기 자신에게 질문하며 학습한다! Self Question, Sel-Q
-
 <p align='middle'>
-  <img width="200px;" src="./public/logo.jpg" alt="selq-logo">
+  <img width="484px;" src="./public/logo.jpg" alt="selq-logo">
 </p>
 
 ### 📌 목차
@@ -81,51 +79,39 @@
 		</tr>
 		<tr>
 			<th>메인 페이지</th>
-			<th>~~~~~~반응형 기능</th>
+			<th>질문 목록 / 상세 페이지</th>
 		</tr>
 		<tr>
 			<td><img width="400px" src="./public/readme-images/mainPage.gif" alt="메인 페이지"/></td>
-			<td><img width="400px" src="public/readme-images/darkmode.gif" alt="질문 목록 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/questionsPage.gif" alt="질문 목록 / 상세 페이지"/></td>			
 		</tr>		
 		<tr>
-			<td>- 랜덤 질문 돌리기를 통해 스스로 학습하는 페이지<br>- 힌트, 답변 제공<br>- 카테고리 필터링 기능<br>- 반응형 UI</td>
-			<td>~~~~반응형 기능</td>
-		</tr>	
-		<tr>
-			<th>질문 목록 / 상세 페이지</th>
-			<th>중요 질문 페이지</th>
-		</tr>
-		<tr>
-			<td><img width="400px" src="public/readme-images/questionsPage.gif" alt="질문 목록 / 상세 페이지"/></td>
-			<td><img width="400px" src="public/readme-images/darkmode.gif" alt="중요 질문 페이지"/></td>
-		</tr>		
-		<tr>
+			<td>- 랜덤 질문 돌리기를 통해 스스로 학습하는 페이지<br>- 힌트, 답변 제공<br>- 카테고리 필터링 기능</td>
 			<td>- 전체 질문 모아보기<br>- 카테고리 캐러셀 기능<br>- 질문에 대한 힌트와 답변 기능을 통해 스스로 학습하는 기능(상세페이지)</td>
-			<td>- 중요도 확인 후 학습하는 기능<br>- 페이지네이션 기능<br>- 난이도 선택 기능 (필터링)</td>
 		</tr>	
 		<tr>
-			<th>검색, 폰트 설정 기능</th>
+			<th>중요 질문 페이지</th>
 			<th>로그인 페이지</th>
 		</tr>
 		<tr>
-		<td><img width="400px" src="public/readme-images/login.gif" alt="검색, 폰트 설정 기능"/></td>
-			<td><img width="400px" src="public/readme-images/register.gif" alt="로그인 페이지"/></td>
-		</tr>
+			<td><img width="400px" src="./public/readme-images/importancePage.gif" alt="중요 질문 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/loginPage.gif.gif" alt="로그인 페이지"/></td>
+		</tr>		
 		<tr>
-			<td>- 질문 검색 기능<br>- 폰트 사이즈 설정 기능</td>
+			<td>- 중요도 확인 후 학습하는 기능<br>- 페이지네이션 기능<br>- 중요도 선택 기능 (필터링)</td>
 			<td>- 일반 / 소셜 로그인 기능<br>- 유효성 검사 기능</td>
-		</tr>
+		</tr>	
 		<tr>
 			<th>비밀번호 재설정 페이지</th>
 			<th>회원가입 페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/landing-page.gif" alt="비밀번호 재설정 페이지"/></td>
-			<td><img width="400px" src="public/readme-images/darkmode.gif" alt="회원가입 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/resetPassword.gif.gif" alt="비밀번호 재설정 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/signUpPage.gif.gif" alt="회원가입 페이지"/></td>
 		</tr>		
 		<tr>
 			<td>- 이메일 인증(가입 유저 확인)<br>- 비밀번호 재설정 기능</td>
-			<td>- 소셜 가입<br>- 이메일 인증<br>- 유효성 검사</td>
+			<td>- 일반 / 소셜 회원가입<br>- 이메일 인증<br>- 유효성 검사</td>
 		</tr>	
     <tr>
 			<th colspan="2"><strong>[ User Side (Logged In) ]</strong></th>
@@ -136,7 +122,7 @@
 		</tr>
 		<tr>
 			<td><img width="400px" src="public/readme-images/mypage.gif" alt="북마크 페이지"/></td>
-			<td><img width="400px" src="public/readme-images/mypage-edit.gif" alt="마이페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/myPage.gif" alt="마이페이지"/></td>
 		</tr>
 		<tr>
 			<td>- 북마크 기능<br>- 북마크한 질문 모아보기</td>
@@ -147,29 +133,56 @@
 		</tr>
 		<tr>
 			<th>질문 등록 페이지</th>
-			<th>질문 관리 페이지</th>
+			<th>유저 관리 페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/post-project.gif" alt="질문 등록 페이지"/></td>
-			<td><img width="400px" src="public/readme-images/detail-recruit.gif" alt="질문 관리 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/postQuestionPage.gif" alt="질문 등록 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/adminUserPage.gif" alt="유저 관리 페이지"/></td>
 		</tr>
 		<tr>
 			<td>- 단계별 질문 등록 기능<br>- 등록 진행 상태 표시 Progress Bar 구현<br>- 유효성 검사</td>
-			<td>- 전체 질문 관리<br>- 질문 수정 / 삭제 기능<br>- 카테고리 / 중요도 / 날짜 필터링 기능<br>- 페이지네이션 기능</td>
+			<td>- 전체 유저 관리<br>- 유저 프로필 조회 / (닉네임, 등급)수정 / 삭제<br>- 닉네임 / 날짜 / 권한 필터링 기능<br>- 페이지네이션 기능</td>
 		</tr>
 		<tr>
-			<th>유저 관리 페이지</th>
+			<th>질문 관리 페이지</th>
+			<th>질문 관리 페이지 (필터링)</th>
+		</tr>
+		<tr>
+			<td><img width="400px" src="./public/readme-images/adminQuestionsPage.gif" alt="질문 관리 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/adminUserFiltering.gif" alt="질문 관리 필터링"/></td>
+		</tr>
+		<tr>
+			<td>- 전체 질문 관리<br>- 질문 수정 / 삭제 기능</td>
+			<td>- 전체 질문 관리<br>- 카테고리 / 중요도 / 날짜 필터링 기능<br>- 페이지네이션 기능</td>
+		</tr>
+		<tr>
+			<th colspan="2"><strong>[ 그 외 기능들 ]</strong></th>
+		</tr>
+		<tr>
+			<th>반응형 UI 기능</th>
+			<th>글자 크기 설정 기능</th>
+		</tr>
+		<tr>
+			<td><img width="400px" src="./public/readme-images/responsively.gif" alt="반응형 UI"/></td>
+			<td><img width="400px" src="./public/readme-images/fontSizeSetting.gif.gif" alt="폰트 사이즈 설정 기능"/></td>
+		</tr>
+		<tr>
+			<td>- 모든 페이지 반응형 UI 지원</td>
+			<td>- 글자 크기 설정 기능(축소, 기본, 확대)</td>
+		</tr>
+		<tr>
+			<th>질문 검색 기능</th>
 			<th></th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/recruits-page.gif" alt="유저 관리 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/searchQuestion.gif" alt="질문 검색 기능"/></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>- 전체 유저 관리<br>- 유저 프로필 조회 / (닉네임, 등급)수정 / 삭제<br>- 닉네임 / 날짜 / 권한 필터링 기능<br>- 페이지네이션 기능</td>
+			<td>- 질문 검색 기능</td>
 			<td></td>
 		</tr>
-    </tbody>
+	</tbody>
 
 </table>
 
