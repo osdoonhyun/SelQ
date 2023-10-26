@@ -1,18 +1,18 @@
 ## 자기 자신에게 질문하며 학습한다! Self Question, Sel-Q
 
 <p align='middle'>
-  <img width="200px;" src="/selq-client/public/logo.jpg" alt="selq-logo">
+  <img width="200px;" src="./public/logo.jpg" alt="selq-logo">
 </p>
 
 ### 📌 목차
 
-[1. 서비스 소개](#🔎-서비스-소개)  
-[2. 기술 스택](#🛠️-기술-스택)  
-[3. 아키텍쳐](#아키텍쳐)  
-[4. 폴더 구조](#🌳-폴더-구조)  
-[5. 주요 기능 및 페이지 소개](#💻-주요-기능-및-페이지-소개)  
-[6. 커밋 컨벤션](#⚙️-커밋-컨벤션)  
-[7. 관련 포스팅](#📚-관련-포스팅)
+[1. 서비스 소개](#-서비스-소개)  
+[2. 기술 스택](#-기술-스택)  
+[3. 아키텍쳐](#키텍쳐)  
+[4. 폴더 구조](#-폴더-구조)  
+[5. 주요 기능 및 페이지 소개](#-주요-기능-및-페이지-소개)  
+[6. 커밋 컨벤션](#-커밋-컨벤션)  
+[7. 관련 포스팅](#-관련-포스팅)
 
 ## 🔎 서비스 소개
 
@@ -77,30 +77,30 @@
 <table>
 	<tbody>
     <tr>
-			<th colspan="2">**[ Common ]**</th>
+			<th colspan="2"><strong>[ Common ]</strong></th>
 		</tr>
 		<tr>
 			<th>메인 페이지</th>
-			<th>질문 목록 페이지</th>
+			<th>~~~~~~반응형 기능</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/landing-page.gif" alt="메인 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/mainPage.gif" alt="메인 페이지"/></td>
 			<td><img width="400px" src="public/readme-images/darkmode.gif" alt="질문 목록 페이지"/></td>
 		</tr>		
 		<tr>
-			<td>- 랜덤 질문 돌리기를 통해 스스로 학습하는 페이지<br>- 힌트, 답변 제공<br>- 카테고리 필터링 기능</td>
-			<td>- 전체 질문 모아보기<br>- 캐러셀 기능</td>
+			<td>- 랜덤 질문 돌리기를 통해 스스로 학습하는 페이지<br>- 힌트, 답변 제공<br>- 카테고리 필터링 기능<br>- 반응형 UI</td>
+			<td>~~~~반응형 기능</td>
 		</tr>	
 		<tr>
-			<th>질문 상세 페이지</th>
+			<th>질문 목록 / 상세 페이지</th>
 			<th>중요 질문 페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/landing-page.gif" alt="질문 상세 페이지"/></td>
+			<td><img width="400px" src="public/readme-images/questionsPage.gif" alt="질문 목록 / 상세 페이지"/></td>
 			<td><img width="400px" src="public/readme-images/darkmode.gif" alt="중요 질문 페이지"/></td>
 		</tr>		
 		<tr>
-			<td>- 질문에 대한 힌트와 답변 기능을 통해 스스로 학습하는 기능</td>
+			<td>- 전체 질문 모아보기<br>- 카테고리 캐러셀 기능<br>- 질문에 대한 힌트와 답변 기능을 통해 스스로 학습하는 기능(상세페이지)</td>
 			<td>- 중요도 확인 후 학습하는 기능<br>- 페이지네이션 기능<br>- 난이도 선택 기능 (필터링)</td>
 		</tr>	
 		<tr>
@@ -128,7 +128,7 @@
 			<td>- 소셜 가입<br>- 이메일 인증<br>- 유효성 검사</td>
 		</tr>	
     <tr>
-			<th colspan="2">[ User Side (Logged In) ]</th>
+			<th colspan="2"><strong>[ User Side (Logged In) ]</strong></th>
 		</tr>
 		<tr>
 			<th>북마크 페이지</th>
@@ -143,7 +143,7 @@
 			<td>- 개인 프로필 관리<br>- 계정 탈퇴 기능</td>
 		</tr>
     <tr>
-			<th colspan="2">[ Admin Side ]</th>
+			<th colspan="2"><strong>[ Admin Side ]</strong></th>
 		</tr>
 		<tr>
 			<th>질문 등록 페이지</th>
