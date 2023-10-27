@@ -6,9 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorMessage } from '../../styles/Styles';
 import * as yup from 'yup';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSignUpHandler } from '../../services/authHook/signUp';
+
 import { serverApi } from '../../services/api';
 import { MAIN, GREYS } from '../../styles/variables';
+import { useSignUpHandler } from '../../hooks/common/useSignUpHandler';
 
 const signUpSchema = yup.object().shape({
   username: yup

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-import {
-  useSendEmailVerification,
-  useVerifyRegisteredEmail,
-} from '../../services/authHook/signUp';
+
 import { Controller, useForm } from 'react-hook-form';
 import { MAIN, GREYS } from '../../styles/variables';
+import { useCheckRegisteredEmail } from '../../hooks/common/useCheckRegisteredEmail';
+import { useSendVerificationCode } from '../../hooks/common/useSendVerificationCode';
 
 export default function EmailVerification({ onNext }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -17,13 +16,13 @@ export default function EmailVerification({ onNext }) {
     mutateAsync: verifyEmail,
     isLoading: loadingVerifyEmail,
     error: errorVerifyEmail,
-  } = useVerifyRegisteredEmail();
+  } = useCheckRegisteredEmail();
 
   const {
     mutateAsync: sendEmail,
     isLoading: loadingSendEmail,
     error: errorSendEmail,
-  } = useSendEmailVerification();
+  } = useSendVerificationCode();
 
   const handleCheckButton = async () => {
     const inputEmail = getValues('email');

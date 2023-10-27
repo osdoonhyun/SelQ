@@ -3,14 +3,14 @@ import Question from '../components/Question';
 import RandomQuestion from '../components/RandomQuestion';
 import Hint from '../components/common/Hint';
 import Answer from '../components/common/Answer';
-import { useQuestionsQuery } from '../services/api';
+import { useGetQuestionsByCategory } from '../hooks/queries/useGetQuestionsByCategory';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [prevIndex, setPrevIndex] = useState(-1);
   const [randomQuestion, setRandomQuestion] = useState({});
 
-  const { data: questions } = useQuestionsQuery({
+  const { data: questions } = useGetQuestionsByCategory({
     category: selectedCategory,
   });
 

@@ -6,13 +6,14 @@ import {
   EmailForm,
   DeleteForm,
 } from '../components/common/ResponsiveForm';
-import { useUpdateUserInfoByUser } from '../services/authHook/getUsers';
+
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../hooks/common/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { MAIN, GREYS } from '../styles/variables';
+import { useUpdateUserInfoByUser } from '../hooks/common/useUpdateUserInfoByUser';
 
 const usernameSchema = yup
   .object({

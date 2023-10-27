@@ -3,9 +3,9 @@ import { Button, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SearchQuetions from './SearchQuetions';
-import { useSearchQuestionsQuery } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { MAIN, GREYS } from '../../styles/variables';
+import { useSearchQuestions } from '../../hooks/queries/useSearchQuestions';
 
 export default function SearchBar() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function SearchBar() {
   const defferedSearchInput = useDeferredValue(searchInput);
   const isStale = searchInput !== defferedSearchInput;
 
-  const { data: searchResults } = useSearchQuestionsQuery({ searchInput });
+  const { data: searchResults } = useSearchQuestions({ searchInput });
 
   const handleClose = () => {
     setSearchInput('');

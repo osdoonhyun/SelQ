@@ -8,8 +8,8 @@ import { useFontSize } from '../context/FontSizingProvider';
 import Answer from '../components/common/Answer';
 import Hint from '../components/common/Hint';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
-import { useQuestionDetailQuery } from '../services/api';
 import Bookmark from '../components/ui/Bookmark';
+import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 
 export default function QuestionDetail() {
   const { fontSizing, calcFontSize } = useFontSize();

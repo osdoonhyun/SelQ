@@ -3,7 +3,6 @@ import {
   CATEGORY_FILTER_OPTION,
   IMPORTANCE_FILTER_OPTION,
 } from '../constant/filters';
-import { useFilteredQuestionQuery } from '../services/api';
 import {
   Button,
   Dropdown,
@@ -12,12 +11,13 @@ import {
   Table,
 } from 'react-bootstrap';
 import { useState } from 'react';
-import { useDeleteQuestion } from '../services/questionHook/deleteQuestion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../hooks/common/useAuth';
 import QuestionFilter from '../components/common/QuestionFilter';
 import Pagination from '../components/common/Pagination';
+import { useDeleteQuestion } from '../hooks/mutations/useDeleteQuestion';
+import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
 
 export default function QuestionManagement() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function QuestionManagement() {
     data: questions,
     loading,
     error,
-  } = useFilteredQuestionQuery(currentPage, filterOptions);
+  } = useGetQuestionsByFilteringOption(currentPage, filterOptions);
 
   const {
     mutateAsync: deleteQuestion,

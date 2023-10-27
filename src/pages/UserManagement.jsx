@@ -8,10 +8,6 @@ import {
   Spinner,
   Table,
 } from 'react-bootstrap';
-import {
-  useUpdateUserInfoByAdmin,
-  useUsersQuery,
-} from '../services/authHook/getUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -19,6 +15,8 @@ import { Controller, useForm } from 'react-hook-form';
 import useAuth from '../hooks/common/useAuth';
 import Pagination from '../components/common/Pagination';
 import Filter from '../components/common/Filter';
+import { useGetUsers } from '../hooks/common/useGetUsers';
+import { useUpdateUserInfoByAdmin } from '../hooks/common/useUpdateUserInfoByAdmin';
 
 export default function UsersManagement() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +28,7 @@ export default function UsersManagement() {
 
   const { handleSubmit, control, setValue, getValues } = useForm();
   const { token } = useAuth();
-  const { data: users, refetch: refetchUsers } = useUsersQuery(
+  const { data: users, refetch: refetchUsers } = useGetUsers(
     currentPage,
     filterOptions
   );
