@@ -15,7 +15,7 @@ import { useQuestionDetailQuery } from '../services/api';
 import { CATEGORIES } from '../constant/categories';
 import { useEditQuestion } from '../services/questionHook/registerQuestion';
 import { useEffect, useState } from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../hooks/common/useAuth';
 import { MAIN, GREYS } from '../styles/variables';
 
 export default function EditQuestion() {

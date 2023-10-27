@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { convertUnitToPx } from '../utils/fontSize';
-import { FONT_SIZE_OPTIONS } from '../constant/options';
+// import { convertUnitToPx } from '../utils/fontSize';
+import { convertUnitToPx } from '../../utils/fontSize';
+import { FONT_SIZE_OPTIONS } from '../../constant/options';
 
 const calcFontSize = (fontSize, fontVariant) => {
   const fontSizeValue = convertUnitToPx(fontSize);

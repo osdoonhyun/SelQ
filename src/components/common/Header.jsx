@@ -24,7 +24,7 @@ import FontSizeSettings from '../ui/FontSizeSettings';
 import MenuOffcanvas from './MenuOffcanvas';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/Slices/auth';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/common/useAuth';
 import { MAIN, GREYS } from '../../styles/variables';
 
 function isPathMatch(targetPath, currentPath) {

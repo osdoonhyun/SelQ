@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import useFontSizing from '../hooks/useFontSizing';
+import useFontSizing from '../hooks/common/useFontSizing';
 
 const defaultValue = {
   fontSizing: 'basic',

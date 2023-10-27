@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useDeleteQuestion } from '../services/questionHook/deleteQuestion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../hooks/common/useAuth';
 import QuestionFilter from '../components/common/QuestionFilter';
 import Pagination from '../components/common/Pagination';
 

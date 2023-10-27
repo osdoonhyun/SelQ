@@ -4,7 +4,7 @@ import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
 import Confirmation from './Confirmation';
 import { useRegisterQuestion } from '../../services/questionHook/registerQuestion';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/common/useAuth';
 import ProgressBar from '../../components/common/ProgressBar';
 import { Container } from 'react-bootstrap';
 
