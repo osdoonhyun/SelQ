@@ -101,7 +101,7 @@ export default function Header() {
               as={Link}
               to='/'
               style={{
-                fontSize: '26px',
+                fontSize: '30px',
                 fontWeight: '600',
                 color: MAIN.MEDIUM,
               }}
@@ -228,7 +228,7 @@ export default function Header() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 padding: '5px 0',
-                fontSize: '28px',
+                fontSize: '26px',
                 fontWeight: '600',
                 color: MAIN.MEDIUM,
               }}
