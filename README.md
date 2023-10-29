@@ -6,7 +6,7 @@
 
 [1. 서비스 소개](#-서비스-소개)  
 [2. 기술 스택](#-기술-스택)  
-[3. 아키텍쳐](#키텍쳐)  
+[3. 아키텍쳐](#-아키텍쳐)  
 [4. 폴더 구조](#-폴더-구조)  
 [5. 주요 기능 및 페이지 소개](#-주요-기능-및-페이지-소개)  
 [6. 커밋 컨벤션](#-커밋-컨벤션)  
@@ -35,11 +35,13 @@
 ![Bootstrap](https://img.shields.io/static/v1?style=for-the-badge&color=7952B3&message=Bootstrap&logo=Bootstrap&logoColor=white&label=)
 ![styled-components](https://img.shields.io/static/v1?style=for-the-badge&color=DB7093&message=styled-components&logo=styled-components&logoColor=white&label=)
 ![Docker](https://img.shields.io/static/v1?style=for-the-badge&color=2496ED&message=docker&logo=docker&logoColor=white&label=)
-![EC2](https://img.shields.io/static/v1?style=for-the-badge&color=FF9900&message=aws+ec2&logo=amazonec2&logoColor=black&label=)
+![Lightsail](https://img.shields.io/static/v1?style=for-the-badge&color=FF9900&message=aws+lightsail&logo=amazonlightsail&logoColor=black&label=)
 
 </div>
 
 ## 🏛️ 아키텍쳐
+
+![Architecture](./public/readme-images//architecture.png)
 
 ## 🌳 폴더 구조
 
@@ -72,6 +74,8 @@
 
 ## 💻 주요 기능 및 페이지 소개
 
+> 페이지 클릭 시 큰 화면에서 보실 수 있습니다.
+
 <table>
 	<tbody>
     <tr>
@@ -95,7 +99,7 @@
 		</tr>
 		<tr>
 			<td><img width="400px" src="./public/readme-images/importancePage.gif" alt="중요 질문 페이지"/></td>
-			<td><img width="400px" src="./public/readme-images/loginPage.gif.gif" alt="로그인 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/loginPage.gif" alt="로그인 페이지"/></td>
 		</tr>		
 		<tr>
 			<td>- 중요도 확인 후 학습하는 기능<br>- 페이지네이션 기능<br>- 중요도 선택 기능 (필터링)</td>
@@ -106,8 +110,8 @@
 			<th>회원가입 페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="./public/readme-images/resetPassword.gif.gif" alt="비밀번호 재설정 페이지"/></td>
-			<td><img width="400px" src="./public/readme-images/signUpPage.gif.gif" alt="회원가입 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/resetPassword.gif" alt="비밀번호 재설정 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/signUpPage.gif" alt="회원가입 페이지"/></td>
 		</tr>		
 		<tr>
 			<td>- 이메일 인증(가입 유저 확인)<br>- 비밀번호 재설정 기능</td>
@@ -121,7 +125,7 @@
 			<th>마이페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="public/readme-images/mypage.gif" alt="북마크 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/mypage.gif" alt="북마크 페이지"/></td>
 			<td><img width="400px" src="./public/readme-images/myPage.gif" alt="마이페이지"/></td>
 		</tr>
 		<tr>
@@ -164,7 +168,7 @@
 		</tr>
 		<tr>
 			<td><img width="400px" src="./public/readme-images/responsively.gif" alt="반응형 UI"/></td>
-			<td><img width="400px" src="./public/readme-images/fontSizeSetting.gif.gif" alt="폰트 사이즈 설정 기능"/></td>
+			<td><img width="400px" src="./public/readme-images/fontSizeSetting.gif" alt="폰트 사이즈 설정 기능"/></td>
 		</tr>
 		<tr>
 			<td>- 모든 페이지 반응형 UI 지원</td>
@@ -199,6 +203,8 @@
 - `refactor` : 코드 리팩토링
 - `test` : 테스트
 - `chore` : 빌드 수정, 패키지 매니저 수정
+- `rename` : 파일 혹은 폴더명 수정, 옮기는 작업
+- `remove` : 파일 삭제
 
 ## 📚 관련 포스팅
 
