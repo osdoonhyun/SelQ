@@ -14,10 +14,6 @@ export const GREYS = {
   DARKEST: '#313030',
 };
 
-// export const RED = {
-//   MEDIUM: '#ff7777',
-// };
-
 export const RED = '#ff7777';
 
 export const YELLOW = '#F2D035';

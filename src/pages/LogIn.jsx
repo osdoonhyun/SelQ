@@ -10,19 +10,20 @@ import { ErrorMessage } from '../styles/Styles';
 import ErrorToast from '../components/common/ErrorToast';
 import SocialLogInButton from '../components/common/SocialLogInButton';
 import { MAIN, GREYS } from '../styles/variables';
+import { MESSAGE } from '../constant/message';
 
 const loginSchema = yup.object({
   email: yup
     .string()
-    .email('올바른 이메일 형식이 아닙니다.')
-    .required('이메일을 입력해 주세요.'),
+    .email(MESSAGE.LOGIN.VALIDATION_EMAIL)
+    .required(MESSAGE.LOGIN.VALIDATION_EMAIL_REQUIRED),
   password: yup
     .string()
-    .required('비밀번호를 입력해 주세요.')
-    .min(8, '8자 이상 입력해 주세요.')
+    .required(MESSAGE.LOGIN.VALIDATION_PASSWORD_REQUIRED)
+    .min(8, MESSAGE.LOGIN.VALIDATION_PASSWORD_MIN)
     .matches(
       /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-      '최소 하나의 대문자, 특수문자를 포함해야 합니다.'
+      MESSAGE.LOGIN.VALIDATION_PASSWORD_MATCHES
     ),
 });
 

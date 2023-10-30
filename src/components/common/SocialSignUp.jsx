@@ -9,12 +9,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { MAIN, GREYS } from '../../styles/variables';
 import { useSignUpHandler } from '../../hooks/common/useSignUpHandler';
 import { serverApi } from '../../apis/api';
+import { MESSAGE } from '../../constant/message';
 
 const signUpSchema = yup.object().shape({
   username: yup
     .string()
-    .min(2, '최소 2글자 이상 입력해 주세요.')
-    .max(15, '최대 15글자까지 입력 가능합니다.'),
+    .min(2, MESSAGE.SIGNUP.VALIDATION_USERNAME_MIN)
+    .max(15, MESSAGE.SIGNUP.VALIDATION_USERNAME_MAX),
   fourteenOverAgree: yup.bool().oneOf([true]),
   termsOfUseAgree: yup.bool().oneOf([true]),
   personalInfoAgree: yup.bool().oneOf([true]),
