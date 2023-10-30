@@ -1,7 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
 import { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
-
 import GoBackButton from '../components/ui/GoBackButton';
 import ImportanceCount from '../components/ImportanceCount';
 import { useFontSize } from '../context/FontSizingProvider';

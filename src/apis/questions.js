@@ -1,4 +1,4 @@
-import { serverApi } from '../services/api';
+import { serverApi } from './api';
 
 export const getQuestions = async () => {
   const response = await serverApi.get('/questions', {

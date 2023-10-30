@@ -2,7 +2,6 @@ import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../constant/signUp';
 import { useNavigate } from 'react-router-dom';
-
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';

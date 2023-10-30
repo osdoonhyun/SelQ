@@ -8,7 +8,6 @@ export const signUpHandler = async (userInput) => {
 };
 
 // 이메일 등록 검증
-// TODO: 다시 확인해보기
 export const checkRegisteredEmail = async (email) => {
   try {
     const { status } = await serverApi.post('/users/email', {
@@ -29,11 +28,9 @@ export const checkRegisteredEmail = async (email) => {
 };
 // 인증번호 전송
 export const sendVerificationCode = async (email) => {
-  const { status, statusText } = await serverApi.post('/auth/email/send', {
+  await serverApi.post('/auth/email/send', {
     email,
   });
-
-  console.log('이메일 인증 전송', status, statusText);
 };
 
 // 인증번호 검증

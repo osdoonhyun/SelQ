@@ -14,10 +14,10 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
-import { useFilteredQuestionQuery } from '../services/api';
 import Pagination from '../components/common/Pagination';
 import { IMPORTANCE_FILTER_OPTION } from '../constant/filters';
 import { MAIN, GREYS } from '../styles/variables';
+import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
 
 export default function ImportantQuestions() {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -31,7 +31,7 @@ export default function ImportantQuestions() {
     data: importantQuestions,
     loading,
     error,
-  } = useFilteredQuestionQuery(currentPage, selectedFilterOption);
+  } = useGetQuestionsByFilteringOption(currentPage, selectedFilterOption);
 
   const handleImportanceClick = (label, options) => {
     const updatedOptions = options

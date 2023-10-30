@@ -13,7 +13,7 @@ export const getUsers = async (page) => {
   return response.data.body;
 };
 
-// 유저 정보 업데이트 - Admin
+// 유저 정보 수정 - Admin
 export const updateUserInfoByAdmin = async ({ userId, updatedInfo, token }) => {
   const config = {
     headers: {
@@ -29,7 +29,7 @@ export const updateUserInfoByAdmin = async ({ userId, updatedInfo, token }) => {
   return data.body;
 };
 
-// 유저 정보 업데이트 - User
+// 유저 정보 수정 - User
 export const updateUserInfoByUser = async ({ updatedInfo, token }) => {
   const config = {
     headers: {
