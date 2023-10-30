@@ -117,7 +117,7 @@ export const QuestionTitle = styled.div`
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.05rem;
-  margin-bottom: ${(props) => (props.mb ? props.mb : 0)};
+  margin-bottom: ${(props) => (props.marginBottom ? props.marginBottom : 0)};
   cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
 `;
 

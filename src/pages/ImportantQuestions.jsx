@@ -196,7 +196,7 @@ export default function ImportantQuestions() {
             >
               <QuestionTitle
                 size={calcFontSize('1.6rem', fontSizing)}
-                mb='0.5rem'
+                marginBottom='0.5rem'
                 cursor={'pointer'}
               >
                 {question.question}
