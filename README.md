@@ -17,9 +17,8 @@
 매일 공부하며 습득한 지식을 기록하고 정리하며, Sel-Q에서 제공하는 다양한 기능을 활용하여 사용자가 스스로 학습을 진행할 수 있도록 도와주는 서비스입니다.<br>
 질문과 답변 형식으로 프론트엔드 개발자가 갖춰야 할 개발 지식, 상식의 내용을 **문제 은행 방식으로 스스로에게 질의응답**하여 학습한 내용을 더욱 효과적으로 정리하고 상기되도록 설계하였습니다.
 
-[서비스 구경하기]()<br>
-[프론트 레포]()<br>
-[API 문서]()
+[서비스 구경하기](htts://selq.store)<br>
+[프론트 레포](https://github.com/osdoonhyun/selQ-client)<br>
 
 ## 🛠️ 기술 스택
 
@@ -35,7 +34,7 @@
 ![Bootstrap](https://img.shields.io/static/v1?style=for-the-badge&color=7952B3&message=Bootstrap&logo=Bootstrap&logoColor=white&label=)
 ![styled-components](https://img.shields.io/static/v1?style=for-the-badge&color=DB7093&message=styled-components&logo=styled-components&logoColor=white&label=)
 ![Docker](https://img.shields.io/static/v1?style=for-the-badge&color=2496ED&message=docker&logo=docker&logoColor=white&label=)
-![Lightsail](https://img.shields.io/static/v1?style=for-the-badge&color=FF9900&message=aws+lightsail&logo=amazonlightsail&logoColor=black&label=)
+![EC2](https://img.shields.io/static/v1?style=for-the-badge&color=FF9900&message=aws+ec2&logo=amazonec2&logoColor=black&label=)
 
 </div>
 
