@@ -51,7 +51,7 @@ export default function BookmarkedQuestions() {
               >
                 <QuestionTitle
                   size={calcFontSize('1.6rem', fontSizing)}
-                  marginBottom='0.5rem'
+                  mbottom='0.5rem'
                   cursor={'pointer'}
                 >
                   {question.question}

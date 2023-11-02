@@ -117,9 +117,38 @@ export const QuestionTitle = styled.div`
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.05rem;
-  margin-bottom: ${(props) => (props.marginBottom ? props.marginBottom : 0)};
+  margin-bottom: ${(props) => props.mbottom || '0'};
   cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
 `;
+// export const QuestionTitle = styled.div.attrs((props) => ({
+//   size: props.size || '1rem', // 기본값 설정
+//   cursor: props.cursor || 'default', // 기본값 설정
+//   mbottom: props.mbottom || '0',
+// }))`
+//   font-size: ${(props) => props.size};
+//   font-weight: 500;
+//   line-height: 1.2;
+//   letter-spacing: 0.05rem;
+//   margin-bottom: ${(props) => props.mbottom};
+//   cursor: ${(props) => props.cursor};
+// `;
+
+// export const QuestionTitle = styled.div`
+//   font-size: ${(props) => props.size};
+//   font-weight: 500;
+//   line-height: 1.2;
+//   letter-spacing: 0.05rem;
+//   ${(props) =>
+//     props.mbottom &&
+//     css`
+//       margin-bottom: ${props.mbottom};
+//     `}
+//   ${(props) =>
+//     props.cursor &&
+//     css`
+//       cursor: ${props.cursor};
+//     `}
+// `;
 
 export const SearchLi = styled.li`
   list-style: none;
