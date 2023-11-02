@@ -26,6 +26,7 @@ export const router = createBrowserRouter([
       { path: '/importants', element: <ImportantQuestionsList /> },
       { path: '/importants/:questionId', element: <QuestionDetail /> },
       { path: '/bookmarks', element: <BookmarkedQuestions /> },
+      { path: '/bookmarks/:questionId', element: <QuestionDetail /> },
       { path: '/password/new', element: <ResetPassword /> },
       { path: '/user', element: <MyPage /> },
       { path: '/signup/social', element: <SocialSignUp /> },
