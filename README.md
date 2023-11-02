@@ -17,9 +17,6 @@
 매일 공부하며 습득한 지식을 기록하고 정리하며, Sel-Q에서 제공하는 다양한 기능을 활용하여 사용자가 스스로 학습을 진행할 수 있도록 도와주는 서비스입니다.<br>
 질문과 답변 형식으로 프론트엔드 개발자가 갖춰야 할 개발 지식, 상식의 내용을 **문제 은행 방식으로 스스로에게 질의응답**하여 학습한 내용을 더욱 효과적으로 정리하고 상기되도록 설계하였습니다.
 
-[서비스 구경하기](htts://selq.store)<br>
-[프론트 레포](https://github.com/osdoonhyun/selQ-client)<br>
-
 ## 🛠️ 기술 스택
 
 <div>
@@ -124,11 +121,11 @@
 			<th>마이페이지</th>
 		</tr>
 		<tr>
-			<td><img width="400px" src="./public/readme-images/mypage.gif" alt="북마크 페이지"/></td>
+			<td><img width="400px" src="./public/readme-images/bookmarksPage.gif" alt="북마크 페이지"/></td>
 			<td><img width="400px" src="./public/readme-images/myPage.gif" alt="마이페이지"/></td>
 		</tr>
 		<tr>
-			<td>- 북마크 기능<br>- 북마크한 질문 모아보기</td>
+			<td>- 유저 인증 기능<br>- 북마크 기능<br>- 북마크한 질문 모아보기</td>
 			<td>- 개인 프로필 관리<br>- 계정 탈퇴 기능</td>
 		</tr>
     <tr>
