@@ -24,7 +24,7 @@ function App() {
                 <RouterProvider router={router} />
               </GoogleOAuthProvider>
             </Provider>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </CookiesProvider>
         </QueryClientProvider>
       </FontSizingProvider>
