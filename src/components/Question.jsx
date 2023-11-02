@@ -5,11 +5,9 @@ import { useFontSize } from '../context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import Bookmark from './ui/Bookmark';
 
-export default function Question({
-  question: { id, question, importance },
-  children,
-}) {
+export default function Question({ question, children }) {
   const { fontSizing, calcFontSize } = useFontSize();
+  const { id, question: questionTitle, importance } = question;
 
   return (
     <div
@@ -37,13 +35,13 @@ export default function Question({
                 marginTop: '10px',
               }}
             >
-              <Bookmark />
+              <Bookmark question={question} />
             </div>
           </div>
         </Col>
       </Row>
       <QuestionTitle size={calcFontSize('1.6rem', fontSizing)}>
-        {question}
+        {questionTitle}
       </QuestionTitle>
       <Fragment>{children}</Fragment>
     </div>
