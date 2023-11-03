@@ -319,7 +319,7 @@ export default function SignUp() {
             대문자, 특수문자를 포함한 8자 이상의 비밀번호를 입력해 주세요.
           </Form.Text>
           <Form.Control
-            type='text'
+            type='password'
             placeholder='비밀번호'
             {...register('password', { required: true })}
           />
@@ -329,7 +329,7 @@ export default function SignUp() {
         <Form.Group className='mb-3' controlId='formConfirmPassword'>
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
-            type='text'
+            type='password'
             placeholder='비밀번호 확인'
             {...register('confirmPassword', { required: true })}
           />

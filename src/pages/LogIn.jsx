@@ -87,7 +87,7 @@ export default function LogIn() {
               <Form.Control
                 style={{ height: '50px', width: '330px' }}
                 {...register('password', { required: true })}
-                type='text'
+                type='password'
                 placeholder='비밀번호'
               />
               <ErrorMessage>{errors.password?.message}</ErrorMessage>

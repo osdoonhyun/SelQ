@@ -56,6 +56,7 @@ export default function NewPassword() {
                 style={{ height: '50px', width: '330px' }}
                 value={field.value}
                 placeholder='새 비밀번호'
+                type='password'
                 onChange={(e) => {
                   setValue('password', e.target.value);
                   field.onChange(e);
@@ -77,7 +78,7 @@ export default function NewPassword() {
                   setValue('confirmPassword', e.target.value);
                   field.onChange(e);
                 }}
-                // type='password'
+                type='password'
                 placeholder='새 비밀번호 확인'
               />
             )}

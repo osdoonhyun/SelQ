@@ -24,6 +24,10 @@ code {
     monospace;
 }
 
+input[type='password'] {
+  font-family: '굴림';
+}
+
 @keyframes shake {
   0%,
   100% {
