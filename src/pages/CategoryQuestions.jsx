@@ -16,7 +16,7 @@ export default function CategoryQuestions() {
     setSelectedCategory(category);
   };
 
-  const filteredQuestions = questions?.data?.filter(
+  const filteredQuestions = questions?.filter(
     (question) =>
       selectedCategory === 'all' || question.category === selectedCategory
   );
@@ -24,7 +24,7 @@ export default function CategoryQuestions() {
   return (
     <>
       <CategoryCarousel
-        questions={questions?.data}
+        questions={questions}
         onClickCategory={handleCategoryClick}
         selectedCategory={selectedCategory}
       />
