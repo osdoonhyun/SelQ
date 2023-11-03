@@ -28,6 +28,10 @@ input[type='password'] {
   font-family: '굴림';
 }
 
+::placeholder {
+  font-family: 'BMHANNAPro';
+}
+
 @keyframes shake {
   0%,
   100% {
