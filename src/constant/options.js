@@ -14,3 +14,14 @@ export const IMPORTANCE_OPTIONS = [
   { label: '중요', level: 4, color: YELLOW },
   { label: '매우 중요', level: 5, color: YELLOW },
 ];
+
+const POPUP_OPTIONS = {
+  width: 400,
+  height: 500,
+  left: window.innerWidth / 2 - 200, // 화면 가운데 정렬
+  top: window.innerHeight / 2 - 250,
+};
+
+export const POPUP_STRING = Object.entries(POPUP_OPTIONS)
+  .map(([key, value]) => `${key}=${value}`)
+  .join(',');
