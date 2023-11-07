@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { CookiesProvider } from 'react-cookie';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GlobalFont } from './styles/GlobalFont';
 
 const client = new QueryClient();
 
@@ -21,6 +22,7 @@ function App() {
               <GoogleOAuthProvider
                 clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_KEY}
               >
+                <GlobalFont />
                 <RouterProvider router={router} />
               </GoogleOAuthProvider>
             </Provider>
