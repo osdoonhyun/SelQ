@@ -14,11 +14,13 @@ import EditQuestion from '../pages/EditQuestion';
 import BookmarkedQuestions from '../pages/BookmarkedQuestions';
 import QuestionManagement from '../pages/QuestionManagement';
 import SocialSignUp from '../components/common/SocialSignUp';
+import NotFoundPage from '../pages/NotFoundPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <Home /> },
       { path: '/questions', element: <CategoryQuestions /> },
