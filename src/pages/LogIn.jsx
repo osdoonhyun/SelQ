@@ -11,6 +11,7 @@ import ErrorToast from '../components/common/ErrorToast';
 import SocialLogInButton from '../components/common/SocialLogInButton';
 import { MAIN, GREYS } from '../styles/variables';
 import { MESSAGE } from '../constant/message';
+import PasswordInputGroup from '../components/common/PasswordInputGroup';
 
 const loginSchema = yup.object({
   email: yup
@@ -84,11 +85,12 @@ export default function LogIn() {
                 placeholder='이메일'
               />
               <ErrorMessage>{errors.email?.message}</ErrorMessage>
-              <Form.Control
-                style={{ height: '50px', width: '330px' }}
-                {...register('password', { required: true })}
-                type='password'
+
+              <PasswordInputGroup
+                register={register}
+                name='password'
                 placeholder='비밀번호'
+                controlStyle={{ height: '50px' }}
               />
               <ErrorMessage>{errors.password?.message}</ErrorMessage>
             </Row>

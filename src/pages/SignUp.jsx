@@ -15,6 +15,7 @@ import { useSendVerificationCode } from '../hooks/common/useSendVerificationCode
 import { useCheckVerificationCode } from '../hooks/common/useCheckVerificationCode';
 import { REGEXP } from '../constant/regexp';
 import { MESSAGE } from '../constant/message';
+import PasswordInputGroup from '../components/common/PasswordInputGroup';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required(MESSAGE.SIGNUP.VALIDATION_EMAIL),
@@ -318,21 +319,23 @@ export default function SignUp() {
           <Form.Text>
             대문자, 특수문자를 포함한 8자 이상의 비밀번호를 입력해 주세요.
           </Form.Text>
-          <Form.Control
-            type='password'
+          <PasswordInputGroup
+            register={register}
+            name='password'
             placeholder='비밀번호'
-            {...register('password', { required: true })}
           />
+
           <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='formConfirmPassword'>
           <Form.Label>비밀번호 확인</Form.Label>
-          <Form.Control
-            type='password'
+          <PasswordInputGroup
+            register={register}
+            name='confirmPassword'
             placeholder='비밀번호 확인'
-            {...register('confirmPassword', { required: true })}
           />
+
           <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
         </Form.Group>
 
