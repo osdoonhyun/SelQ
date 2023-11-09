@@ -1,5 +1,5 @@
-import { Col, Row } from 'react-bootstrap';
 import { Fragment } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import ImportanceCount from '../ImportanceCount';
 import { useFontSize } from '../../context/FontSizingProvider';
 import { QuestionQ, QuestionTitle } from '../../styles/Styles';
