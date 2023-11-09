@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import Google from '../../assets/icon/oauth/google.svg';
-import { getCookie } from '../../config/cookie';
-import { GREYS } from '../../styles/variables';
 import { serverApi } from '../../apis/api';
+import { getCookie } from '../../config/cookie';
+import Google from '../../assets/icon/oauth/google.svg';
+import { GREYS } from '../../styles/variables';
 import { POPUP_STRING } from '../../constant/options';
 
 export default function SocialLogInButton() {

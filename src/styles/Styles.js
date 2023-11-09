@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
-import { MAIN, GREYS, RED } from './variables';
 import styled, { css } from 'styled-components';
+import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MAIN, GREYS, RED } from './variables';
 
 export const HeaderNav = styled(Nav)`
   & .nav-link {

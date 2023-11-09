@@ -13,7 +13,7 @@ import UsersManagement from '../pages/UserManagement';
 import EditQuestion from '../pages/EditQuestion';
 import BookmarkedQuestions from '../pages/BookmarkedQuestions';
 import QuestionManagement from '../pages/QuestionManagement';
-import SocialSignUp from '../components/common/SocialSignUp';
+import SocialSignUp from '../components/SocialSignUp';
 import NotFoundPage from '../pages/NotFoundPage';
 
 export const router = createBrowserRouter([

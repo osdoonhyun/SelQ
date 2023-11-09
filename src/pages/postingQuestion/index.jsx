@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import useAuth from '../../hooks/common/useAuth';
+import { useRegisterQuestion } from '../../hooks/mutations/useRegisterQuestion';
 import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
 import Confirmation from './Confirmation';
-import useAuth from '../../hooks/common/useAuth';
-import ProgressBar from '../../components/common/ProgressBar';
-import { Container } from 'react-bootstrap';
-import { useRegisterQuestion } from '../../hooks/mutations/useRegisterQuestion';
+import ProgressBar from '../../components/ProgressBar';
 
 export default function PostingQuestion() {
   const navigate = useNavigate();

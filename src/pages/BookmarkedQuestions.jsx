@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
-import { bookmarkedQuestions } from '../store/Slices/bookmark';
-import { LinkContainer } from 'react-router-bootstrap';
 import { Col, Row } from 'react-bootstrap';
-import { QuestionQ, QuestionTitle } from '../styles/Styles';
+import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../context/FontSizingProvider';
+import { bookmarkedQuestions } from '../store/Slices/bookmark';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import ImportanceCount from '../components/ImportanceCount';
-import CustomBadge from '../components/ui/CustomBadge';
-import Bookmark from '../components/ui/Bookmark';
+import CustomBadge from '../components/CustomBadge';
+import Bookmark from '../components/button/Bookmark';
 import { GREYS } from '../styles/variables';
 
 export default function BookmarkedQuestions() {

@@ -1,19 +1,18 @@
+import { useState } from 'react';
 import { Button, Container, Form, Modal, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import useAuth from '../hooks/common/useAuth';
+import { useUpdateUserInfoByUser } from '../hooks/common/useUpdateUserInfoByUser';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import {
   UsernameForm,
   ImageForm,
   EmailForm,
   DeleteForm,
-} from '../components/common/ResponsiveForm';
-
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import useAuth from '../hooks/common/useAuth';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+} from '../components/ResponsiveForm';
 import { MAIN, GREYS } from '../styles/variables';
-import { useUpdateUserInfoByUser } from '../hooks/common/useUpdateUserInfoByUser';
 
 const usernameSchema = yup
   .object({

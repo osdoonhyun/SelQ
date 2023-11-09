@@ -1,5 +1,5 @@
-import { PAGES_PATH } from '../../constant/paths';
-import { MenuNavLink } from '../../styles/Styles';
+import { PAGES_PATH } from '../constant/paths';
+import { MenuNavLink } from '../styles/Styles';
 import {
   Offcanvas,
   Nav,
@@ -9,7 +9,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import { MAIN, GREYS } from '../../styles/variables';
+import { MAIN, GREYS } from '../styles/variables';
 
 export default function MenuOffcanvas({
   user,

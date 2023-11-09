@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -5,7 +8,14 @@ import {
   Image,
   Nav,
   Navbar,
+  Row,
+  Col,
 } from 'react-bootstrap';
+import useAuth from '../../hooks/common/useAuth';
+import { logOut } from '../../store/Slices/auth';
+import SearchBar from '../search/SearchBar';
+import FontSizeSettings from '../FontSizeSettings';
+import MenuOffcanvas from '../MenuOffcanvas';
 import {
   faHouse,
   faList,
@@ -13,17 +23,8 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Col, Row } from 'react-bootstrap';
 import { HeaderIcon, HeaderNav } from '../../styles/Styles';
-import SearchBar from '../ui/SearchBar';
-import FontSizeSettings from '../ui/FontSizeSettings';
-import MenuOffcanvas from './MenuOffcanvas';
-import { useDispatch } from 'react-redux';
-import { logOut } from '../../store/Slices/auth';
-import useAuth from '../../hooks/common/useAuth';
 import { MAIN, GREYS } from '../../styles/variables';
 
 function isPathMatch(targetPath, currentPath) {

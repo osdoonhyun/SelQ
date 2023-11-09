@@ -1,7 +1,7 @@
 import { ButtonGroup, DropdownButton } from 'react-bootstrap';
-import { CATEGORIES } from '../constant/categories';
-import { HomeDropdownItem, HomeNextButton } from '../styles/Styles';
-import { GREYS } from '../styles/variables';
+import { CATEGORIES } from '../../constant/categories';
+import { HomeDropdownItem, HomeNextButton } from '../../styles/Styles';
+import { GREYS } from '../../styles/variables';
 
 export default function RandomQuestion({
   selectedCategory,

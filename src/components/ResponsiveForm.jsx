@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Row, Col, Image, Button } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
-import { ErrorMessage } from '../../styles/Styles';
+import { Form, Row, Col, Image, Button } from 'react-bootstrap';
+import { ErrorMessage } from '../styles/Styles';
 
 const UsernameForm = ({ label, content, control, setValue, errors }) => {
   const isMdOrLarger = window.innerWidth >= 988;

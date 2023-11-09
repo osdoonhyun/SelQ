@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { GREYS } from '../styles/variables';
 import { faEyeSlash, faEye } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
-import { GREYS } from '../../styles/variables';
 
 export default function PasswordInputGroup({
   register,

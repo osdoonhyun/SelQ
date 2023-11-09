@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
-import CustomBadge from '../ui/CustomBadge';
-import { StyledButton } from '../../styles/Styles';
+import CustomBadge from '../components/CustomBadge';
+import { StyledButton } from '../styles/Styles';
 
 export default function Hint({ hints }) {
   const [open, setOpen] = useState(false);

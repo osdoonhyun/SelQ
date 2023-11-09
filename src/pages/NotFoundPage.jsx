@@ -1,8 +1,8 @@
-import Logo from '../assets/image/sel-q-logo.png';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Header from '../components/common/Header';
 import { MAIN } from '../styles/variables';
+import Header from '../components/layout/Header';
+import Logo from '../assets/image/sel-q-logo.png';
 
 export default function NotFoundPage() {
   return (

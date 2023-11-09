@@ -1,22 +1,22 @@
-import { Col, Row } from 'react-bootstrap';
 import { Fragment, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import GoBackButton from '../components/ui/GoBackButton';
-import ImportanceCount from '../components/ImportanceCount';
-import { useFontSize } from '../context/FontSizingProvider';
-import Answer from '../components/common/Answer';
-import Hint from '../components/common/Hint';
-import { QuestionQ, QuestionTitle } from '../styles/Styles';
-import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
-import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 import { useDispatch } from 'react-redux';
-import { toggleBookmark } from '../store/Slices/bookmark';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GREYS, MAIN } from '../styles/variables';
+import { useParams } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
 import useCheckBookmarkedQuestion from '../hooks/common/useCheckBookmarkedQuestion';
 import useAuth from '../hooks/common/useAuth';
-import LoginModal from '../components/common/LoginModal';
+import { useFontSize } from '../context/FontSizingProvider';
+import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
+import { toggleBookmark } from '../store/Slices/bookmark';
+import Hint from '../components/Hint';
+import Answer from '../components/Answer';
+import GoBackButton from '../components/button/GoBackButton';
+import ImportanceCount from '../components/ImportanceCount';
+import LoginModal from '../components/modal/LoginModal';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
+import { GREYS, MAIN } from '../styles/variables';
 
 export default function QuestionDetail() {
   const { fontSizing, calcFontSize } = useFontSize();

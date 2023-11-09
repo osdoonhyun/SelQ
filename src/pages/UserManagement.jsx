@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Button,
   Dropdown,
@@ -8,15 +10,13 @@ import {
   Spinner,
   Table,
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import useAuth from '../hooks/common/useAuth';
-import Pagination from '../components/common/Pagination';
-import Filter from '../components/common/Filter';
 import { useGetUsers } from '../hooks/common/useGetUsers';
 import { useUpdateUserInfoByAdmin } from '../hooks/common/useUpdateUserInfoByAdmin';
+import Pagination from '../components/Pagination';
+import Filter from '../components/filter/Filter';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 export default function UsersManagement() {
   const [currentPage, setCurrentPage] = useState(1);

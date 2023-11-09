@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import '../../styles/ProgressBar.css';
+import '../styles/ProgressBar.css';
 
 export default function ProgressBar({ currentStep, steps }) {
   return (

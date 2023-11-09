@@ -6,7 +6,7 @@ import {
   faChevronRight,
   faAnglesRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { MAIN, GREYS } from '../../styles/variables';
+import { MAIN, GREYS } from '../styles/variables';
 
 export default function Pagination({
   currentPage,

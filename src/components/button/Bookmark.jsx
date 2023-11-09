@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { MAIN, GREYS } from '../../styles/variables';
 import { useDispatch } from 'react-redux';
 import { toggleBookmark } from '../../store/Slices/bookmark';
 import useAuth from '../../hooks/common/useAuth';
-import LoginModal from '../common/LoginModal';
+import LoginModal from '../modal/LoginModal';
+import { MAIN, GREYS } from '../../styles/variables';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 
 export default function Bookmark({ question }) {
   const { isLoggedIn } = useAuth();

@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Container, Form, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { TERMS_AND_CONDITIONS } from '../../constant/signUp';
+import { serverApi } from '../apis/api';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ErrorMessage } from '../../styles/Styles';
 import * as yup from 'yup';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { MAIN, GREYS } from '../../styles/variables';
-import { useSignUpHandler } from '../../hooks/common/useSignUpHandler';
-import { serverApi } from '../../apis/api';
-import { MESSAGE } from '../../constant/message';
+import { TERMS_AND_CONDITIONS } from '../constant/signUp';
+import { useSignUpHandler } from '../hooks/common/useSignUpHandler';
+import { MESSAGE } from '../constant/message';
+import { ErrorMessage } from '../styles/Styles';
+import { MAIN, GREYS } from '../styles/variables';
 
 const signUpSchema = yup.object().shape({
   username: yup

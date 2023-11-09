@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import CustomBadge from '../components/ui/CustomBadge';
-import ImportanceCount from '../components/ImportanceCount';
 import {
   Badge,
   ButtonGroup,
@@ -13,11 +11,13 @@ import {
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../context/FontSizingProvider';
+import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
+import CustomBadge from '../components/CustomBadge';
+import ImportanceCount from '../components/ImportanceCount';
 import { QuestionQ, QuestionTitle } from '../styles/Styles';
-import Pagination from '../components/common/Pagination';
+import Pagination from '../components/Pagination';
 import { IMPORTANCE_FILTER_OPTION } from '../constant/filters';
 import { MAIN, GREYS } from '../styles/variables';
-import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
 
 export default function ImportantQuestions() {
   const { fontSizing, calcFontSize } = useFontSize();

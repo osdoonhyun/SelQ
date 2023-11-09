@@ -1,10 +1,10 @@
 import { Fragment, useState } from 'react';
-import CustomBadge from '../components/ui/CustomBadge';
 import { LinkContainer } from 'react-router-bootstrap';
-import CategoryCarousel from '../components/ui/CategoryCarousel';
 import { useFontSize } from '../context/FontSizingProvider';
-import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import { useGetQuestions } from '../hooks/queries/useGetQuestions';
+import CustomBadge from '../components/CustomBadge';
+import CategoryCarousel from '../components/CategoryCarousel';
+import { QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function CategoryQuestions() {
   const [selectedCategory, setSelectedCategory] = useState('all');

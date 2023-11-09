@@ -1,6 +1,6 @@
 import { router } from './routes/router';
 import FontSizingProvider from './context/FontSizingProvider';
-import LayoutContainer from './components/common/LayoutContainer';
+import LayoutContainer from './components/layout/LayoutContainer';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider } from 'react-router-dom';

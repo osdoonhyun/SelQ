@@ -1,21 +1,21 @@
-import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../constant/signUp';
 import { useNavigate } from 'react-router-dom';
+import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { ErrorMessage } from '../styles/Styles';
-import Timer from '../components/ui/Timer';
-import SocialLogInButton from '../components/common/SocialLogInButton';
-import { MAIN, GREYS } from '../styles/variables';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignUpHandler } from '../hooks/common/useSignUpHandler';
 import { useCheckRegisteredEmail } from '../hooks/common/useCheckRegisteredEmail';
 import { useSendVerificationCode } from '../hooks/common/useSendVerificationCode';
 import { useCheckVerificationCode } from '../hooks/common/useCheckVerificationCode';
+import { ErrorMessage } from '../styles/Styles';
+import { TERMS_AND_CONDITIONS, EMAIL_LIST } from '../constant/signUp';
+import Timer from '../components/Timer';
+import SocialLogInButton from '../components/button/SocialLogInButton';
+import PasswordInputGroup from '../components/PasswordInputGroup';
+import { MAIN, GREYS } from '../styles/variables';
 import { REGEXP } from '../constant/regexp';
 import { MESSAGE } from '../constant/message';
-import PasswordInputGroup from '../components/common/PasswordInputGroup';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required(MESSAGE.SIGNUP.VALIDATION_EMAIL),

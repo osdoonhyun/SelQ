@@ -8,12 +8,12 @@ import {
   Popover,
   Row,
 } from 'react-bootstrap';
-import { FontSizingContext } from '../../context/FontSizingProvider';
-import { getTargetIndex } from '../../utils/fontSize';
-import { FONT_SIZE_OPTIONS } from '../../constant/options';
+import { getTargetIndex } from '../utils/fontSize';
+import { FontSizingContext } from '../context/FontSizingProvider';
+import { FONT_SIZE_OPTIONS } from '../constant/options';
+import { MAIN, GREYS } from '../styles/variables';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
-import { MAIN, GREYS } from '../../styles/variables';
 
 export default function FontSizeSettings() {
   const { fontSizing, handleFontSizing } = useContext(FontSizingContext);

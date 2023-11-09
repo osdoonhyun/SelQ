@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RED } from '../../styles/variables';
+import { RED } from '../styles/variables';
 
 export default function Timer() {
   const [timeLeft, setTimeLeft] = useState(180);

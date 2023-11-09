@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-
 import { Controller, useForm } from 'react-hook-form';
-import { MAIN, GREYS } from '../../styles/variables';
 import { useCheckVerificationCode } from '../../hooks/common/useCheckVerificationCode';
+import { MAIN, GREYS } from '../../styles/variables';
 
 export default function EmailCodeVerification({ onNext, userEmail }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);

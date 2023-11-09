@@ -1,5 +1,5 @@
-import { Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
 import { GREYS, MAIN } from '../../styles/variables';
 
 export default function LoginModal({ openLoginModal, handleClose }) {

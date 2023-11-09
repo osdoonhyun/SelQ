@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { Controller, useForm } from 'react-hook-form';
 import {
   Badge,
@@ -11,12 +11,11 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { CATEGORIES } from '../constant/categories';
-import { useEffect, useState } from 'react';
 import useAuth from '../hooks/common/useAuth';
-import { MAIN, GREYS } from '../styles/variables';
 import { useEditQuestion } from '../hooks/mutations/useEditQuestion';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
+import { CATEGORIES } from '../constant/categories';
+import { MAIN, GREYS } from '../styles/variables';
 
 export default function EditQuestion() {
   const navigate = useNavigate();

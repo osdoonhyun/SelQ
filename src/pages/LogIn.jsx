@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import { logIn } from '../store/Slices/auth';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ErrorToast from '../components/ErrorToast';
+import SocialLogInButton from '../components/button/SocialLogInButton';
+import PasswordInputGroup from '../components/PasswordInputGroup';
 import { ErrorMessage } from '../styles/Styles';
-import ErrorToast from '../components/common/ErrorToast';
-import SocialLogInButton from '../components/common/SocialLogInButton';
 import { MAIN, GREYS } from '../styles/variables';
 import { MESSAGE } from '../constant/message';
-import PasswordInputGroup from '../components/common/PasswordInputGroup';
 
 const loginSchema = yup.object({
   email: yup

@@ -1,7 +1,7 @@
 import React from 'react';
-import { CATEGORIES } from '../../constant/categories';
 import { ScrollingCarousel } from '@trendyol-js/react-carousel';
-import { StyledBadge, StyledButton } from '../../styles/Styles';
+import { CATEGORIES } from '../constant/categories';
+import { StyledBadge, StyledButton } from '../styles/Styles';
 
 export default function CategoryCarousel({
   questions,

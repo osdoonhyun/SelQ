@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import Question from '../components/Question';
-import RandomQuestion from '../components/RandomQuestion';
-import Hint from '../components/common/Hint';
-import Answer from '../components/common/Answer';
 import { useGetQuestionsByCategory } from '../hooks/queries/useGetQuestionsByCategory';
+import Question from '../components/question/Question';
+import RandomQuestion from '../components/question/RandomQuestion';
+import Hint from '../components/Hint';
+import Answer from '../components/Answer';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All');

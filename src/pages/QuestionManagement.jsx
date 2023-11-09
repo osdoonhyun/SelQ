@@ -1,8 +1,5 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  CATEGORY_FILTER_OPTION,
-  IMPORTANCE_FILTER_OPTION,
-} from '../constant/filters';
 import {
   Button,
   Dropdown,
@@ -10,14 +7,17 @@ import {
   Modal,
   Table,
 } from 'react-bootstrap';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../hooks/common/useAuth';
-import QuestionFilter from '../components/common/QuestionFilter';
-import Pagination from '../components/common/Pagination';
 import { useDeleteQuestion } from '../hooks/mutations/useDeleteQuestion';
 import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
+import {
+  CATEGORY_FILTER_OPTION,
+  IMPORTANCE_FILTER_OPTION,
+} from '../constant/filters';
+import QuestionFilter from '../components/filter/QuestionFilter';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../components/Pagination';
 
 export default function QuestionManagement() {
   const navigate = useNavigate();
