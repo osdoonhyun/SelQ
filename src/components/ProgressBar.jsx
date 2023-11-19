@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import '../styles/ProgressBar.css';
+import * as S from '../styles/ProgressBarStyles';
 
 export default function ProgressBar({ currentStep, steps }) {
   return (
-    <div className='wrapper'>
-      <ol className='ProgressBar'>
+    <S.ProgressBarWrapper>
+      <S.ProgressBarList>
         {steps.map((step, index) => (
-          <li
+          <S.ProgressBarStep
             key={index}
             className={`ProgressBar-step ${
               currentStep === index
@@ -17,14 +17,13 @@ export default function ProgressBar({ currentStep, steps }) {
                 : ''
             } ${currentStep === steps.length ? ' is-finished' : ''}`}
           >
-            <span className='ProgressBar-icon'>
+            <S.ProgressBarIcon>
               <FontAwesomeIcon icon={faCheck} />
-            </span>
-
-            <span className='ProgressBar-stepLabel'>{step}</span>
-          </li>
+            </S.ProgressBarIcon>
+            <S.ProgressBarStepLabel>{step}</S.ProgressBarStepLabel>
+          </S.ProgressBarStep>
         ))}
-      </ol>
-    </div>
+      </S.ProgressBarList>
+    </S.ProgressBarWrapper>
   );
 }
