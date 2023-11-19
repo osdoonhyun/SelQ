@@ -28,7 +28,7 @@ export default function SocialLogInButton() {
 
   const socialLogin = () => {
     const popup = window.open(
-      'http://localhost:8000/api/auth/google',
+      process.env.REACT_APP_GOOGLE_LOGIN_URL,
       'Google Login',
       POPUP_STRING
     );
@@ -36,7 +36,7 @@ export default function SocialLogInButton() {
     const receiveLoginCompleteMessage = async (event) => {
       console.log('EVENT', event);
       if (
-        event.origin === 'http://localhost:8000' &&
+        event.origin === process.env.REACT_APP_ORIGIN_URL &&
         event.data === 'loginComplete'
       ) {
         popup.close();
