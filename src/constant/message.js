@@ -32,4 +32,7 @@ export const MESSAGE = {
     VALIDATION_CONFIRM_PASSWORD: '비밀번호가 일치하지 않습니다.',
     VALIDATION_CONFIRM_PASSWORD_REQUIRED: '새 비밀번호 확인을 입력해 주세요.',
   },
+  TIMER: {
+    EXPIRED_CODE: '인증코드가 만료되었습니다.',
+  },
 };

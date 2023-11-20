@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { RED } from '../styles/variables';
+import { RedDiv } from '../styles/Styles';
+import { timeToMinutes, timeToSeconds } from '../utils/timer';
+import { MESSAGE } from '../constant/message';
 
 export default function Timer() {
   const [timeLeft, setTimeLeft] = useState(180);
   const [expired, setExpired] = useState(false);
 
-  const minutes = Math.floor(timeLeft / 60)
-    .toString()
-    .padStart(2, '0');
-  const seconds = (timeLeft % 60).toString().padStart(2, '0');
+  const minutes = timeToMinutes(timeLeft);
+  const seconds = timeToSeconds(timeLeft);
 
   useEffect(() => {
     let timer;
@@ -25,8 +25,8 @@ export default function Timer() {
   }, [timeLeft]);
 
   return (
-    <div style={{ color: RED }}>
-      {expired ? '인증코드가 만료되었습니다.' : `${minutes}:${seconds}`}
-    </div>
+    <RedDiv>
+      {expired ? MESSAGE.TIMER.EXPIRED_CODE : `${minutes}:${seconds}`}
+    </RedDiv>
   );
 }
