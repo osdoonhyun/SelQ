@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import { serverApi } from '../../apis/api';
 import { getCookie } from '../../config/cookie';
 import Google from '../../assets/icon/oauth/google.svg';
-import { GREYS } from '../../styles/variables';
 import { POPUP_STRING } from '../../constant/options';
+import { SocialLoginButton, SocialLoginSpan } from '../../styles/ButtonStyles';
+import { Image } from 'react-bootstrap';
 
 export default function SocialLogInButton() {
   const navigate = useNavigate();
@@ -64,22 +64,11 @@ export default function SocialLogInButton() {
   };
 
   return (
-    <Button
-      variant='Light'
-      style={{ border: `1px solid ${GREYS.MEDIUM}` }}
-      onClick={socialLogin}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '28px',
-        }}
-      >
-        <img src={Google} alt='Google 아이콘' style={{ width: '24px' }} />
-        <span style={{ color: GREYS.DARKEST }}>구글 계정으로 계속하기</span>
+    <SocialLoginButton variant='Light' onClick={socialLogin}>
+      <div className='d-flex justify-content-center align-items-center'>
+        <Image src={Google} alt='Google 아이콘' width={24} />
+        <SocialLoginSpan>구글 계정으로 계속하기</SocialLoginSpan>
       </div>
-    </Button>
+    </SocialLoginButton>
   );
 }

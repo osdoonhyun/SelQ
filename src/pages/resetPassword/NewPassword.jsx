@@ -6,6 +6,7 @@ import { ErrorMessage } from '../../styles/Styles';
 import { MAIN, GREYS } from '../../styles/variables';
 import { MESSAGE } from '../../constant/message';
 import { REGEXP } from '../../constant/regexp';
+import { NextButton } from '../../styles/ButtonStyles';
 
 const newPasswordSchema = yup.object({
   password: yup
@@ -88,20 +89,9 @@ export default function NewPassword() {
       </Form.Group>
 
       <div className='d-flex justify-content-center mt-4'>
-        <Button
-          variant='Light'
-          style={{
-            height: '55px',
-            width: '330px',
-            padding: '15px 10px',
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-          type='submit'
-        >
+        <NextButton $large type='submit'>
           비밀번호 변경하기
-        </Button>
+        </NextButton>
       </div>
     </Form>
   );

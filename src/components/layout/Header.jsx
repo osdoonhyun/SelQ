@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Button,
   Container,
   Dropdown,
   Image,
-  Nav,
   Navbar,
   Row,
   Col,
@@ -15,6 +14,7 @@ import useAuth from '../../hooks/common/useAuth';
 import { logOut } from '../../store/Slices/auth';
 import SearchBar from '../search/SearchBar';
 import FontSizeSettings from '../FontSizeSettings';
+import HeaderNavItem from './HeaderNavItem';
 import MenuOffcanvas from '../MenuOffcanvas';
 import {
   faHouse,
@@ -24,46 +24,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { HeaderIcon, HeaderNav } from '../../styles/Styles';
+import { HeaderNav } from '../../styles/Styles';
 import { MAIN, GREYS } from '../../styles/variables';
-
-function isPathMatch(targetPath, currentPath) {
-  if (targetPath === '/') {
-    return currentPath === '/';
-  }
-
-  const cleanTargetPath = targetPath.endsWith('/')
-    ? targetPath.slice(0, -1)
-    : targetPath;
-  const cleanCurrentPath = currentPath.endsWith('/')
-    ? currentPath.slice(0, -1)
-    : currentPath;
-  return cleanCurrentPath.startsWith(cleanTargetPath);
-}
-
-const NavItem = ({ href, icon, text }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const isActive = isPathMatch(href, currentPath);
-  return (
-    <Nav.Link as={Link} to={href}>
-      <HeaderIcon
-        className='d-none d-md-block'
-        icon={icon}
-        size='xl'
-        $isActive={isActive}
-      />
-      <span
-        style={{
-          fontSize: '15px',
-          color: isActive ? MAIN.MEDIUM : GREYS.MEDIUM,
-        }}
-      >
-        {text}
-      </span>
-    </Nav.Link>
-  );
-};
+import {
+  HeaderContainer,
+  HeaderNavBarBrand,
+  HeaderNavBarBrandMd,
+} from '../../styles/LayoutStyles';
+import { GreyButton } from '../../styles/ButtonStyles';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -91,30 +59,23 @@ export default function Header() {
 
   return (
     <>
-      <Container
-        style={{ paddingBottom: '10px', maxWidth: '1080px', margin: '0 auto' }}
-        className='d-none d-md-block w-100'
-      >
+      <HeaderContainer className='d-none d-md-block w-100'>
         <Row className='align-items-center'>
           <Col md={2}>
-            <Navbar.Brand
-              as={Link}
-              to='/'
-              style={{
-                fontSize: '30px',
-                fontWeight: '600',
-                color: MAIN.MEDIUM,
-              }}
-            >
+            <HeaderNavBarBrandMd as={Link} to='/'>
               Sel-Q
-            </Navbar.Brand>
+            </HeaderNavBarBrandMd>
           </Col>
           <Col className='d-flex' md={5}>
             <HeaderNav className='me-auto'>
-              <NavItem href='/' icon={faHouse} text='홈' />
-              <NavItem href='/questions' icon={faList} text='질문목록' />
-              <NavItem href='/importants' icon={faStar} text='중요질문' />
-              <NavItem href='/bookmarks' icon={faBookmark} text='북마크' />
+              <HeaderNavItem href='/' icon={faHouse} text='홈' />
+              <HeaderNavItem href='/questions' icon={faList} text='질문목록' />
+              <HeaderNavItem href='/importants' icon={faStar} text='중요질문' />
+              <HeaderNavItem
+                href='/bookmarks'
+                icon={faBookmark}
+                text='북마크'
+              />
             </HeaderNav>
           </Col>
           <Col className='d-flex justify-content-end align-items-center' md={5}>
@@ -124,21 +85,14 @@ export default function Header() {
               {user && isLoggedIn ? (
                 <>
                   <Button
-                    variant='Ligth'
+                    variant='Light'
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
                     <Dropdown
                       show={showDropdown}
                       onToggle={() => setShowDropdown(!showDropdown)}
                     >
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                        }}
-                        className='d-none d-md-flex align-items-center'
-                      >
+                      <div className='d-none d-md-flex  flex-column align-items-center'>
                         <Image
                           src={
                             user?.profileImg ||
@@ -146,7 +100,8 @@ export default function Header() {
                           }
                           alt={user.profileImg}
                           roundedCircle
-                          style={{ width: '40px', height: '40px' }}
+                          width={40}
+                          height={40}
                         />
                       </div>
 
@@ -190,27 +145,25 @@ export default function Header() {
                 </>
               ) : (
                 <div className='d-flex justify-content'>
-                  <Button
+                  <GreyButton
                     onClick={() => navigate('/login')}
-                    style={{ color: GREYS.MEDIUM }}
                     variant='Light'
                   >
                     로그인
-                  </Button>
-                  <Button
+                  </GreyButton>
+                  <GreyButton
                     onClick={() => navigate('/signup')}
-                    style={{ color: GREYS.MEDIUM }}
                     variant='Light'
                   >
                     회원가입
-                  </Button>
+                  </GreyButton>
                 </div>
               )}
             </div>
             <FontSizeSettings />
           </Col>
         </Row>
-      </Container>
+      </HeaderContainer>
 
       <div className='d-md-none'>
         <Row>
@@ -220,21 +173,13 @@ export default function Header() {
             </Button>
           </Col>
           <Col>
-            <Navbar.Brand
+            <HeaderNavBarBrand
+              className='d-flex justify-content-center align-items-center'
               as={Link}
               to='/'
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '5px 0',
-                fontSize: '26px',
-                fontWeight: '600',
-                color: MAIN.MEDIUM,
-              }}
             >
               Sel-Q
-            </Navbar.Brand>
+            </HeaderNavBarBrand>
           </Col>
           <Col className='d-flex justify-content-end'>
             <SearchBar />
@@ -243,17 +188,15 @@ export default function Header() {
 
         <Row style={{ marginTop: '-12px' }}>
           <Col>
-            <HeaderNav
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-              className='me-auto'
-            >
-              <NavItem href='/' icon={faHouse} text='홈' />
-              <NavItem href='/questions' icon={faList} text='질문목록' />
-              <NavItem href='/importants' icon={faStar} text='중요질문' />
-              <NavItem href='/bookmarks' icon={faBookmark} text='북마크' />
+            <HeaderNav className='d-flex me-auto align-items-center justify-content-between'>
+              <HeaderNavItem href='/' icon={faHouse} text='홈' />
+              <HeaderNavItem href='/questions' icon={faList} text='질문목록' />
+              <HeaderNavItem href='/importants' icon={faStar} text='중요질문' />
+              <HeaderNavItem
+                href='/bookmarks'
+                icon={faBookmark}
+                text='북마크'
+              />
             </HeaderNav>
           </Col>
         </Row>

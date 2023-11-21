@@ -1,5 +1,5 @@
 import { PAGES_PATH } from '../constant/paths';
-import { MenuNavLink } from '../styles/Styles';
+import { GreySpan, MenuNavLink, OffcanvasTitle } from '../styles/Styles';
 import {
   Offcanvas,
   Nav,
@@ -9,7 +9,6 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import { MAIN, GREYS } from '../styles/variables';
 
 export default function MenuOffcanvas({
   user,
@@ -19,20 +18,9 @@ export default function MenuOffcanvas({
   logOut,
 }) {
   return (
-    <Offcanvas
-      style={{
-        fontFamily: 'BMHANNAPro',
-      }}
-      className='d-md-none'
-      show={show}
-      onHide={onHide}
-    >
+    <Offcanvas className='d-md-none' show={show} onHide={onHide}>
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title
-          style={{ color: MAIN.MEDIUM, fontWeight: '600', fontSize: '26px' }}
-        >
-          Sel-Q
-        </Offcanvas.Title>
+        <OffcanvasTitle>Sel-Q</OffcanvasTitle>
       </Offcanvas.Header>
       <Offcanvas.Body>
         {user !== null ? (
@@ -45,17 +33,18 @@ export default function MenuOffcanvas({
                 }
                 alt={user?.profileImg}
                 roundedCircle
-                style={{ width: '50px', height: '50px' }}
+                height={50}
+                width={50}
               />
             </Col>
             <Col>
               <Stack gap={2} className='col-md-5 mx-auto'>
                 <span>{user?.username}</span>
-                <span style={{ color: GREYS.MEDIUM }}>
+                <GreySpan>
                   {user?.roles && user?.roles[0] === 'admin'
                     ? '관리자'
                     : '일반유저'}
-                </span>
+                </GreySpan>
               </Stack>
             </Col>
           </Row>

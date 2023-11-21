@@ -1,5 +1,4 @@
 import {
-  Badge,
   ButtonGroup,
   CloseButton,
   Dropdown,
@@ -7,7 +6,9 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { USER_FILTER_OPTIONS } from '../../constant/filters';
-import { MAIN, GREYS } from '../../styles/variables';
+import { MAIN } from '../../styles/variables';
+import { MainBadge } from '../../styles/BadgeStyles';
+import { FilterSpan } from '../../styles/Styles';
 
 export default function Filter({
   filterOptions,
@@ -39,20 +40,14 @@ export default function Filter({
 
       <Stack direction='horizontal' gap={2} className='p-2'>
         {Object.keys(filterOptions).map((label, index) => (
-          <Badge
+          <MainBadge
             bg={MAIN.MEDIUM}
-            style={{
-              fontSize: '0.8rem',
-              color: GREYS.LIGHTER,
-              letterSpacing: '0.1rem',
-              backgroundColor: MAIN.MEDIUM,
-            }}
             key={index}
-            className='d-flex justify-content-center align-items-center '
+            className='d-flex justify-content-center align-items-center'
           >
-            <span style={{ marginRight: '5px' }}>{filterOptions[label]}</span>
+            <FilterSpan>{filterOptions[label]}</FilterSpan>
             <CloseButton onClick={() => handleDeleteOption(label)} />
-          </Badge>
+          </MainBadge>
         ))}
       </Stack>
     </>

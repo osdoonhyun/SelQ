@@ -3,6 +3,7 @@ import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useCheckVerificationCode } from '../../hooks/common/useCheckVerificationCode';
 import { MAIN, GREYS } from '../../styles/variables';
+import { NextButton } from '../../styles/ButtonStyles';
 
 export default function EmailCodeVerification({ onNext, userEmail }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -68,13 +69,7 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
                 marginLeft: '10px',
               }}
             >
-              <Button
-                variant='Light'
-                style={{
-                  backgroundColor: MAIN.DARK,
-                  border: `1px solid ${MAIN.DARK}`,
-                  color: GREYS.LIGHTER,
-                }}
+              <NextButton
                 onClick={handleCheckButton}
                 disabled={checkBtnDisable}
               >
@@ -93,7 +88,7 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
                 ) : (
                   '확인완료'
                 )}
-              </Button>
+              </NextButton>
             </Col>
           </div>
           {/* 시간 카운트 */}
@@ -101,19 +96,13 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
         </Row>
       </Form.Group>
       <div className='d-flex justify-content-center'>
-        <Button
-          variant='Light'
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
+        <NextButton
           className='mt-3 w-100'
           type='submit'
           disabled={sendBtnDisable}
         >
           비밀번호 재설정하기
-        </Button>
+        </NextButton>
       </div>
     </Form>
   );

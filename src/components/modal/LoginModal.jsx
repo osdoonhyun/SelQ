@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, Modal } from 'react-bootstrap';
-import { GREYS, MAIN } from '../../styles/variables';
+import { Modal } from 'react-bootstrap';
+import { GreyButton, MainButton } from '../../styles/ButtonStyles';
 
 export default function LoginModal({ openLoginModal, handleClose }) {
   const navigate = useNavigate();
@@ -17,20 +17,12 @@ export default function LoginModal({ openLoginModal, handleClose }) {
         로그인 하시겠습니까?
       </Modal.Body>
       <Modal.Footer className='justify-content-center'>
-        <Button
-          variant='Light'
-          style={{ color: MAIN.MEDIUM }}
-          onClick={handleLogin}
-        >
+        <MainButton variant='Light' onClick={handleLogin}>
           로그인 하기
-        </Button>
-        <Button
-          variant='Light'
-          style={{ color: GREYS.MEDIUM }}
-          onClick={handleClose}
-        >
+        </MainButton>
+        <GreyButton variant='Light' onClick={handleClose}>
           취소
-        </Button>
+        </GreyButton>
       </Modal.Footer>
     </Modal>
   );

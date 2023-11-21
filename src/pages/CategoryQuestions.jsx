@@ -44,7 +44,7 @@ export default function CategoryQuestions() {
               </QuestionQ>
               <QuestionTitle
                 size={calcFontSize('1.6rem', fontSizing)}
-                mbottom='0.5rem'
+                $mbottom='0.5rem'
                 cursor={'pointer'}
               >
                 {question.question}

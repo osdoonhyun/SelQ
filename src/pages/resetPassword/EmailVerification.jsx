@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCheckRegisteredEmail } from '../../hooks/common/useCheckRegisteredEmail';
 import { useSendVerificationCode } from '../../hooks/common/useSendVerificationCode';
 import { MAIN, GREYS } from '../../styles/variables';
+import { NextButton } from '../../styles/ButtonStyles';
 
 export default function EmailVerification({ onNext }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -78,14 +79,8 @@ export default function EmailVerification({ onNext }) {
                 marginLeft: '10px',
               }}
             >
-              <Button
+              <NextButton
                 onClick={handleCheckButton}
-                variant='Light'
-                style={{
-                  backgroundColor: MAIN.DARK,
-                  border: `1px solid ${MAIN.DARK}`,
-                  color: GREYS.LIGHTER,
-                }}
                 disabled={checkBtnDisable}
               >
                 {loadingVerifyEmail ? (
@@ -103,19 +98,13 @@ export default function EmailVerification({ onNext }) {
                 ) : (
                   '확인완료'
                 )}
-              </Button>
+              </NextButton>
             </Col>
           </div>
         </Row>
       </Form.Group>
       <div className='d-flex justify-content-center'>
-        <Button
-          variant='Light'
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
+        <NextButton
           className='mt-3 w-100'
           type='submit'
           disabled={sendBtnDisable}
@@ -133,7 +122,7 @@ export default function EmailVerification({ onNext }) {
           ) : (
             '이메일로 인증코드 보내기'
           )}
-        </Button>
+        </NextButton>
       </div>
     </Form>
   );

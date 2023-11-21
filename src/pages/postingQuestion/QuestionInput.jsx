@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   Badge,
-  Button,
   CloseButton,
   Col,
   Container,
@@ -11,6 +10,8 @@ import {
 } from 'react-bootstrap';
 import { CATEGORIES } from '../../constant/categories';
 import { MAIN, GREYS } from '../../styles/variables';
+import { NextButton } from '../../styles/ButtonStyles';
+import RequiredLabel from '../../components/RequiredLabel';
 
 export default function QuestionInput({ onNext }) {
   const [questionFormData, setQuestionFormData] = useState({
@@ -77,7 +78,7 @@ export default function QuestionInput({ onNext }) {
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
           <Form.Label>
             질문
-            <span style={{ position: 'relative', top: '-3px' }}>*</span>
+            <RequiredLabel />
           </Form.Label>
 
           <Form.Control
@@ -97,7 +98,8 @@ export default function QuestionInput({ onNext }) {
 
         <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
           <Form.Label>
-            중요도<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            중요도
+            <RequiredLabel />
           </Form.Label>
           <Form.Select
             value={questionFormData.importance}
@@ -120,7 +122,8 @@ export default function QuestionInput({ onNext }) {
 
         <Form.Group className='mb-3'>
           <Form.Label>
-            카테고리<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            카테고리
+            <RequiredLabel />
           </Form.Label>
           <Form.Select
             value={questionFormData.category}
@@ -158,18 +161,9 @@ export default function QuestionInput({ onNext }) {
               />
             </Col>
             <Col>
-              <Button
-                variant='Light'
-                style={{
-                  backgroundColor: MAIN.DARK,
-                  border: `1px solid ${MAIN.DARK}`,
-                  color: GREYS.LIGHTER,
-                }}
-                disabled={hintBtnDisable}
-                onClick={handleAddHint}
-              >
+              <NextButton disabled={hintBtnDisable} onClick={handleAddHint}>
                 추가
-              </Button>
+              </NextButton>
             </Col>
           </Row>
           <Stack className='mt-3' direction='horizontal' gap={2}>
@@ -192,18 +186,9 @@ export default function QuestionInput({ onNext }) {
           </Stack>
         </Form.Group>
 
-        <Button
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-          disabled={nextBtnDisable}
-          variant='Light'
-          type='submit'
-        >
+        <NextButton disabled={nextBtnDisable} type='submit'>
           다음
-        </Button>
+        </NextButton>
       </Form>
       <br />
     </Container>

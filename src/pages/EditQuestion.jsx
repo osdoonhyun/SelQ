@@ -16,6 +16,7 @@ import { useEditQuestion } from '../hooks/mutations/useEditQuestion';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 import { CATEGORIES } from '../constant/categories';
 import { MAIN, GREYS } from '../styles/variables';
+import { NextButton } from '../styles/ButtonStyles';
 
 export default function EditQuestion() {
   const navigate = useNavigate();
@@ -193,18 +194,12 @@ export default function EditQuestion() {
                     />
                   </Col>
                   <Col>
-                    <Button
-                      variant='Light'
-                      style={{
-                        backgroundColor: MAIN.DARK,
-                        border: `1px solid ${MAIN.DARK}`,
-                        color: GREYS.LIGHTER,
-                      }}
+                    <NextButton
                       disabled={hintBtnDisable}
                       onClick={handleAddHint}
                     >
                       추가
-                    </Button>
+                    </NextButton>
                   </Col>
                 </Row>
                 <Stack className='mt-3' direction='horizontal' gap={2}>

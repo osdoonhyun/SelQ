@@ -52,13 +52,7 @@ export default function FontSizeSettings() {
   return (
     <div ref={ref}>
       <Button variant='Light' onClick={handleClick}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <div className='d-flex flex-column align-items-center'>
           <FontAwesomeIcon color={GREYS.MEDIUM} icon={faGear} size='xl' />
         </div>
       </Button>
@@ -69,9 +63,6 @@ export default function FontSizeSettings() {
         placement='bottom'
         container={ref}
         containerPadding={20}
-        style={{
-          fontFamily: 'BMHANNAPro',
-        }}
       >
         <Popover id='popover-contained'>
           <Popover.Header as='h3'>
@@ -110,16 +101,15 @@ export default function FontSizeSettings() {
                       }}
                     >
                       <Card.Body
+                        className='d-flex justify-content-center align-items-center'
                         style={{
                           height: '86px',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
                         }}
                       >
                         <Card.Text
                           style={{
                             fontSize: size,
+                            cursor: 'pointer',
                             fontFamily: 'BMHANNAPro',
                           }}
                         >
@@ -127,7 +117,15 @@ export default function FontSizeSettings() {
                         </Card.Text>
                       </Card.Body>
                       <Card.Footer className='d-flex justify-content-center align-items-center p-3'>
-                        <span className='text-muted'>{label}</span>
+                        <span
+                          style={{
+                            cursor: 'pointer',
+                            fontFamily: 'BMHANNAPro',
+                          }}
+                          className='text-muted'
+                        >
+                          {label}
+                        </span>
                       </Card.Footer>
                     </Card>
                   </Col>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, Container, Form, Spinner } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { serverApi } from '../apis/api';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,7 +9,8 @@ import { TERMS_AND_CONDITIONS } from '../constant/signUp';
 import { useSignUpHandler } from '../hooks/common/useSignUpHandler';
 import { MESSAGE } from '../constant/message';
 import { ErrorMessage } from '../styles/Styles';
-import { MAIN, GREYS } from '../styles/variables';
+import { SocialContainer } from '../styles/LayoutStyles';
+import { NextButton, SocialGreyDiv } from '../styles/ButtonStyles';
 
 const signUpSchema = yup.object().shape({
   username: yup
@@ -108,14 +109,8 @@ export default function SocialSignUp() {
   };
 
   return (
-    <Container
-      style={{
-        maxWidth: '380px',
-      }}
-    >
-      <h1 className='mt-5 mb-4' style={{ fontSize: '2rem' }}>
-        추가 정보 입력
-      </h1>
+    <SocialContainer>
+      <h2 className='mt-5 mb-4 fs-2'>추가 정보 입력</h2>
 
       <Form onSubmit={handleSubmit(signUpTermHandler)}>
         <Form.Group className='mb-3' controlId='formPassword'>
@@ -140,13 +135,7 @@ export default function SocialSignUp() {
 
         <Form.Group className='mb-3' controlId='formTerms'>
           <Form.Label>약관 동의</Form.Label>
-          <div
-            style={{
-              border: `1px solid ${GREYS.MEDIUM}`,
-              padding: '18px',
-              borderRadius: '5px',
-            }}
-          >
+          <SocialGreyDiv>
             <Controller
               render={({ field }) => (
                 <Form.Check
@@ -181,7 +170,7 @@ export default function SocialSignUp() {
                 />
               </div>
             ))}
-          </div>
+          </SocialGreyDiv>
           {(errors.fourteenOverAgree ||
             errors.termsOfUseAgree ||
             errors.personalInfoAgree) && (
@@ -189,16 +178,7 @@ export default function SocialSignUp() {
           )}
         </Form.Group>
 
-        <Button
-          variant='Light'
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-          type='submit'
-          className='w-100 mt-3'
-        >
+        <NextButton variant='Light' type='submit' className='w-100 mt-3'>
           {loadingSignUp ? (
             <>
               <Spinner
@@ -212,8 +192,8 @@ export default function SocialSignUp() {
           ) : (
             '회원가입'
           )}
-        </Button>
+        </NextButton>
       </Form>
-    </Container>
+    </SocialContainer>
   );
 }

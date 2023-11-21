@@ -37,12 +37,7 @@ export default function Home() {
   }, [questions]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div className='d-flex flex-column'>
       <RandomQuestion
         selectedCategory={selectedCategory}
         getNextQuestion={getRandomQuestion}

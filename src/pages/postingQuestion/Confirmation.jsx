@@ -1,13 +1,7 @@
-import {
-  Badge,
-  Button,
-  Container,
-  Form,
-  Spinner,
-  Stack,
-} from 'react-bootstrap';
+import { Badge, Container, Form, Spinner, Stack } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { MAIN, GREYS } from '../../styles/variables';
+import { NextButton } from '../../styles/ButtonStyles';
 
 export default function Confirmation({
   question,
@@ -73,15 +67,7 @@ export default function Confirmation({
             <ReactMarkdown children={answer.answers} />
           </div>
         </Form.Group>
-        <Button
-          variant='Light'
-          type='submit'
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-        >
+        <NextButton type='submit'>
           {isLoading ? (
             <div>
               <Spinner
@@ -95,7 +81,7 @@ export default function Confirmation({
           ) : (
             '등록하기'
           )}
-        </Button>
+        </NextButton>
       </Form>
     </Container>
   );

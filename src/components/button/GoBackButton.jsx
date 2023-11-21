@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 export default function GoBackButton() {
   const navigate = useNavigate();
   return (
-    <div style={{ margin: '15px 0' }}>
+    <div className='my-3'>
       <BackButton onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </BackButton>

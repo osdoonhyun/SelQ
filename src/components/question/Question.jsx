@@ -10,31 +10,17 @@ export default function Question({ question, children }) {
   const { id, question: questionTitle, importance } = question;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        backgroundColor: 'white',
-        flexDirection: 'column',
-      }}
-      key={id}
-    >
+    <div className='d-flex flex-column' key={id}>
       <Row>
         <Col className='d-flex align-items-end'>
           <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
         </Col>
         <Col className='d-flex justify-content-end align-items-center'>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className='d-flex flex-column'>
             <div>
               <ImportanceCount importance={importance} />
             </div>
-            <div
-              className='mx-1'
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                marginTop: '10px',
-              }}
-            >
+            <div className='d-flex justify-content-end mx-1 mt-2'>
               <Bookmark question={question} />
             </div>
           </div>

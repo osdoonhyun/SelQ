@@ -16,7 +16,7 @@ export default function SearchQuetions({
   }
 
   return (
-    <ul style={{ padding: 0 }}>
+    <ul className='p-0'>
       {searchResults &&
         searchResults.map(({ id, question }) => (
           <SearchLi key={id} onClick={() => questionClickHandler(id)}>

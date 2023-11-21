@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Container, Form, Row, Col, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,6 +16,7 @@ import PasswordInputGroup from '../components/PasswordInputGroup';
 import { MAIN, GREYS } from '../styles/variables';
 import { REGEXP } from '../constant/regexp';
 import { MESSAGE } from '../constant/message';
+import { NextButton } from '../styles/ButtonStyles';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required(MESSAGE.SIGNUP.VALIDATION_EMAIL),
@@ -229,20 +230,9 @@ export default function SignUp() {
           <ErrorMessage>{errors.email?.message}</ErrorMessage>
         </Form.Group>
 
-        <Button
-          variant='Light'
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '127px',
-            height: '38px',
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
+        <NextButton
           onClick={verifyRegisteredEmailHandler}
-          className='mb-3'
+          className='d-flex justify-content-center align-items-center mb-3'
           disabled={btnDisable || !verificationBtnDisable}
         >
           {loadingVerifyEmail || loadingSendEmail ? (
@@ -260,7 +250,7 @@ export default function SignUp() {
           ) : (
             '이메일 인증완료'
           )}
-        </Button>
+        </NextButton>
 
         {isVerifiedEmail && (
           <Form.Group className='mb-3' controlId='formEmailVerification'>
@@ -286,14 +276,8 @@ export default function SignUp() {
             </div>
             <Timer key={timerRestart} />
 
-            <Button
+            <NextButton
               className='mt-3'
-              variant='Light'
-              style={{
-                backgroundColor: MAIN.DARK,
-                border: `1px solid ${MAIN.DARK}`,
-                color: GREYS.LIGHTER,
-              }}
               onClick={checkEmailVerificationHandler}
             >
               {loadingCheckEmail ? (
@@ -309,7 +293,7 @@ export default function SignUp() {
               ) : (
                 '확인'
               )}
-            </Button>
+            </NextButton>
           </Form.Group>
         )}
 
@@ -404,16 +388,7 @@ export default function SignUp() {
           )}
         </Form.Group>
 
-        <Button
-          variant='Light'
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-          type='submit'
-          className='w-100 mt-3'
-        >
+        <NextButton type='submit' className='w-100 mt-3'>
           {loadingSignUp ? (
             <>
               <Spinner
@@ -427,7 +402,7 @@ export default function SignUp() {
           ) : (
             '회원가입'
           )}
-        </Button>
+        </NextButton>
       </Form>
 
       <p className='mt-3' style={{ textAlign: 'center' }}>

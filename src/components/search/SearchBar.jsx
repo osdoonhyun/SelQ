@@ -6,6 +6,7 @@ import SearchQuetions from './SearchQuetions';
 import { useNavigate } from 'react-router-dom';
 import { MAIN, GREYS } from '../../styles/variables';
 import { useSearchQuestions } from '../../hooks/queries/useSearchQuestions';
+import { OpacityDiv, SearchInput } from '../../styles/Styles';
 
 export default function SearchBar() {
   const navigate = useNavigate();
@@ -30,13 +31,7 @@ export default function SearchBar() {
   return (
     <>
       <Button variant='Light' onClick={handleShow}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <div className='d-flex flex-column align-items-center'>
           <FontAwesomeIcon
             color={GREYS.MEDIUM}
             icon={faMagnifyingGlass}
@@ -47,23 +42,13 @@ export default function SearchBar() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <label
-            style={{ width: '100%', display: 'flex', alignItems: 'center' }}
-          >
+          <label className='w-100 d-flex align-items-center'>
             <FontAwesomeIcon
               color={GREYS.MEDIUM}
               icon={faMagnifyingGlass}
               size='xl'
             />
-            <input
-              style={{
-                width: '100%',
-                marginLeft: '10px',
-                padding: '2px 6px',
-                border: 0,
-                borderRadius: '4px',
-                outline: `2px solid  ${MAIN.LIGHT}`,
-              }}
+            <SearchInput
               placeholder='Search Questions'
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -73,13 +58,13 @@ export default function SearchBar() {
         </Modal.Header>
         <Modal.Body>
           <Suspense>
-            <div style={{ opacity: isStale ? 0.5 : 1 }}>
+            <OpacityDiv $isStale={isStale}>
               <SearchQuetions
                 searchResults={searchResults}
                 searchInput={defferedSearchInput}
                 questionClickHandler={questionClickHandler}
               />
-            </div>
+            </OpacityDiv>
           </Suspense>
         </Modal.Body>
       </Modal>

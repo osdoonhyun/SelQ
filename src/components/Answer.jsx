@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useFontSize } from '../context/FontSizingProvider';
-import { StyledButton } from '../styles/Styles';
+import { AnswerDiv, CollapseDiv, StyledButton } from '../styles/Styles';
 
 export default function Answer({ answers }) {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -13,13 +13,7 @@ export default function Answer({ answers }) {
   };
 
   return (
-    <div
-      style={{
-        display: 'inline-block',
-        marginTop: '1.2rem',
-        paddingBottom: '1.2rem',
-      }}
-    >
+    <AnswerDiv>
       <StyledButton
         onClick={handleAnswerButton}
         aria-controls='example-collapse-text'
@@ -28,24 +22,19 @@ export default function Answer({ answers }) {
         A.
       </StyledButton>
       <Collapse in={open}>
-        <div
+        <CollapseDiv
           id='example-collapse-text'
-          style={{
-            marginTop: '0.8rem',
-            fontSize: calcFontSize('1.3rem', fontSizing),
-            lineHeight: 1.2,
-            letterSpacing: '0.1rem',
-          }}
+          $calcFontSize={calcFontSize('1.3rem', fontSizing)}
         >
-          <ul style={{ padding: 0 }}>
+          <ul className='p-0'>
             {answers?.map((answer, index) => (
               <li key={index}>
                 <ReactMarkdown children={answer.answers} />
               </li>
             ))}
           </ul>
-        </div>
+        </CollapseDiv>
       </Collapse>
-    </div>
+    </AnswerDiv>
   );
 }

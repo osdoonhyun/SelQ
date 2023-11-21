@@ -12,6 +12,7 @@ import PasswordInputGroup from '../components/PasswordInputGroup';
 import { ErrorMessage } from '../styles/Styles';
 import { MAIN, GREYS } from '../styles/variables';
 import { MESSAGE } from '../constant/message';
+import { NextButton } from '../styles/ButtonStyles';
 
 const loginSchema = yup.object({
   email: yup
@@ -98,20 +99,9 @@ export default function LogIn() {
 
           {/* {isLoading && <h1>...loading</h1>} */}
           <div className='d-flex justify-content-center mt-4'>
-            <Button
-              style={{
-                height: '55px',
-                width: '330px',
-                padding: '15px 10px',
-                backgroundColor: MAIN.DARK,
-                border: `1px solid ${MAIN.DARK}`,
-                color: GREYS.LIGHTER,
-              }}
-              variant='Light'
-              type='submit'
-            >
+            <NextButton $large type='submit'>
               로그인
-            </Button>
+            </NextButton>
           </div>
         </Form>
 

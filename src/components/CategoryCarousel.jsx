@@ -17,16 +17,16 @@ export default function CategoryCarousel({
   });
 
   return (
-    <div style={{ marginTop: '20px', padding: '0 10px 0' }}>
+    <div className='mt-3 px-2'>
       <ScrollingCarousel>
         {CATEGORIES.map(({ category, label }, index) => (
           <StyledButton
-            style={{ margin: '5px' }}
+            className='m-1'
             key={index}
             onClick={() => onClickCategory(label)}
             selected={selectedCategory === label}
           >
-            <span style={{ paddingRight: '5px' }}>{category}</span>
+            <span className='px-1'>{category}</span>
             <StyledBadge selected={selectedCategory === label}>
               {categoryCounts.get(label) ?? 0}
             </StyledBadge>

@@ -3,11 +3,10 @@ import { Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useFontSize } from '../context/FontSizingProvider';
 import { bookmarkedQuestions } from '../store/Slices/bookmark';
-import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import ImportanceCount from '../components/ImportanceCount';
 import CustomBadge from '../components/CustomBadge';
 import Bookmark from '../components/button/Bookmark';
-import { GREYS } from '../styles/variables';
+import { BookmarkH2, MbDiv, QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function BookmarkedQuestions() {
   const { fontSizing, calcFontSize } = useFontSize();
@@ -26,53 +25,33 @@ export default function BookmarkedQuestions() {
                   </QuestionQ>
                 </Col>
                 <Col className='d-flex justify-content-end align-items-center'>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className='d-flex flex-column'>
                     <div>
                       <ImportanceCount importance={question.importance} />
                     </div>
-                    <div
-                      className='mx-1'
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        marginTop: '10px',
-                      }}
-                    >
+                    <div className='mx-1 d-flex justify-content-end mt-2'>
                       <Bookmark question={question} />
                     </div>
                   </div>
                 </Col>
               </Row>
-              <div
-                style={{
-                  marginBottom:
-                    index === bookmarkQuestions?.length - 1 && '50px',
-                }}
-              >
+              <MbDiv $isLastItem={index === bookmarkQuestions?.length - 1}>
                 <QuestionTitle
                   size={calcFontSize('1.6rem', fontSizing)}
-                  mbottom='0.5rem'
+                  $mbottom='0.5rem'
                   cursor={'pointer'}
                 >
                   {question.question}
                 </QuestionTitle>
                 <CustomBadge text={question.category} />
-              </div>
+              </MbDiv>
             </div>
           </LinkContainer>
         ))
       ) : (
-        <h2
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: GREYS.LIGHT,
-            height: '60vh',
-          }}
-        >
+        <BookmarkH2 className='d-flex justify-content-center align-items-center'>
           북마크를 추가해 주세요.
-        </h2>
+        </BookmarkH2>
       )}
     </>
   );

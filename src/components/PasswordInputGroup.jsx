@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
-import { GREYS } from '../styles/variables';
+import { Form, InputGroup } from 'react-bootstrap';
 import { faEyeSlash, faEye } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { EyeIcon, GreyButton } from '../styles/ButtonStyles';
 
 export default function PasswordInputGroup({
   register,
@@ -24,20 +24,17 @@ export default function PasswordInputGroup({
         type={showPassword ? 'text' : 'password'}
         placeholder={placeholder}
       />
-      <Button
-        style={{
-          color: GREYS.MEDIUM,
-          border: `1px solid ${GREYS.LIGHT}`,
-        }}
+      <GreyButton
+        $greyBorder
         variant='Light'
         onClick={togglePasswordVisibility}
       >
         {showPassword ? (
-          <FontAwesomeIcon style={{ width: '18px' }} icon={faEye} />
+          <EyeIcon icon={faEye} />
         ) : (
-          <FontAwesomeIcon style={{ width: '18px' }} icon={faEyeSlash} />
+          <EyeIcon icon={faEyeSlash} />
         )}
-      </Button>
+      </GreyButton>
     </InputGroup>
   );
 }

@@ -11,7 +11,7 @@ export default function Hint({ hints }) {
   };
 
   return (
-    <div style={{ display: 'inline-block', marginTop: '1.5rem' }}>
+    <div className='d-inline-block mt-4'>
       <StyledButton
         onClick={handleHintsButton}
         aria-controls='example-collapse-text'
@@ -21,13 +21,7 @@ export default function Hint({ hints }) {
         Hint
       </StyledButton>
       <Collapse in={open}>
-        <div
-          id='example-collapse-text'
-          style={{
-            marginTop: '0.8rem',
-            flexWrap: 'wrap',
-          }}
-        >
+        <div id='example-collapse-text' className='mt-4 flex-wrap'>
           <ul className='d-flex p-0'>
             {hints?.map((hint, index) => (
               <li key={index}>

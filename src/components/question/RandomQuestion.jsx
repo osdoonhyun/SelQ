@@ -9,13 +9,7 @@ export default function RandomQuestion({
   getNextQuestion,
 }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: '30px 0 15px',
-      }}
-    >
+    <div className='d-flex justify-content-center mt-4 mb-3'>
       <ButtonGroup>
         <HomeNextButton onClick={() => getNextQuestion(selectedCategory)}>
           다음 질문

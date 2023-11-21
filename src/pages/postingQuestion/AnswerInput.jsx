@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { MAIN, GREYS } from '../../styles/variables';
+import { NextButton } from '../../styles/ButtonStyles';
+import RequiredLabel from '../../components/RequiredLabel';
 
 export default function AnswerInput({ question, onNext }) {
   const [answers, setAnswers] = useState('');
@@ -17,7 +19,8 @@ export default function AnswerInput({ question, onNext }) {
       <Form onSubmit={postingAnswer}>
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
           <Form.Label>
-            질문<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            질문
+            <RequiredLabel />
           </Form.Label>
           <div style={{ color: GREYS.DARKEST }}>
             <ReactMarkdown children={question} />
@@ -26,7 +29,8 @@ export default function AnswerInput({ question, onNext }) {
 
         <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
           <Form.Label>
-            답변<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            답변
+            <RequiredLabel />
           </Form.Label>
           <Form.Control
             style={{ height: '150px' }}
@@ -38,18 +42,9 @@ export default function AnswerInput({ question, onNext }) {
           />
         </Form.Group>
 
-        <Button
-          style={{
-            backgroundColor: MAIN.DARK,
-            border: `1px solid ${MAIN.DARK}`,
-            color: GREYS.LIGHTER,
-          }}
-          disabled={!answers}
-          variant='Light'
-          type='submit'
-        >
+        <NextButton disabled={!answers} type='submit'>
           다음
-        </Button>
+        </NextButton>
       </Form>
     </Container>
   );

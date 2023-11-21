@@ -1,18 +1,12 @@
 import { Col, Row } from 'react-bootstrap';
+import { FormContainerDiv } from '../../styles/LayoutStyles';
 
 export default function FormContainer({ children }) {
   return (
-    <div
-      style={{
-        maxWidth: '390px',
-        margin: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <FormContainerDiv>
       <Row>
         <Col>{children}</Col>
       </Row>
-    </div>
+    </FormContainerDiv>
   );
 }

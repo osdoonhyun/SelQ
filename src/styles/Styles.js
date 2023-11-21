@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components';
-import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
+import {
+  Button,
+  Dropdown,
+  DropdownButton,
+  Nav,
+  Offcanvas,
+  Stack,
+} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MAIN, GREYS, RED } from './variables';
 
@@ -117,38 +124,22 @@ export const QuestionTitle = styled.div`
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.05rem;
-  margin-bottom: ${(props) => props.mbottom || '0'};
+  margin-bottom: ${(props) => props.$mbottom || '0'};
   cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
 `;
-// export const QuestionTitle = styled.div.attrs((props) => ({
-//   size: props.size || '1rem', // 기본값 설정
-//   cursor: props.cursor || 'default', // 기본값 설정
-//   mbottom: props.mbottom || '0',
-// }))`
-//   font-size: ${(props) => props.size};
-//   font-weight: 500;
-//   line-height: 1.2;
-//   letter-spacing: 0.05rem;
-//   margin-bottom: ${(props) => props.mbottom};
-//   cursor: ${(props) => props.cursor};
-// `;
 
-// export const QuestionTitle = styled.div`
-//   font-size: ${(props) => props.size};
-//   font-weight: 500;
-//   line-height: 1.2;
-//   letter-spacing: 0.05rem;
-//   ${(props) =>
-//     props.mbottom &&
-//     css`
-//       margin-bottom: ${props.mbottom};
-//     `}
-//   ${(props) =>
-//     props.cursor &&
-//     css`
-//       cursor: ${props.cursor};
-//     `}
-// `;
+export const SearchInput = styled.input`
+  width: 100%;
+  margin-left: 10px;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 4px;
+  outline: 2px solid ${MAIN.LIGHT};
+`;
+
+export const OpacityDiv = styled.div`
+  opacity: ${(props) => (props.$isStale ? 0.5 : 1)};
+`;
 
 export const SearchLi = styled.li`
   list-style: none;
@@ -182,14 +173,64 @@ export const StyledTd = styled.td`
   max-width: ${(props) => props.maxWidth};
 `;
 
-// #F7F6F7 -> 밝은 회색 (조금 어두운 흰색정도?)(Header, Footer)
-// 아이콘 선택 안되었을때 #B3B3B5 -> 조금 어두운 회색
-// 더 어두운 회색 ${GREYS.DARK}
-// 진한 회색 ${GREYS.DARKER}
+export const RelativeSpan = styled.span`
+  position: relative;
+  top: -3px;
+`;
 
-// 선택되었을때 밝은 파랑: ${MAIN.LIGHT}
-// 선택되었을때 파란색 ${MAIN.MEDIUM}
-// 진한 파랑 : #2f93ea
+export const GreySpan = styled.span`
+  color: ${GREYS.MEDIUM};
+`;
 
-// 글자색 검정: ${GREYS.DARKEST} 흰색: #f0f4f5
-// 등록 글자 회삭: #1e235a66
+export const ColorSpan = styled.span`
+  font-size: 15px;
+  color: ${({ $isActive }) => ($isActive ? MAIN.MEDIUM : GREYS.MEDIUM)};
+`;
+
+export const ActiveSpan = styled.span`
+  color: ${(props) => (props.$isActive ? GREYS.LIGHTEST : MAIN.MEDIUM)};
+`;
+
+export const AnswerDiv = styled.div`
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding-bottom: 1.2rem;
+`;
+
+export const CollapseDiv = styled.div`
+  margin-top: 0.8rem;
+  font-size: ${(props) => props.$calcFontSize};
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
+`;
+
+export const MbDiv = styled.div`
+  margin-bottom: ${(props) => (props.$isLastItem ? '50px' : '0')};
+`;
+
+export const GreyFontAwesomeIcon = styled(FontAwesomeIcon)`
+  color: ${MAIN.MEDIUM};
+`;
+
+export const RedDiv = styled.div`
+  color: ${RED};
+`;
+
+export const OffcanvasTitle = styled(Offcanvas.Title)`
+  color: ${MAIN.MEDIUM};
+  font-weight: 600;
+  font-size: 26px;
+`;
+
+export const BookmarkH2 = styled.h2`
+  color: ${GREYS.LIGHT};
+  height: 60vh;
+`;
+
+export const FilterStack = styled(Stack)`
+  padding: 0 16px;
+`;
+
+export const FilterSpan = styled.span`
+  margin-right: 5px;
+`;

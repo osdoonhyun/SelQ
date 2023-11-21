@@ -1,21 +1,5 @@
-import { GREYS } from '../../styles/variables';
+import { FooterDiv } from '../../styles/LayoutStyles';
 
 export default function Footer() {
-  return (
-    <div
-      style={{
-        height: '60px',
-        bottom: 0,
-        fontWeight: 500,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: GREYS.LIGHTER,
-        color: GREYS.DARKEST,
-      }}
-    >
-      @ 2023. shinseunghyun all rights reserved.
-    </div>
-  );
+  return <FooterDiv>@ 2023. shinseunghyun all rights reserved.</FooterDiv>;
 }

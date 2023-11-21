@@ -13,6 +13,7 @@ import {
   DeleteForm,
 } from '../components/ResponsiveForm';
 import { MAIN, GREYS } from '../styles/variables';
+import { NextButton } from '../styles/ButtonStyles';
 
 const usernameSchema = yup
   .object({
@@ -87,17 +88,7 @@ export default function MyPage() {
           <DeleteForm showModal={handleShow} />
 
           <div className='d-flex justify-content-center'>
-            <Button
-              variant='Light'
-              style={{
-                width: '280px',
-                backgroundColor: MAIN.DARK,
-                border: `1px solid ${MAIN.DARK}`,
-                color: GREYS.LIGHTER,
-              }}
-              type='submit'
-              className='mt-5'
-            >
+            <NextButton my type='submit' className='mt-5'>
               {loadingUpdateUser ? (
                 <>
                   <Spinner
@@ -111,7 +102,7 @@ export default function MyPage() {
               ) : (
                 '회원 정보 수정'
               )}
-            </Button>
+            </NextButton>
           </div>
         </Form>
       </Container>

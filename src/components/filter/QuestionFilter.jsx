@@ -1,5 +1,4 @@
 import {
-  Badge,
   ButtonGroup,
   CloseButton,
   Dropdown,
@@ -8,7 +7,9 @@ import {
   Stack,
 } from 'react-bootstrap';
 import { DATE_FILTER_OPTION } from '../../constant/filters';
-import { MAIN, GREYS } from '../../styles/variables';
+import { MAIN } from '../../styles/variables';
+import { MainBadge } from '../../styles/BadgeStyles';
+import { FilterSpan, FilterStack } from '../../styles/Styles';
 
 export default function QuestionFilter({
   filterOptions,
@@ -16,7 +17,6 @@ export default function QuestionFilter({
   handleOptionCheck,
   handleOptionsClick,
   handleDeleteOption,
-  handleCategoryClick,
   handleDeleteCategoryOption,
   importanceOption,
   handleImportanceOptionCheck,
@@ -27,11 +27,10 @@ export default function QuestionFilter({
       {categoryOption?.map((filterOption) => (
         <DropdownButton
           className='p-1'
-          onToggle={(isOpen) => {
-            if (!isOpen) {
-              handleCategoryClick(filterOption.label, categoryOption);
-            }
-          }}
+          onToggle={(isOpen) =>
+            !isOpen &&
+            handleImportanceClick(filterOption.label, importanceOption)
+          }
           variant='Light'
           as={ButtonGroup}
           key={filterOption.label}
@@ -39,7 +38,7 @@ export default function QuestionFilter({
           title={filterOption.label}
         >
           <>
-            <Stack style={{ padding: '0 16px' }} direction='horizontal'>
+            <FilterStack direction='horizontal'>
               <Form.Check
                 type='checkbox'
                 value='전체선택'
@@ -52,14 +51,10 @@ export default function QuestionFilter({
                   ?.options.every((option) => option.isChecked)}
               />
               <span className='ms-auto'>전체선택</span>
-            </Stack>
+            </FilterStack>
             <hr />
             {filterOption.options.map((option, index) => (
-              <Stack
-                key={index}
-                style={{ padding: '0 16px' }}
-                direction='horizontal'
-              >
+              <FilterStack key={index} direction='horizontal'>
                 <Form.Check
                   type='checkbox'
                   onChange={(e) => handleOptionCheck(e, filterOption.label)}
@@ -67,7 +62,7 @@ export default function QuestionFilter({
                   value={option.value}
                 />
                 <span className='ms-auto'>{option.value}</span>
-              </Stack>
+              </FilterStack>
             ))}
           </>
         </DropdownButton>
@@ -88,7 +83,7 @@ export default function QuestionFilter({
           title={filterOption.label}
         >
           <>
-            <Stack style={{ padding: '0 16px' }} direction='horizontal'>
+            <FilterStack direction='horizontal'>
               <Form.Check
                 type='checkbox'
                 value='전체선택'
@@ -103,14 +98,10 @@ export default function QuestionFilter({
                   ?.options.every((option) => option.isChecked)}
               />
               <span className='ms-auto'>전체선택</span>
-            </Stack>
+            </FilterStack>
             <hr />
             {filterOption.options.map((option, index) => (
-              <Stack
-                key={index}
-                style={{ padding: '0 16px' }}
-                direction='horizontal'
-              >
+              <FilterStack key={index} direction='horizontal'>
                 <Form.Check
                   type='checkbox'
                   onChange={(e) =>
@@ -120,7 +111,7 @@ export default function QuestionFilter({
                   value={option.value}
                 />
                 <span className='ms-auto'>{option.value}</span>
-              </Stack>
+              </FilterStack>
             ))}
           </>
         </DropdownButton>
@@ -150,18 +141,12 @@ export default function QuestionFilter({
         {Object.keys(filterOptions).map((label, index) =>
           Array.isArray(filterOptions[label]) ? (
             filterOptions[label].map((option, optionIndex) => (
-              <Badge
+              <MainBadge
                 bg={MAIN.MEDIUM}
-                style={{
-                  fontSize: '0.8rem',
-                  color: GREYS.LIGHTER,
-                  letterSpacing: '0.1rem',
-                  backgroundColor: MAIN.MEDIUM,
-                }}
                 key={optionIndex}
                 className='d-flex justify-content-center align-items-center '
               >
-                <span style={{ marginRight: '5px' }}>{option.value}</span>
+                <FilterSpan>{option.value}</FilterSpan>
                 <CloseButton
                   onClick={() => {
                     handleDeleteCategoryOption(
@@ -171,23 +156,17 @@ export default function QuestionFilter({
                     );
                   }}
                 />
-              </Badge>
+              </MainBadge>
             ))
           ) : (
-            <Badge
+            <MainBadge
               bg={MAIN.MEDIUM}
-              style={{
-                fontSize: '0.8rem',
-                color: GREYS.LIGHTER,
-                letterSpacing: '0.1rem',
-                backgroundColor: MAIN.MEDIUM,
-              }}
               key={index}
               className='d-flex justify-content-center align-items-center '
             >
-              <span style={{ marginRight: '5px' }}>{filterOptions[label]}</span>
+              <FilterSpan>{filterOptions[label]}</FilterSpan>
               <CloseButton onClick={() => handleDeleteOption(label)} />
-            </Badge>
+            </MainBadge>
           )
         )}
       </Stack>
