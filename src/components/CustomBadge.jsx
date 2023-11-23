@@ -7,7 +7,7 @@ export default function CustomBadge({ text, onClickCategory, last }) {
       text='dark'
       $last={last}
       $pointer={onClickCategory}
-      onClick={onClickCategory ? () => onClickCategory(text) : undefined}
+      onClick={onClickCategory ? () => onClickCategory(text) : null}
     >
       {text}
     </CustomStyledBadge>

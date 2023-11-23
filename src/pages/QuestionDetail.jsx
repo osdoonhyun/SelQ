@@ -41,30 +41,17 @@ export default function QuestionDetail() {
   return (
     <>
       <GoBackButton />
-      <div
-        style={{
-          display: 'flex',
-          backgroundColor: 'white',
-          flexDirection: 'column',
-        }}
-      >
+      <div className='d-flex flex-column'>
         <Row>
           <Col className='d-flex align-items-end'>
             <QuestionQ size={calcFontSize('1.8rem', fontSizing)}>Q.</QuestionQ>
           </Col>
           <Col className='d-flex justify-content-end align-items-center'>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className='d-flex flex-column'>
               <div>
                 <ImportanceCount importance={question?.importance} />
               </div>
-              <div
-                className='mx-1'
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  marginTop: '10px',
-                }}
-              >
+              <div className='d-flex justify-content-end mx-1 mt-2'>
                 <FontAwesomeIcon
                   style={{
                     color: bookmarked ? MAIN.MEDIUM : GREYS.MEDIUM,

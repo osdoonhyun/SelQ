@@ -18,6 +18,7 @@ import QuestionFilter from '../components/filter/QuestionFilter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../components/Pagination';
+import { TableData } from '../styles/Styles';
 
 export default function QuestionManagement() {
   const navigate = useNavigate();
@@ -211,51 +212,24 @@ export default function QuestionManagement() {
                 <td className='text-center align-middle p-0 d-none d-md-table-cell'>
                   {(currentPage - 1) * 10 + index + 1}
                 </td>
-                <td
-                  className='align-middle d-md-none'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    maxWidth: '100px',
-                  }}
-                >
+                <TableData $maxW={100} className='align-middle d-md-none'>
                   {question.question}
-                </td>
-                <td
-                  className='align-middle  d-none d-md-table-cell'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                </TableData>
+                <TableData className='align-middle  d-none d-md-table-cell'>
                   {question.question}
-                </td>
-                <td
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                  className='text-center align-middle'
-                >
+                </TableData>
+                <TableData className='text-center align-middle'>
                   {question.category}
-                </td>
+                </TableData>
                 <td className='text-center align-middle p-0'>
                   {question.importance}
                 </td>
-                <td
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    maxWidth: window.innerWidth <= 768 ? '50px' : 'none',
-                  }}
+                <TableData
+                  $maxW={window.innerWidth <= 768 ? '50px' : 'none'}
                   className='text-center align-middle'
                 >
                   {question.createdAt.slice(0, 10)}
-                </td>
+                </TableData>
                 <td className='text-center align-middle p-1'>
                   <DropdownButton
                     id='dropdown-basic-button'

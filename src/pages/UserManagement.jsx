@@ -17,6 +17,7 @@ import Pagination from '../components/Pagination';
 import Filter from '../components/filter/Filter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { TableData } from '../styles/Styles';
 
 export default function UsersManagement() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -128,71 +129,27 @@ export default function UsersManagement() {
                 <td className='text-center align-middle p-0 d-none d-md-table-cell'>
                   {index + 1 + (currentPage - 1) * 10}
                 </td>
-                <td
-                  className='align-middle d-md-none'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    maxWidth: '100px',
-                  }}
-                >
+                <TableData $maxW={100} className='align-middle d-md-none'>
                   {user.username}
-                </td>
-                <td
-                  className='align-middle  d-none d-md-table-cell'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                </TableData>
+                <TableData className='align-middle d-none d-md-table-cell'>
                   {user.username}
-                </td>
-
-                <td
-                  className='align-middle d-md-none'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    maxWidth: '100px',
-                  }}
-                >
+                </TableData>
+                <TableData $maxW={100} className='align-middle d-md-none'>
                   {user.email}
-                </td>
-                <td
-                  className='align-middle  d-none d-md-table-cell'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                </TableData>
+                <TableData className='align-middle d-none d-md-table-cell'>
                   {user.email}
-                </td>
-
-                <td
+                </TableData>
+                <TableData
+                  $maxW={100}
                   className='text-center align-middle d-md-none'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    maxWidth: '100px',
-                  }}
                 >
                   {user.createdAt.slice(0, 10)}
-                </td>
-                <td
-                  className='text-center align-middle  d-none d-md-table-cell'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                </TableData>
+                <TableData className='text-center align-middle d-none d-md-table-cell'>
                   {user.createdAt.slice(0, 10)}
-                </td>
+                </TableData>
                 <td className='text-center align-middle'>
                   {user.roles[0] === 'admin' ? '관리자' : '유저'}
                 </td>

@@ -2,6 +2,14 @@ import { styled } from 'styled-components';
 import { Container, NavbarBrand } from 'react-bootstrap';
 import { GREYS, MAIN } from './variables';
 
+export const BodyContainer = styled.div`
+  width: 100%;
+  padding: 20px;
+  min-height: calc(100vh - 150px);
+  max-width: 1080px;
+  margin: 0 auto;
+`;
+
 export const FooterDiv = styled.div`
   height: 60px;
   bottom: 0;

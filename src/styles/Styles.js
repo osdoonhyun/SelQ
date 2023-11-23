@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MAIN, GREYS, RED } from './variables';
+import { Link } from 'react-router-dom';
 
 export const HeaderNav = styled(Nav)`
   & .nav-link {
@@ -166,13 +167,6 @@ export const ErrorMessage = styled.p`
   color: ${RED};
 `;
 
-export const StyledTd = styled.td`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: ${(props) => props.maxWidth};
-`;
-
 export const RelativeSpan = styled.span`
   position: relative;
   top: -3px;
@@ -233,4 +227,17 @@ export const FilterStack = styled(Stack)`
 
 export const FilterSpan = styled.span`
   margin-right: 5px;
+`;
+
+export const HomeLink = styled(Link)`
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: ${MAIN.MEDIUM};
+`;
+
+export const TableData = styled.td`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: ${(props) => (props.$maxW ? `${props.$maxW}px` : 'none')};
 `;
