@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import { faEyeSlash, faEye } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EyeIcon, GreyButton } from '../styles/ButtonStyles';
 
 export default function PasswordInputGroup({

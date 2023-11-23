@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
+import { Col, Container, Form, Nav, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { logIn } from '../store/Slices/auth';
 import * as yup from 'yup';
@@ -10,7 +10,7 @@ import ErrorToast from '../components/ErrorToast';
 import SocialLogInButton from '../components/button/SocialLogInButton';
 import PasswordInputGroup from '../components/PasswordInputGroup';
 import { ErrorMessage } from '../styles/Styles';
-import { MAIN, GREYS } from '../styles/variables';
+import { MAIN } from '../styles/variables';
 import { MESSAGE } from '../constant/message';
 import { NextButton } from '../styles/ButtonStyles';
 

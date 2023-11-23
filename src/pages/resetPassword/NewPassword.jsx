@@ -1,9 +1,8 @@
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ErrorMessage } from '../../styles/Styles';
-import { MAIN, GREYS } from '../../styles/variables';
 import { MESSAGE } from '../../constant/message';
 import { REGEXP } from '../../constant/regexp';
 import { NextButton } from '../../styles/ButtonStyles';

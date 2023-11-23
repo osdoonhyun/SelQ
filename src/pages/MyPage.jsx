@@ -12,7 +12,6 @@ import {
   EmailForm,
   DeleteForm,
 } from '../components/ResponsiveForm';
-import { MAIN, GREYS } from '../styles/variables';
 import { NextButton } from '../styles/ButtonStyles';
 
 const usernameSchema = yup

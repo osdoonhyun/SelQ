@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
+import { Col, Form, Row, Spinner } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useCheckRegisteredEmail } from '../../hooks/common/useCheckRegisteredEmail';
 import { useSendVerificationCode } from '../../hooks/common/useSendVerificationCode';
-import { MAIN, GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 
 export default function EmailVerification({ onNext }) {

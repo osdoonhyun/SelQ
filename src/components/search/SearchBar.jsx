@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import SearchQuetions from './SearchQuetions';
 import { useNavigate } from 'react-router-dom';
-import { MAIN, GREYS } from '../../styles/variables';
+import { GREYS } from '../../styles/variables';
 import { useSearchQuestions } from '../../hooks/queries/useSearchQuestions';
 import { OpacityDiv, SearchInput } from '../../styles/Styles';
 

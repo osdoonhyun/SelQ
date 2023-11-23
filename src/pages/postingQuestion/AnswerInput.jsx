@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { MAIN, GREYS } from '../../styles/variables';
+import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 

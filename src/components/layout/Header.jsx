@@ -1,15 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Container,
-  Dropdown,
-  Image,
-  Navbar,
-  Row,
-  Col,
-} from 'react-bootstrap';
+import { Button, Dropdown, Image, Row, Col } from 'react-bootstrap';
 import useAuth from '../../hooks/common/useAuth';
 import { logOut } from '../../store/Slices/auth';
 import SearchBar from '../search/SearchBar';
@@ -25,7 +17,7 @@ import {
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HeaderNav } from '../../styles/Styles';
-import { MAIN, GREYS } from '../../styles/variables';
+import { GREYS } from '../../styles/variables';
 import {
   HeaderContainer,
   HeaderNavBarBrand,
