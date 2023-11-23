@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Col, Form, Row, Spinner } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useCheckRegisteredEmail } from '../../hooks/common/useCheckRegisteredEmail';
 import { useSendVerificationCode } from '../../hooks/common/useSendVerificationCode';
 import { NextButton } from '../../styles/ButtonStyles';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function EmailVerification({ onNext }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -83,15 +84,7 @@ export default function EmailVerification({ onNext }) {
                 disabled={checkBtnDisable}
               >
                 {loadingVerifyEmail ? (
-                  <div>
-                    <Spinner
-                      animation='border'
-                      size='sm'
-                      role='status'
-                      aria-hidden='true'
-                    />
-                    <span className='visually-hidden'>Loading...</span>
-                  </div>
+                  <LoadingSpinner />
                 ) : sendBtnDisable ? (
                   '확인'
                 ) : (
@@ -108,19 +101,7 @@ export default function EmailVerification({ onNext }) {
           type='submit'
           disabled={sendBtnDisable}
         >
-          {loadingSendEmail ? (
-            <>
-              <Spinner
-                animation='border'
-                size='sm'
-                role='status'
-                aria-hidden='true'
-              />
-              <span className='visually-hidden'>Loading...</span>
-            </>
-          ) : (
-            '이메일로 인증코드 보내기'
-          )}
+          {loadingSendEmail ? <LoadingSpinner /> : '이메일로 인증코드 보내기'}
         </NextButton>
       </div>
     </Form>

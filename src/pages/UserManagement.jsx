@@ -7,7 +7,6 @@ import {
   Form,
   Image,
   Modal,
-  Spinner,
   Table,
 } from 'react-bootstrap';
 import useAuth from '../hooks/common/useAuth';
@@ -15,6 +14,7 @@ import { useGetUsers } from '../hooks/common/useGetUsers';
 import { useUpdateUserInfoByAdmin } from '../hooks/common/useUpdateUserInfoByAdmin';
 import Pagination from '../components/Pagination';
 import Filter from '../components/filter/Filter';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { TableData } from '../styles/Styles';
@@ -329,19 +329,7 @@ export default function UsersManagement() {
             variant='primary'
             onClick={() => updateUserHandler(selectedUser?.id)}
           >
-            {loadingUpdateUser ? (
-              <>
-                <Spinner
-                  animation='border'
-                  size='sm'
-                  role='status'
-                  aria-hidden='true'
-                />
-                <span className='visually-hidden'>Loading...</span>
-              </>
-            ) : (
-              '수정하기'
-            )}
+            {loadingUpdateUser ? <LoadingSpinner /> : '수정하기'}
           </Button>
         </Modal.Footer>
       </Modal>

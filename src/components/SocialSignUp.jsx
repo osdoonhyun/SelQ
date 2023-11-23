@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Form, Spinner } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { serverApi } from '../apis/api';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { TERMS_AND_CONDITIONS } from '../constant/signUp';
 import { useSignUpHandler } from '../hooks/common/useSignUpHandler';
 import { MESSAGE } from '../constant/message';
+import LoadingSpinner from './LoadingSpinner';
 import { ErrorMessage } from '../styles/Styles';
 import { SocialContainer } from '../styles/LayoutStyles';
 import { NextButton, SocialGreyDiv } from '../styles/ButtonStyles';
@@ -179,19 +180,7 @@ export default function SocialSignUp() {
         </Form.Group>
 
         <NextButton variant='Light' type='submit' className='w-100 mt-3'>
-          {loadingSignUp ? (
-            <>
-              <Spinner
-                animation='border'
-                size='sm'
-                role='status'
-                aria-hidden='true'
-              />
-              <span className='visually-hidden'>Loading...</span>
-            </>
-          ) : (
-            '회원가입'
-          )}
+          {loadingSignUp ? <LoadingSpinner /> : '회원가입'}
         </NextButton>
       </Form>
     </SocialContainer>

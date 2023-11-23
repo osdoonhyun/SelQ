@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Form, Modal, Spinner } from 'react-bootstrap';
+import { Button, Container, Form, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/common/useAuth';
@@ -13,6 +13,7 @@ import {
   DeleteForm,
 } from '../components/ResponsiveForm';
 import { NextButton } from '../styles/ButtonStyles';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const usernameSchema = yup
   .object({
@@ -88,19 +89,7 @@ export default function MyPage() {
 
           <div className='d-flex justify-content-center'>
             <NextButton my type='submit' className='mt-5'>
-              {loadingUpdateUser ? (
-                <>
-                  <Spinner
-                    animation='border'
-                    size='sm'
-                    role='status'
-                    aria-hidden='true'
-                  />
-                  <span className='visually-hidden'>Loading...</span>
-                </>
-              ) : (
-                '회원 정보 수정'
-              )}
+              {loadingUpdateUser ? <LoadingSpinner /> : '회원 정보 수정'}
             </NextButton>
           </div>
         </Form>

@@ -1,7 +1,8 @@
-import { Badge, Container, Form, Spinner, Stack } from 'react-bootstrap';
+import { Badge, Container, Form, Stack } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { MAIN, GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function Confirmation({
   question,
@@ -68,19 +69,7 @@ export default function Confirmation({
           </div>
         </Form.Group>
         <NextButton type='submit'>
-          {isLoading ? (
-            <div>
-              <Spinner
-                animation='border'
-                size='sm'
-                role='status'
-                aria-hidden='true'
-              />
-              <span className='visually-hidden'>Loading...</span>
-            </div>
-          ) : (
-            '등록하기'
-          )}
+          {isLoading ? <LoadingSpinner /> : '등록하기'}
         </NextButton>
       </Form>
     </Container>

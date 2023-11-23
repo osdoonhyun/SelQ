@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,6 +17,7 @@ import { MAIN, GREYS } from '../styles/variables';
 import { REGEXP } from '../constant/regexp';
 import { MESSAGE } from '../constant/message';
 import { NextButton } from '../styles/ButtonStyles';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const signUpSchema = yup.object().shape({
   email: yup.string().required(MESSAGE.SIGNUP.VALIDATION_EMAIL),
@@ -236,15 +237,7 @@ export default function SignUp() {
           disabled={btnDisable || !verificationBtnDisable}
         >
           {loadingVerifyEmail || loadingSendEmail ? (
-            <>
-              <Spinner
-                animation='border'
-                size='sm'
-                role='status'
-                aria-hidden='true'
-              />
-              <span className='visually-hidden'>Loading...</span>
-            </>
+            <LoadingSpinner />
           ) : verificationBtnDisable ? (
             '이메일 인증하기'
           ) : (
@@ -280,19 +273,7 @@ export default function SignUp() {
               className='mt-3'
               onClick={checkEmailVerificationHandler}
             >
-              {loadingCheckEmail ? (
-                <>
-                  <Spinner
-                    animation='border'
-                    size='sm'
-                    role='status'
-                    aria-hidden='true'
-                  />
-                  <span className='visually-hidden'>Loading...</span>
-                </>
-              ) : (
-                '확인'
-              )}
+              {loadingCheckEmail ? <LoadingSpinner /> : '확인'}
             </NextButton>
           </Form.Group>
         )}
@@ -389,19 +370,7 @@ export default function SignUp() {
         </Form.Group>
 
         <NextButton type='submit' className='w-100 mt-3'>
-          {loadingSignUp ? (
-            <>
-              <Spinner
-                animation='border'
-                size='sm'
-                role='status'
-                aria-hidden='true'
-              />
-              <span className='visually-hidden'>Loading...</span>
-            </>
-          ) : (
-            '회원가입'
-          )}
+          {loadingSignUp ? <LoadingSpinner /> : '회원가입'}
         </NextButton>
       </Form>
 

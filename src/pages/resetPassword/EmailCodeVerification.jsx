@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Col, Form, Row, Spinner } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useCheckVerificationCode } from '../../hooks/common/useCheckVerificationCode';
 import { NextButton } from '../../styles/ButtonStyles';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function EmailCodeVerification({ onNext, userEmail }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
@@ -73,15 +74,7 @@ export default function EmailCodeVerification({ onNext, userEmail }) {
                 disabled={checkBtnDisable}
               >
                 {loadingCheckEmail ? (
-                  <>
-                    <Spinner
-                      animation='border'
-                      size='sm'
-                      role='status'
-                      aria-hidden='true'
-                    />
-                    <span className='visually-hidden'>Loading...</span>
-                  </>
+                  <LoadingSpinner />
                 ) : sendBtnDisable ? (
                   '확인'
                 ) : (
