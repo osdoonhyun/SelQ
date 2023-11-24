@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../components/Pagination';
 import { TableData } from '../styles/Styles';
+import DeleteQuestionModal from '../components/modal/DeleteQuestionModal';
 
 export default function QuestionManagement() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ export default function QuestionManagement() {
     });
   };
 
-  const handleDeleteModalClose = () => setShow(false);
+  // const handleDeleteModalClose = () => setShow(false);
   const handleDeleteModalShow = (questionId) => {
     setDeletedId(questionId);
     setShow(true);
@@ -76,9 +77,10 @@ export default function QuestionManagement() {
   const handleEditQuestion = (questionId) => {
     navigate(`/admin/edit/question/${questionId}`);
   };
+
   const handleDeleteQuestion = () => {
     deleteQuestion({ deletedId, token });
-    handleDeleteModalClose();
+    setShow(false);
   };
 
   const [categoryOption, setCategoryOption] = useState(CATEGORY_FILTER_OPTION);
@@ -260,22 +262,11 @@ export default function QuestionManagement() {
         />
       </div>
 
-      <Modal show={show} onHide={handleDeleteModalClose} backdrop='static'>
-        <Modal.Header closeButton>
-          <Modal.Title>질문 삭제</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          질문을 삭제하시면 다시 돌릴 수 없습니다 삭제하시겠습니까?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='light' onClick={handleDeleteModalClose}>
-            취소
-          </Button>
-          <Button variant='secondary' onClick={() => handleDeleteQuestion()}>
-            삭제
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteQuestionModal
+        show={show}
+        setShow={setShow}
+        handleDeleteQuestion={handleDeleteQuestion}
+      />
     </>
   );
 }

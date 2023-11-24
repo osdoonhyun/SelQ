@@ -17,7 +17,7 @@ export const NextButton = styled(Button)`
     `};
 
   ${(props) =>
-    props.my &&
+    props.$my &&
     css`
       width: 280px;
     `};

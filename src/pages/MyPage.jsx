@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Form, Modal } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/common/useAuth';
@@ -12,8 +12,10 @@ import {
   EmailForm,
   DeleteForm,
 } from '../components/ResponsiveForm';
+import { MyPageContainer } from '../styles/LayoutStyles';
 import { NextButton } from '../styles/ButtonStyles';
 import LoadingSpinner from '../components/LoadingSpinner';
+import DeleteUserModal from '../components/modal/DeleteUserModal';
 
 const usernameSchema = yup
   .object({
@@ -27,7 +29,7 @@ const usernameSchema = yup
 export default function MyPage() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
   const { user, token } = useAuth();
 
@@ -70,11 +72,7 @@ export default function MyPage() {
 
   return (
     <>
-      <Container
-        style={{
-          maxWidth: '550px',
-        }}
-      >
+      <MyPageContainer>
         <Form onSubmit={handleSubmit(updateUserHandler)}>
           <ImageForm img={user?.profileImg} />
           <EmailForm label={'이메일'} email={user?.email} />
@@ -88,33 +86,18 @@ export default function MyPage() {
           <DeleteForm showModal={handleShow} />
 
           <div className='d-flex justify-content-center'>
-            <NextButton my type='submit' className='mt-5'>
+            <NextButton $my type='submit' className='mt-5'>
               {loadingUpdateUser ? <LoadingSpinner /> : '회원 정보 수정'}
             </NextButton>
           </div>
         </Form>
-      </Container>
+      </MyPageContainer>
 
-      <Modal show={show} onHide={handleClose} backdrop='static'>
-        <Modal.Header closeButton>
-          <Modal.Title>회원 탈퇴</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Check
-            type='checkbox'
-            label='탈퇴 버튼 선택 시, 계정은 영구 삭제되며 복구되지 않습니다.'
-            onChange={() => setIsChecked(!isChecked)}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
-            취소
-          </Button>
-          <Button variant='danger' onClick={handleDelete} disabled={!isChecked}>
-            탈퇴
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteUserModal
+        show={show}
+        setShow={setShow}
+        handleDelete={handleDelete}
+      />
     </>
   );
 }

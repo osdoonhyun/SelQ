@@ -40,6 +40,10 @@ export const SocialContainer = styled(Container)`
   max-width: 380px;
 `;
 
+export const MyPageContainer = styled(Container)`
+  max-width: 550px;
+`;
+
 export const HeaderContainer = styled(Container)`
   padding-bottom: 10px;
   max-width: 1080px;

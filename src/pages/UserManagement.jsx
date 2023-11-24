@@ -1,20 +1,13 @@
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import {
-  Button,
-  Dropdown,
-  DropdownButton,
-  Form,
-  Image,
-  Modal,
-  Table,
-} from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { Dropdown, DropdownButton, Table } from 'react-bootstrap';
 import useAuth from '../hooks/common/useAuth';
 import { useGetUsers } from '../hooks/common/useGetUsers';
 import { useUpdateUserInfoByAdmin } from '../hooks/common/useUpdateUserInfoByAdmin';
 import Pagination from '../components/Pagination';
+import DeleteUserByAdminModal from '../components/modal/DeleteUserByAdminModal';
+import EditUserByAdminModal from '../components/modal/EditUserByAdminModal';
 import Filter from '../components/filter/Filter';
-import LoadingSpinner from '../components/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { TableData } from '../styles/Styles';
@@ -23,7 +16,6 @@ export default function UsersManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOptions, setFilterOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isDeletionChecked, setIsDeletionChecked] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -92,10 +84,10 @@ export default function UsersManagement() {
     handleCloseEditModal();
   };
 
-  const handleDelete = (userId) => {
+  const handleDeleteUser = (userId) => {
     console.log('계정 삭제됨');
     // TODO: 계정 삭제 로직
-    setIsDeletionChecked(false);
+    // setIsDeletionChecked(false);
   };
 
   const startIndex = (currentPage - 1) * 10;
@@ -182,157 +174,27 @@ export default function UsersManagement() {
         />
       </div>
 
-      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>계정 삭제</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(updateUserHandler)}>
-            <div className='d-flex justify-content-center'>
-              <Image src={selectedUser?.profileImg} roundedCircle />
-            </div>
+      <DeleteUserByAdminModal
+        key={selectedUser?.id}
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
+        user={selectedUser}
+        handleSubmitForm={handleSubmit}
+        handleUpdateUser={updateUserHandler}
+        handleDelete={handleDeleteUser}
+      />
 
-            <Form.Group
-              className='mb-3'
-              controlId='exampleForm.ControlTextarea1'
-            >
-              <Form.Label>이메일</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder={selectedUser?.email}
-                disabled
-              />
-            </Form.Group>
-
-            <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-              <Form.Label>유저 이름</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder={selectedUser?.username}
-                disabled
-              />
-            </Form.Group>
-
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
-              <Form.Label>유저 등급</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder={selectedUser?.isAdmin ? '관리자' : '유저'}
-                disabled
-              />
-            </Form.Group>
-
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
-              <Form.Label>가입 날짜</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder={selectedUser?.createdAt.slice(0, 10)}
-                disabled
-              />
-            </Form.Group>
-          </Form>
-          <Form.Check // prettier-ignore
-            type={'checkbox'}
-            onChange={() => setIsDeletionChecked(!isDeletionChecked)}
-            label='계정 삭제하시면 다시 되돌리지 못합니다. 정말 삭제하시겠습니까?'
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleCloseDeleteModal}>
-            취소
-          </Button>
-          <Button
-            variant='danger'
-            disabled={isDeletionChecked}
-            onClick={() => handleDelete(selectedUser?.id)}
-          >
-            계정 삭제
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal show={showEditModal} onHide={handleCloseEditModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>계정 수정</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(updateUserHandler)}>
-            <div className='d-flex justify-content-center'>
-              <Image
-                src={selectedUser?.profileImg}
-                alt={selectedUser?.profileImg}
-                roundedCircle
-              />
-            </div>
-
-            <Form.Group
-              className='mb-3'
-              controlId='exampleForm.ControlTextarea1'
-            >
-              <Form.Label>이메일</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder={selectedUser?.email}
-                disabled
-              />
-            </Form.Group>
-
-            <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-              <Form.Label>유저 이름</Form.Label>
-              <Controller
-                name='username'
-                defaultValue={selectedUser?.username}
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type='text'
-                    onChange={(e) => setValue('username', e.target.value)}
-                  />
-                )}
-              />
-            </Form.Group>
-
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
-              <Form.Label>유저 등급</Form.Label>
-              <Controller
-                name='roles'
-                control={control}
-                defaultValue={selectedUser?.roles[0]}
-                render={({ field }) => (
-                  <Form.Select
-                    {...field}
-                    aria-label='Default select example'
-                    onChange={(e) => {
-                      setValue('roles', e.target.value);
-                    }}
-                  >
-                    <option value='default'>
-                      {selectedUser?.roles[0] === 'admin' ? '관리자' : '유저'}
-                    </option>
-                    <option value='select' disabled>
-                      선택해 주세요
-                    </option>
-                    <option value='user'>유저</option>
-                    <option value='admin'>관리자</option>
-                  </Form.Select>
-                )}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleCloseEditModal}>
-            취소
-          </Button>
-          <Button
-            variant='primary'
-            onClick={() => updateUserHandler(selectedUser?.id)}
-          >
-            {loadingUpdateUser ? <LoadingSpinner /> : '수정하기'}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <EditUserByAdminModal
+        key={selectedUser}
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        user={selectedUser}
+        handleSubmitForm={handleSubmit}
+        handleUpdateUser={updateUserHandler}
+        setValue={setValue}
+        control={control}
+        loading={loadingUpdateUser}
+      />
     </>
   );
 }
