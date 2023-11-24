@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Form, Image, Modal } from 'react-bootstrap';
+import { MESSAGE } from '../../constant/message';
 
 export default function DeleteUserByAdminModal({
   showModal,
@@ -59,7 +60,7 @@ export default function DeleteUserByAdminModal({
         <Form.Check // prettier-ignore
           type={'checkbox'}
           onChange={() => setIsDeletionChecked(!isDeletionChecked)}
-          label='계정 삭제하시면 다시 되돌리지 못합니다. 정말 삭제하시겠습니까?'
+          label={MESSAGE.USER.DELETE_CHECKED_CONFIRMATION_ADMIN}
         />
       </Modal.Body>
       <Modal.Footer>

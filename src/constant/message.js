@@ -35,4 +35,10 @@ export const MESSAGE = {
   TIMER: {
     EXPIRED_CODE: '인증코드가 만료되었습니다.',
   },
+  USER: {
+    DELETE_CHECKED_CONFIRMATION_ADMIN:
+      '계정 삭제하시면 다시 되돌리지 못합니다. 정말 삭제하시겠습니까?',
+    DELETE_CHECKED_CONFIRMATION:
+      '탈퇴 버튼 선택 시, 계정은 영구 삭제되며 복구되지 않습니다.',
+  },
 };

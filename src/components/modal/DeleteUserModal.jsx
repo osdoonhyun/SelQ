@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { MESSAGE } from '../../constant/message';
 
 export default function DeleteUserModal({ show, setShow, handleDelete }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -17,7 +18,7 @@ export default function DeleteUserModal({ show, setShow, handleDelete }) {
       <Modal.Body>
         <Form.Check
           type='checkbox'
-          label='탈퇴 버튼 선택 시, 계정은 영구 삭제되며 복구되지 않습니다.'
+          label={MESSAGE.USER.DELETE_CHECKED_CONFIRMATION}
           onChange={() => setIsChecked(!isChecked)}
         />
       </Modal.Body>
