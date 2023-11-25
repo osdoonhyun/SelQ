@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Button, Form, Image, Modal } from 'react-bootstrap';
 import LoadingSpinner from '../LoadingSpinner';
+import { NextButton } from '../../styles/ButtonStyles';
 
 export default function EditUserByAdminModal({
   showModal,
@@ -87,9 +88,9 @@ export default function EditUserByAdminModal({
         <Button variant='secondary' onClick={() => setShowModal(false)}>
           취소
         </Button>
-        <Button variant='primary' onClick={() => handleUpdateUser(user?.id)}>
+        <NextButton variant='Light' onClick={() => handleUpdateUser(user?.id)}>
           {loading ? <LoadingSpinner /> : '수정하기'}
-        </Button>
+        </NextButton>
       </Modal.Footer>
     </Modal>
   );

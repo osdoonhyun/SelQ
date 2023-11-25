@@ -28,6 +28,11 @@ export const NextButton = styled(Button)`
       width: 127px;
       height: 38px;
     `};
+
+  &:hover {
+    color: ${GREYS.LIGHTEST};
+    background-color: ${MAIN.MEDIUM};
+  }
 `;
 
 export const GreyButton = styled(Button)`
@@ -40,7 +45,6 @@ export const GreyButton = styled(Button)`
     `};
 
   &:hover {
-    /* 필요에 따라 호버 상태의 스타일 지정 */
     color: ${GREYS.MEDIUM};
     border: 1px solid ${GREYS.LIGHT};
     background-color: ${GREYS.LIGHTER};
