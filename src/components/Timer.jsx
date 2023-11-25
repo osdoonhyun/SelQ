@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { RedDiv } from '../styles/Styles';
-import { timeToMinutes, timeToSeconds } from '../utils/timer';
+import {
+  INITIAL_TIME_LEFT,
+  timeToMinutes,
+  timeToSeconds,
+} from '../utils/timer';
 import { MESSAGE } from '../constant/message';
 
 export default function Timer() {
-  const [timeLeft, setTimeLeft] = useState(180);
+  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME_LEFT);
   const [expired, setExpired] = useState(false);
 
   const minutes = timeToMinutes(timeLeft);

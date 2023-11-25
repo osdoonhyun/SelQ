@@ -1,3 +1,5 @@
+export const INITIAL_TIME_LEFT = 180;
+
 export const timeToMinutes = (timeLeft) =>
   Math.floor(timeLeft / 60)
     .toString()
