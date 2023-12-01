@@ -15,6 +15,7 @@ import BookmarkedQuestions from '../pages/BookmarkedQuestions';
 import QuestionManagement from '../pages/QuestionManagement';
 import SocialSignUp from '../components/SocialSignUp';
 import NotFoundPage from '../pages/NotFoundPage';
+import PrivateRoute from './PrivateRoute';
 
 export const router = createBrowserRouter([
   {
@@ -32,11 +33,45 @@ export const router = createBrowserRouter([
       { path: '/password/new', element: <ResetPassword /> },
       { path: '/user', element: <MyPage /> },
       { path: '/signup/social', element: <SocialSignUp /> },
-
-      { path: '/admin/post/question', element: <PostingQuestion /> },
-      { path: '/admin/edit/question/:questionId', element: <EditQuestion /> },
-      { path: '/admin/users', element: <UsersManagement /> },
-      { path: '/admin/questions', element: <QuestionManagement /> },
+    ],
+  },
+  {
+    path: '/admin',
+    element: <Root />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        path: 'post/question',
+        element: (
+          <PrivateRoute isOnlyAdminAllowed>
+            <PostingQuestion />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'edit/question/:questionId',
+        element: (
+          <PrivateRoute isOnlyAdminAllowed>
+            <EditQuestion />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'users',
+        element: (
+          <PrivateRoute isOnlyAdminAllowed>
+            <UsersManagement />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'questions',
+        element: (
+          <PrivateRoute isOnlyAdminAllowed>
+            <QuestionManagement />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   { path: '/login', element: <LogIn /> },
