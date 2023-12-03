@@ -1,5 +1,3 @@
-import { PAGES_PATH } from '../constant/paths';
-import { GreySpan, MenuNavLink, OffcanvasTitle } from '../styles/Styles';
 import {
   Offcanvas,
   Nav,
@@ -9,6 +7,8 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import { GreySpan, MenuNavLink, OffcanvasTitle } from '../styles/Styles';
+import { MENU_PAGES } from '../constant/paths';
 
 export default function MenuOffcanvas({
   user,
@@ -58,7 +58,7 @@ export default function MenuOffcanvas({
         <hr />
 
         <ul className='list-unstyled mx-3 my-4'>
-          {PAGES_PATH?.map(({ path, label }, index) => (
+          {MENU_PAGES?.map(({ path, label }, index) => (
             <li className='my-3' key={index}>
               <MenuNavLink href={path} onClick={onHide}>
                 {label}
