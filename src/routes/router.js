@@ -1,8 +1,8 @@
+import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 import CategoryQuestions from '../pages/CategoryQuestions';
 import ImportantQuestionsList from '../pages/ImportantQuestions';
 import QuestionDetail from '../pages/QuestionDetail';
-import { createBrowserRouter } from 'react-router-dom';
 import Root from './Root';
 import SignUp from '../pages/SignUp';
 import LogIn from '../pages/LogIn';
@@ -16,32 +16,33 @@ import QuestionManagement from '../pages/QuestionManagement';
 import SocialSignUp from '../components/SocialSignUp';
 import NotFoundPage from '../pages/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
+import { PATH } from '../constant/paths';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: PATH.HOME,
     element: <Root />,
     errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: '/questions', element: <CategoryQuestions /> },
-      { path: '/questions/:questionId', element: <QuestionDetail /> },
-      { path: '/importants', element: <ImportantQuestionsList /> },
-      { path: '/importants/:questionId', element: <QuestionDetail /> },
-      { path: '/bookmarks', element: <BookmarkedQuestions /> },
-      { path: '/bookmarks/:questionId', element: <QuestionDetail /> },
-      { path: '/password/new', element: <ResetPassword /> },
-      { path: '/user', element: <MyPage /> },
-      { path: '/signup/social', element: <SocialSignUp /> },
+      { path: PATH.QUESTIONS, element: <CategoryQuestions /> },
+      { path: PATH.QUESTIONS_DETAIL, element: <QuestionDetail /> },
+      { path: PATH.IMPORTANTS, element: <ImportantQuestionsList /> },
+      { path: PATH.IMPORTANTS_DETAIL, element: <QuestionDetail /> },
+      { path: PATH.BOOKMARK, element: <BookmarkedQuestions /> },
+      { path: PATH.BOOKMARK_DETAIL, element: <QuestionDetail /> },
+      { path: PATH.NEW_PASSWORD, element: <ResetPassword /> },
+      { path: PATH.USER_INFO, element: <MyPage /> },
+      { path: PATH.SOCIAL_SIGN_UP, element: <SocialSignUp /> },
     ],
   },
   {
-    path: '/admin',
+    path: PATH.ADMIN,
     element: <Root />,
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: 'post/question',
+        path: PATH.POST_QUESTION,
         element: (
           <PrivateRoute isOnlyAdminAllowed>
             <PostingQuestion />
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'edit/question/:questionId',
+        path: PATH.EDIT_QUESTION,
         element: (
           <PrivateRoute isOnlyAdminAllowed>
             <EditQuestion />
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'users',
+        path: PATH.USERS_MANAGEMENT,
         element: (
           <PrivateRoute isOnlyAdminAllowed>
             <UsersManagement />
@@ -65,7 +66,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'questions',
+        path: PATH.QUESTIONS_MANAGEMENT,
         element: (
           <PrivateRoute isOnlyAdminAllowed>
             <QuestionManagement />
@@ -74,6 +75,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/login', element: <LogIn /> },
-  { path: '/signup', element: <SignUp /> },
+  { path: PATH.LOGIN, element: <LogIn /> },
+  { path: PATH.SIGN_UP, element: <SignUp /> },
 ]);
