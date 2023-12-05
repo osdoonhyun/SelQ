@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Dropdown,
-  DropdownButton,
-  Modal,
-  Table,
-} from 'react-bootstrap';
+import { Dropdown, DropdownButton, Table } from 'react-bootstrap';
 import useAuth from '../hooks/common/useAuth';
 import { useDeleteQuestion } from '../hooks/mutations/useDeleteQuestion';
 import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
@@ -29,17 +23,12 @@ export default function QuestionManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOptions, setFilterOptions] = useState({});
 
-  const {
-    data: questions,
-    loading,
-    error,
-  } = useGetQuestionsByFilteringOption(currentPage, filterOptions);
+  const { data: questions } = useGetQuestionsByFilteringOption(
+    currentPage,
+    filterOptions
+  );
 
-  const {
-    mutateAsync: deleteQuestion,
-    loading: loadingDelete,
-    error: errorDelete,
-  } = useDeleteQuestion();
+  const { mutateAsync: deleteQuestion } = useDeleteQuestion();
 
   const handleOptionsClick = (item, label) => {
     setFilterOptions({

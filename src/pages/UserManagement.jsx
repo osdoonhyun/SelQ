@@ -25,14 +25,10 @@ export default function UsersManagement() {
     currentPage,
     filterOptions
   );
-  const {
-    mutateAsync: updateUser,
-    isLoading: loadingUpdateUser,
-    error: errorUpdateUser,
-  } = useUpdateUserInfoByAdmin();
+  const { mutateAsync: updateUser, isLoading: loadingUpdateUser } =
+    useUpdateUserInfoByAdmin();
 
   const handleCloseEditModal = () => setShowEditModal(false);
-  const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
   const handleShowEditModal = (user) => {
     setSelectedUser(user);

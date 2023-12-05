@@ -30,11 +30,7 @@ export default function EditQuestion() {
 
   const { handleSubmit, getValues, control, setValue } = useForm();
 
-  const {
-    mutateAsync: editQuestion,
-    isLoading: loadingEdit,
-    error: errorEdit,
-  } = useEditQuestion();
+  const { mutateAsync: editQuestion } = useEditQuestion();
 
   const handleAddHint = () => {
     if (newHint !== '') {

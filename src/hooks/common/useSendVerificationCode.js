@@ -5,9 +5,9 @@ export const useSendVerificationCode = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (email) => sendVerificationCode(email),
-    onSuccess: () => {
+    onSuccess: (userEmail) => {
       queryClient.invalidateQueries({
-        queryKey: ['send'],
+        queryKey: ['send', userEmail],
       });
     },
     onError: (error) => {

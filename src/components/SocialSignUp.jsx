@@ -39,9 +39,10 @@ export default function SocialSignUp() {
   });
 
   const {
-    mutateAsync: signUp,
+    //TODO: 소셜 회원가입시 API 연결
+    // mutateAsync: signUp,
     isLoading: loadingSignUp,
-    error: errorSignUp,
+    // error: errorSignUp,
   } = useSignUpHandler();
 
   const userInfo = location.state.userInfo?.userInfo;

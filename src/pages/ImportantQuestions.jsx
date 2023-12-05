@@ -27,11 +27,10 @@ export default function ImportantQuestions() {
     IMPORTANCE_FILTER_OPTION
   );
 
-  const {
-    data: importantQuestions,
-    loading,
-    error,
-  } = useGetQuestionsByFilteringOption(currentPage, selectedFilterOption);
+  const { data: importantQuestions } = useGetQuestionsByFilteringOption(
+    currentPage,
+    selectedFilterOption
+  );
 
   const handleImportanceClick = (label, options) => {
     const updatedOptions = options

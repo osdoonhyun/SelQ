@@ -22,7 +22,7 @@ export default function SocialLogInButton() {
         return { userInfo: data?.body };
       }
     } catch (error) {
-      console.log('유저정보 조회 실패');
+      console.log('유저정보 조회 실패', error.message);
     }
   };
 

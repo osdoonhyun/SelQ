@@ -7,11 +7,13 @@ export const useRegisterQuestion = () => {
     mutationFn: (formData) => registerQuestion(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['register'],
+        queryKey: ['questions'],
       });
     },
     onError: (error) => {
       console.log('Register Question Error', error.message);
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      throw new Error();
     },
   });
 };

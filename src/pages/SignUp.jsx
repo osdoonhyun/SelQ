@@ -68,29 +68,16 @@ export default function SignUp() {
   const email = watch('email');
   const emailCategory = watch('emailCategory');
 
-  const {
-    mutateAsync: signUp,
-    isLoading: loadingSignUp,
-    error: errorSignUp,
-  } = useSignUpHandler();
+  const { mutateAsync: signUp, isLoading: loadingSignUp } = useSignUpHandler();
 
-  const {
-    mutateAsync: verifyEmail,
-    isLoading: loadingVerifyEmail,
-    error: errorVerifyEmail,
-  } = useCheckRegisteredEmail();
+  const { mutateAsync: verifyEmail, isLoading: loadingVerifyEmail } =
+    useCheckRegisteredEmail();
 
-  const {
-    mutateAsync: sendEmail,
-    isLoading: loadingSendEmail,
-    error: errorSendEmail,
-  } = useSendVerificationCode();
+  const { mutateAsync: sendEmail, isLoading: loadingSendEmail } =
+    useSendVerificationCode();
 
-  const {
-    mutateAsync: checkEmail,
-    isLoading: loadingCheckEmail,
-    error: errorCheckEmail,
-  } = useCheckVerificationCode();
+  const { mutateAsync: checkEmail, isLoading: loadingCheckEmail } =
+    useCheckVerificationCode();
 
   const signUpHandler = async (values, e) => {
     e.preventDefault();
