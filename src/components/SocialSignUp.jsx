@@ -142,6 +142,7 @@ export default function SocialSignUp() {
               render={({ field }) => (
                 <Form.Check
                   type='checkbox'
+                  id='all'
                   label='전체 동의 (선택항목에 대한 동의 포함)'
                   value='전체 동의'
                   checked={
@@ -163,6 +164,7 @@ export default function SocialSignUp() {
                   render={({ field }) => (
                     <Form.Check
                       type='checkbox'
+                      id={agree.label}
                       onChange={(e) => handleAgreeCheckList(e, field, setValue)}
                       checked={field.value || agree.isChecked}
                       label={agree.label}
