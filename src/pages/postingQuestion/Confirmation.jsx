@@ -9,6 +9,7 @@ export default function Confirmation({
   answer,
   isLoading,
   error,
+  onPrevious,
   onNext,
 }) {
   const onClickNext = (e) => {
@@ -68,9 +69,13 @@ export default function Confirmation({
             <ReactMarkdown children={answer.answers} />
           </div>
         </Form.Group>
-        <NextButton type='submit'>
-          {isLoading ? <LoadingSpinner /> : '등록하기'}
-        </NextButton>
+
+        <div>
+          <NextButton onClick={onPrevious}>이전</NextButton>
+          <NextButton className='mx-2' type='submit'>
+            {isLoading ? <LoadingSpinner /> : '등록하기'}
+          </NextButton>
+        </div>
       </Form>
     </Container>
   );
