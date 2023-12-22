@@ -52,6 +52,30 @@ export default function QuestionInput({ onNext }) {
     });
   };
 
+  const saveDataToLocalStorage = (dataType, data) => {
+    localStorage.setItem(dataType, JSON.stringify(data));
+  };
+
+  // 작성중이던 데이터 불러오기
+  useEffect(() => {
+    const storedQuestionForm = localStorage.getItem('question');
+    console.log('데이터 불러오기!!', storedQuestionForm);
+    if (storedQuestionForm) {
+      setQuestionFormData(JSON.parse(storedQuestionForm));
+      // setShowTemporaryModal(true);
+    }
+  }, []);
+
+  // 임시 자동저장
+  useEffect(() => {
+    const saveTimer = setInterval(() => {
+      saveDataToLocalStorage('question', questionFormData);
+    }, 5000); // 5초마다 저장
+
+    return () => clearInterval(saveTimer);
+  }, [questionFormData]);
+
+  // 힌트 버튼 활성화 관련 Effect
   useEffect(() => {
     if (questionFormData.hint !== '') {
       setHintBtnDisable(false);
@@ -60,6 +84,7 @@ export default function QuestionInput({ onNext }) {
     }
   }, [questionFormData.hint]);
 
+  // 다음 버튼 활성화 관련 Effect
   useEffect(() => {
     if (
       questionFormData.question !== '' &&
@@ -71,6 +96,8 @@ export default function QuestionInput({ onNext }) {
       setNextBtnDisable(true);
     }
   }, [questionFormData]);
+
+  console.log('QWEQWE', questionFormData);
 
   return (
     <Container>
@@ -86,6 +113,7 @@ export default function QuestionInput({ onNext }) {
             as='textarea'
             type='text'
             placeholder='질문을 등록하세요.'
+            defaultValue={questionFormData.question}
             value={questionFormData.question}
             onChange={(e) =>
               setQuestionFormData({
@@ -103,6 +131,7 @@ export default function QuestionInput({ onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.importance}
+            defaultValue={questionFormData.importance}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -127,6 +156,7 @@ export default function QuestionInput({ onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.category}
+            defaultValue={questionFormData.category}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -152,6 +182,7 @@ export default function QuestionInput({ onNext }) {
                 type='text'
                 placeholder='힌트를 입력하세요'
                 value={questionFormData.hint}
+                defaultValue={questionFormData.hint}
                 onChange={(e) =>
                   setQuestionFormData({
                     ...questionFormData,
