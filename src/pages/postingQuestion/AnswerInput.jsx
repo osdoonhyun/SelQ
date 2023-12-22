@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 
-export default function AnswerInput({ question, onPrevious, onNext }) {
+export default function AnswerInput({ question, onNext }) {
   const [answers, setAnswers] = useState('');
 
   const postingAnswer = (e) => {
@@ -13,29 +13,6 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
 
     onNext({ answers });
   };
-
-  const saveDataToLocalStorage = (dataType, data) => {
-    localStorage.setItem(dataType, JSON.stringify(data));
-  };
-
-  // 작성중이던 데이터 불러오기
-  useEffect(() => {
-    const storedAnswerForm = localStorage.getItem('answer');
-
-    if (storedAnswerForm) {
-      setAnswers(JSON.parse(storedAnswerForm));
-      // setShowTemporaryModal(true);
-    }
-  }, []);
-
-  // 임시 자동저장
-  useEffect(() => {
-    const saveTimer = setInterval(() => {
-      saveDataToLocalStorage('answer', answers);
-    }, 5000); // 5초마다 저장
-
-    return () => clearInterval(saveTimer);
-  }, [answers]);
 
   return (
     <Container>
@@ -61,17 +38,13 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
             type='text'
             placeholder='답변을 등록하세요.'
             value={answers}
-            defaultValue={answers}
             onChange={(e) => setAnswers(e.target.value)}
           />
         </Form.Group>
 
-        <div>
-          <NextButton onClick={onPrevious}>이전</NextButton>
-          <NextButton className='mx-2' disabled={!answers} type='submit'>
-            다음
-          </NextButton>
-        </div>
+        <NextButton disabled={!answers} type='submit'>
+          다음
+        </NextButton>
       </Form>
     </Container>
   );

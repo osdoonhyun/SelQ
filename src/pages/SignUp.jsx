@@ -138,7 +138,6 @@ export default function SignUp() {
   const handleAgreeCheckList = (e, field, setFieldValue) => {
     const { value, checked } = e.target;
 
-    console.log('클릭됨 ', value, checked);
     if (value === MESSAGE.SIGNUP.TOTAL_AGREE) {
       let tempAgree = agreeList.map((agree) => ({
         ...agree,
@@ -319,7 +318,6 @@ export default function SignUp() {
               render={({ field }) => (
                 <Form.Check
                   type='checkbox'
-                  id='all'
                   label='전체 동의 (선택항목에 대한 동의 포함)'
                   value='전체 동의'
                   checked={
@@ -341,7 +339,6 @@ export default function SignUp() {
                   render={({ field }) => (
                     <Form.Check
                       type='checkbox'
-                      id={agree.label}
                       onChange={(e) => handleAgreeCheckList(e, field, setValue)}
                       checked={field.value || agree.isChecked}
                       label={agree.label}

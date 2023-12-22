@@ -44,11 +44,6 @@ export const MyPageContainer = styled(Container)`
   max-width: 550px;
 `;
 
-export const PostingContainer = styled(Container)`
-  width: 90%;
-  min-width: 390px;
-`;
-
 export const HeaderContainer = styled(Container)`
   padding-bottom: 10px;
   max-width: 1080px;

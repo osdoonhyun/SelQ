@@ -14,13 +14,12 @@ import { FilterSpan, FilterStack } from '../../styles/Styles';
 export default function QuestionFilter({
   filterOptions,
   categoryOption,
-  importanceOption,
   handleOptionCheck,
   handleOptionsClick,
   handleDeleteOption,
   handleDeleteCategoryOption,
+  importanceOption,
   handleImportanceOptionCheck,
-  handleCategoryClick,
   handleImportanceClick,
 }) {
   return (
@@ -28,11 +27,10 @@ export default function QuestionFilter({
       {categoryOption?.map((filterOption) => (
         <DropdownButton
           className='p-1'
-          onToggle={(isOpen) => {
-            if (!isOpen) {
-              handleCategoryClick(filterOption.label, categoryOption);
-            }
-          }}
+          onToggle={(isOpen) =>
+            !isOpen &&
+            handleImportanceClick(filterOption.label, importanceOption)
+          }
           variant='Light'
           as={ButtonGroup}
           key={filterOption.label}
