@@ -60,7 +60,7 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
             as='textarea'
             type='text'
             placeholder='답변을 등록하세요.'
-            value={answers}
+            // value={answers}
             defaultValue={answers}
             onChange={(e) => setAnswers(e.target.value)}
           />

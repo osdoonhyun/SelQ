@@ -97,8 +97,6 @@ export default function QuestionInput({ onNext }) {
     }
   }, [questionFormData]);
 
-  console.log('QWEQWE', questionFormData);
-
   return (
     <Container>
       <Form onSubmit={postingQuestion}>
@@ -114,7 +112,7 @@ export default function QuestionInput({ onNext }) {
             type='text'
             placeholder='질문을 등록하세요.'
             defaultValue={questionFormData.question}
-            value={questionFormData.question}
+            // value={questionFormData.question}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -130,7 +128,7 @@ export default function QuestionInput({ onNext }) {
             <RequiredLabel />
           </Form.Label>
           <Form.Select
-            value={questionFormData.importance}
+            // value={questionFormData.importance}
             defaultValue={questionFormData.importance}
             onChange={(e) =>
               setQuestionFormData({
@@ -155,7 +153,7 @@ export default function QuestionInput({ onNext }) {
             <RequiredLabel />
           </Form.Label>
           <Form.Select
-            value={questionFormData.category}
+            // value={questionFormData.category}
             defaultValue={questionFormData.category}
             onChange={(e) =>
               setQuestionFormData({
@@ -182,7 +180,7 @@ export default function QuestionInput({ onNext }) {
                 type='text'
                 placeholder='힌트를 입력하세요'
                 value={questionFormData.hint}
-                defaultValue={questionFormData.hint}
+                // defaultValue={questionFormData.hint}
                 onChange={(e) =>
                   setQuestionFormData({
                     ...questionFormData,

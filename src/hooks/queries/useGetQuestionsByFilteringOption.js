@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getQuestionsByFilteringOption } from '../../apis/questions';
 import { parseFilterOptions } from '../../utils/parseFilterOptions';
 import { getQueryString } from '../../utils/getQueryString';
+import { questionKeys } from '../../constant/queryKeyFactory';
 
 export const useGetQuestionsByFilteringOption = (currentPage, filterOption) => {
   const queryString = getQueryString(filterOption);
@@ -9,8 +10,8 @@ export const useGetQuestionsByFilteringOption = (currentPage, filterOption) => {
 
   const queryKey =
     Object.keys(filterKey).length > 0
-      ? ['questions', currentPage, filterKey]
-      : ['questions', currentPage];
+      ? questionKeys.pageWithFilter(currentPage, filterKey)
+      : questionKeys.page(currentPage);
 
   const queryData = useQuery(
     queryKey,
