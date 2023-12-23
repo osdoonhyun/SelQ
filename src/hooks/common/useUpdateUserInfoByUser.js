@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateUserInfoByUser } from '../../apis/users';
+import { userKeys } from '../../constant/queryKeyFactory';
 
 export const useUpdateUserInfoByUser = () => {
   const queryClient = useQueryClient();
@@ -7,7 +8,7 @@ export const useUpdateUserInfoByUser = () => {
     mutationFn: (updatedInfo) => updateUserInfoByUser(updatedInfo),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ['user', data.id],
+        queryKey: userKeys.detail(data.id),
       });
     },
     onError: (error) => {
