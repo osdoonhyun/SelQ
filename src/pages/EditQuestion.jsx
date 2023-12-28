@@ -15,8 +15,9 @@ import useAuth from '../hooks/common/useAuth';
 import { useEditQuestion } from '../hooks/mutations/useEditQuestion';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 import { CATEGORIES } from '../constant/categories';
-import { MAIN, GREYS } from '../styles/variables';
+import RequiredLabel from '../components/RequiredLabel';
 import { NextButton } from '../styles/ButtonStyles';
+import { MAIN, GREYS } from '../styles/variables';
 
 export default function EditQuestion() {
   const navigate = useNavigate();
@@ -93,7 +94,8 @@ export default function EditQuestion() {
       <Form onSubmit={handleSubmit(editQuestionHandler)}>
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
           <Form.Label>
-            질문<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            질문
+            <RequiredLabel />
           </Form.Label>
           <Controller
             name='question'
@@ -120,7 +122,7 @@ export default function EditQuestion() {
             >
               <Form.Label>
                 중요도
-                <span style={{ position: 'relative', top: '-3px' }}>*</span>
+                <RequiredLabel />
               </Form.Label>
               <Controller
                 name='importance'
@@ -147,7 +149,7 @@ export default function EditQuestion() {
             <Form.Group className='mb-3'>
               <Form.Label>
                 카테고리
-                <span style={{ position: 'relative', top: '-3px' }}>*</span>
+                <RequiredLabel />
               </Form.Label>
               <Controller
                 name='category'
@@ -223,7 +225,8 @@ export default function EditQuestion() {
 
         <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
           <Form.Label>
-            답변<span style={{ position: 'relative', top: '-3px' }}>*</span>
+            답변
+            <RequiredLabel />
           </Form.Label>
           <Controller
             name='answer'
