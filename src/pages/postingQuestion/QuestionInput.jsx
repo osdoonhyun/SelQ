@@ -8,10 +8,10 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { CATEGORIES } from '../../constant/categories';
 import { MAIN, GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
+import { CATEGORIES, IMPORTANCES } from '../../constant/options';
 
 export default function QuestionInput({ onNext }) {
   const [questionFormData, setQuestionFormData] = useState({
@@ -122,14 +122,13 @@ export default function QuestionInput({ onNext }) {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+        <Form.Group className='mb-3'>
           <Form.Label>
             중요도
             <RequiredLabel />
           </Form.Label>
           <Form.Select
-            // value={questionFormData.importance}
-            defaultValue={questionFormData.importance}
+            value={questionFormData.importance}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -139,11 +138,11 @@ export default function QuestionInput({ onNext }) {
             aria-label='Select Importance'
           >
             <option>중요도 선택</option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
+            {IMPORTANCES.map(({ level }, index) => (
+              <option key={index} value={level}>
+                {level}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 
@@ -153,8 +152,7 @@ export default function QuestionInput({ onNext }) {
             <RequiredLabel />
           </Form.Label>
           <Form.Select
-            // value={questionFormData.category}
-            defaultValue={questionFormData.category}
+            value={questionFormData.category}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -180,7 +178,6 @@ export default function QuestionInput({ onNext }) {
                 type='text'
                 placeholder='힌트를 입력하세요'
                 value={questionFormData.hint}
-                // defaultValue={questionFormData.hint}
                 onChange={(e) =>
                   setQuestionFormData({
                     ...questionFormData,

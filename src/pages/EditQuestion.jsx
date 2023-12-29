@@ -14,7 +14,7 @@ import {
 import useAuth from '../hooks/common/useAuth';
 import { useEditQuestion } from '../hooks/mutations/useEditQuestion';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
-import { CATEGORIES } from '../constant/categories';
+import { CATEGORIES, IMPORTANCES } from '../constant/options';
 import RequiredLabel from '../components/RequiredLabel';
 import { NextButton } from '../styles/ButtonStyles';
 import { MAIN, GREYS } from '../styles/variables';
@@ -135,11 +135,11 @@ export default function EditQuestion() {
                     aria-label='Select Importance'
                   >
                     <option>중요도 선택</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
+                    {IMPORTANCES.map(({ level }, index) => (
+                      <option key={index} value={level}>
+                        {level}
+                      </option>
+                    ))}
                   </Form.Select>
                 )}
               />
