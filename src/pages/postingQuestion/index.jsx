@@ -5,6 +5,7 @@ import { useRegisterQuestion } from '../../hooks/mutations/useRegisterQuestion';
 import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
 import Confirmation from './Confirmation';
+import Success from './Success';
 import ProgressBar from '../../components/ProgressBar';
 import TemporarySaveModal from '../../components/modal/TemporarySaveModal';
 import { hasValue } from '../../utils/commonUtils';
@@ -130,17 +131,14 @@ export default function PostingQuestion() {
           />
         )}
         {step === '등록성공' && (
-          <>
-            <h2 style={{ fontSize: '2rem' }} className='mt-5'>
-              등록한 게시물로 이동 중...
-            </h2>
-            {(() => {
+          <Success
+            onNext={() => {
               deleteLocalStorageData();
               setTimeout(() => {
                 navigate(`/questions/${answerFormData?.question}`);
               }, 1000);
-            })()}
-          </>
+            }}
+          />
         )}
       </PostingContainer>
 
