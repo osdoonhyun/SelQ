@@ -1,22 +1,26 @@
 import { Button, Modal } from 'react-bootstrap';
 
 export default function TemporarySaveModal({
-  show,
-  setShow,
+  showModal,
+  setShowModal,
+  setLoadTemporaryData,
   deleteLocalStorageData,
 }) {
   const handleClose = () => {
-    setShow(false);
+    setShowModal(false);
+    setLoadTemporaryData(true);
   };
 
   const handleDelete = () => {
-    setShow(false);
+    setShowModal(false);
+    setLoadTemporaryData(false);
     deleteLocalStorageData();
   };
+
   return (
     <>
       <Modal
-        show={show}
+        show={showModal}
         onHide={handleClose}
         backdrop='static'
         keyboard={false}

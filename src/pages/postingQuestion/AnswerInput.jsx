@@ -5,7 +5,12 @@ import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 
-export default function AnswerInput({ question, onPrevious, onNext }) {
+export default function AnswerInput({
+  autoLoad,
+  question,
+  onPrevious,
+  onNext,
+}) {
   const [answers, setAnswers] = useState('');
 
   const postingAnswer = (e) => {
@@ -22,11 +27,10 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
   useEffect(() => {
     const storedAnswerForm = localStorage.getItem('answer');
 
-    if (storedAnswerForm) {
+    if (autoLoad && storedAnswerForm) {
       setAnswers(JSON.parse(storedAnswerForm));
-      // setShowTemporaryModal(true);
     }
-  }, []);
+  }, [autoLoad]);
 
   // 임시 자동저장
   useEffect(() => {

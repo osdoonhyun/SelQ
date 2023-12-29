@@ -13,7 +13,7 @@ import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 import { CATEGORIES, IMPORTANCES } from '../../constant/options';
 
-export default function QuestionInput({ onNext }) {
+export default function QuestionInput({ autoLoad, onNext }) {
   const [questionFormData, setQuestionFormData] = useState({
     question: '',
     importance: 0,
@@ -59,12 +59,11 @@ export default function QuestionInput({ onNext }) {
   // 작성중이던 데이터 불러오기
   useEffect(() => {
     const storedQuestionForm = localStorage.getItem('question');
-    console.log('데이터 불러오기!!', storedQuestionForm);
-    if (storedQuestionForm) {
+
+    if (autoLoad && storedQuestionForm) {
       setQuestionFormData(JSON.parse(storedQuestionForm));
-      // setShowTemporaryModal(true);
     }
-  }, []);
+  }, [autoLoad]);
 
   // 임시 자동저장
   useEffect(() => {
