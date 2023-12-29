@@ -15,6 +15,23 @@ export const IMPORTANCE_OPTIONS = [
   { label: '매우 중요', level: 5, color: YELLOW },
 ];
 
+export const CATEGORIES = [
+  { category: 'All', label: 'all' },
+  { category: 'HTML/CSS', label: 'html/css' },
+  { category: 'React', label: 'react' },
+  { category: 'JavaScript', label: 'javascript' },
+  { category: 'TypeScript', label: 'typescript' },
+  { category: 'CS', label: 'cs' },
+];
+
+export const IMPORTANCES = [
+  { label: '중요하지 않음', level: 1 },
+  { label: '약간 중요', level: 2 },
+  { label: '다소 중요', level: 3 },
+  { label: '중요', level: 4 },
+  { label: '매우 중요', level: 5 },
+];
+
 const POPUP_OPTIONS = {
   width: 400,
   height: 500,

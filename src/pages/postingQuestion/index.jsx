@@ -5,15 +5,18 @@ import { useRegisterQuestion } from '../../hooks/mutations/useRegisterQuestion';
 import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
 import Confirmation from './Confirmation';
+import Success from './Success';
 import ProgressBar from '../../components/ProgressBar';
 import TemporarySaveModal from '../../components/modal/TemporarySaveModal';
+import { hasValue } from '../../utils/commonUtils';
 import { PostingContainer } from '../../styles/LayoutStyles';
 
 export default function PostingQuestion() {
   const navigate = useNavigate();
   const { token } = useAuth();
 
-  const [showTemporarySaveModal, setshowTemporarySaveModal] = useState(false);
+  const [showTemporarySaveModal, setShowTemporarySaveModal] = useState(false);
+  const [loadTemporaryData, setLoadTemporaryData] = useState(false);
   const [step, setStep] = useState('질문입력');
   const [currentStep, setCurrentStep] = useState(0);
   const steps = ['질문입력', '답변입력', '등록하기', '등록성공'];
@@ -38,21 +41,26 @@ export default function PostingQuestion() {
   const deleteLocalStorageData = () => {
     localStorage.removeItem('question');
     localStorage.removeItem('answer');
-    setQuestionFormData({
+
+    setQuestionFormData((prevData) => ({
+      ...prevData,
       question: '',
       importance: 0,
       category: '',
       hints: [],
-    });
+    }));
   };
 
-  // 자동저장 데이터 불러오는 모달
+  // 자동저장 데이터 불러오는 모달 띄우기
   useEffect(() => {
     const storedQuestionData = localStorage.getItem('question');
     const storedAnswerData = localStorage.getItem('answer');
 
-    if (storedQuestionData || storedAnswerData) {
-      setshowTemporarySaveModal(true);
+    if (
+      hasValue(JSON.parse(storedQuestionData)) ||
+      hasValue(JSON.parse(storedAnswerData))
+    ) {
+      setShowTemporarySaveModal(true);
     }
   }, []);
 
@@ -62,6 +70,7 @@ export default function PostingQuestion() {
         <ProgressBar steps={steps} currentStep={currentStep} />
         {step === '질문입력' && (
           <QuestionInput
+            autoLoad={loadTemporaryData}
             onNext={async (data) => {
               setQuestionFormData({
                 question: data.question,
@@ -76,6 +85,7 @@ export default function PostingQuestion() {
         )}
         {step === '답변입력' && (
           <AnswerInput
+            autoLoad={loadTemporaryData}
             question={questionFormData.question}
             onPrevious={() => {
               setCurrentStep((prev) => prev - 1);
@@ -121,23 +131,21 @@ export default function PostingQuestion() {
           />
         )}
         {step === '등록성공' && (
-          <>
-            <h2 style={{ fontSize: '2rem' }} className='mt-5'>
-              등록한 게시물로 이동 중...
-            </h2>
-            {(() => {
+          <Success
+            onNext={() => {
               deleteLocalStorageData();
               setTimeout(() => {
                 navigate(`/questions/${answerFormData?.question}`);
               }, 1000);
-            })()}
-          </>
+            }}
+          />
         )}
       </PostingContainer>
 
       <TemporarySaveModal
-        show={showTemporarySaveModal}
-        setShow={setshowTemporarySaveModal}
+        showModal={showTemporarySaveModal}
+        setShowModal={setShowTemporarySaveModal}
+        setLoadTemporaryData={setLoadTemporaryData}
         deleteLocalStorageData={deleteLocalStorageData}
       />
     </>
