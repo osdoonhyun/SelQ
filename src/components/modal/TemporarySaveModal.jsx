@@ -1,4 +1,5 @@
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { GreyButton, MainButton } from '../../styles/ButtonStyles';
 
 export default function TemporarySaveModal({
   showModal,
@@ -36,12 +37,12 @@ export default function TemporarySaveModal({
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={handleDelete}>
+          <GreyButton variant='Light' onClick={handleDelete}>
             삭제
-          </Button>
-          <Button variant='primary' onClick={handleClose}>
+          </GreyButton>
+          <MainButton variant='Light' onClick={handleClose}>
             이어서 작성
-          </Button>
+          </MainButton>
         </Modal.Footer>
       </Modal>
     </>
