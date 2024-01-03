@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleBookmark } from '../../store/Slices/bookmark';
-import useAuth from '../../hooks/common/useAuth';
 import LoginModal from '../modal/LoginModal';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { BookmarkButton } from '../../styles/ButtonStyles';
 
 export default function Bookmark({ question }) {
-  const { isLoggedIn } = useAuth();
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.user);
+
   const [clicked, setClicked] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(

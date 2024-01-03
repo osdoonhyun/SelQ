@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Dropdown, Image, Row, Col } from 'react-bootstrap';
-import useAuth from '../../hooks/common/useAuth';
 import { logOut } from '../../store/Slices/auth';
 import SearchBar from '../search/SearchBar';
 import FontSizeSettings from '../FontSizeSettings';
@@ -28,9 +27,10 @@ import { GreyButton } from '../../styles/ButtonStyles';
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoggedIn, user } = useSelector((state) => state.user);
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const { isLoggedIn, user } = useAuth();
 
   const handleCloseOffcanvas = () => setShowOffcanvas(false);
   const handleShowOffcanvas = () => setShowOffcanvas(true);

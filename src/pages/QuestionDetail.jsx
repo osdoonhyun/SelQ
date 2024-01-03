@@ -1,9 +1,8 @@
 import { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import useCheckBookmarkedQuestion from '../hooks/common/useCheckBookmarkedQuestion';
-import useAuth from '../hooks/common/useAuth';
 import { useFontSize } from '../context/FontSizingProvider';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 import { toggleBookmark } from '../store/Slices/bookmark';
@@ -19,13 +18,13 @@ import { QuestionQ, QuestionTitle } from '../styles/Styles';
 import { GREYS, MAIN } from '../styles/variables';
 
 export default function QuestionDetail() {
-  const { fontSizing, calcFontSize } = useFontSize();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { questionId } = useParams();
-  const { isLoggedIn } = useAuth();
+  const { fontSizing, calcFontSize } = useFontSize();
   const { data: question } = useQuestionDetailQuery(questionId);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const { bookmarked, toggleBookmarked } = useCheckBookmarkedQuestion(question);
-  const dispatch = useDispatch();
 
   const handleClose = () => setOpenLoginModal(false);
 

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dropdown, DropdownButton, Table } from 'react-bootstrap';
-import useAuth from '../hooks/common/useAuth';
 import { useGetUsers } from '../hooks/common/useGetUsers';
 import { useUpdateUserInfoByAdmin } from '../hooks/common/useUpdateUserInfoByAdmin';
 import Pagination from '../components/Pagination';
@@ -20,7 +19,7 @@ export default function UsersManagement() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { handleSubmit, control, setValue, getValues } = useForm();
-  const { token } = useAuth();
+
   const { data: users, refetch: refetchUsers } = useGetUsers(
     currentPage,
     filterOptions
@@ -69,7 +68,6 @@ export default function UsersManagement() {
       await updateUser({
         userId,
         updatedInfo,
-        token,
       });
 
       refetchUsers();

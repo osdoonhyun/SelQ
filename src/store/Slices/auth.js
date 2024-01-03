@@ -7,7 +7,7 @@ const logIn = createAsyncThunk('user/logIn', async (userInput) => {
     const { data, status } = await api.post('/auth/login', userInput);
 
     if (status === 200) {
-      return getCookie('Authentication');
+      return { logInUserInfo: data.body };
     }
   } catch (error) {
     throw error?.response?.data?.message;
@@ -16,20 +16,11 @@ const logIn = createAsyncThunk('user/logIn', async (userInput) => {
 
 const getUserInfo = createAsyncThunk('user/userInfo', async () => {
   try {
-    // const result = await authApi.get('/auth');
-    // console.log('RESULT', result);
-
     const { data, status } = await authApi.get('/auth');
     if (status === 200) {
       return { userInfo: data?.body };
     }
   } catch (error) {
-    console.log('에러 발생!!!', error);
-    // if (error?.response?.statusText === 'Unauthorized') {
-    //   return getNewAccessToken(thunkAPI);
-    // } else {
-    //   throw error;
-    // }
     throw error?.response?.data?.message;
   }
 });
@@ -55,7 +46,6 @@ const refreshAuth = async () => {
 };
 
 const logOut = createAsyncThunk('user/logOut', () => {
-  sessionStorage.removeItem('accessToken');
   removeCookie('Authentication');
   removeCookie('Refresh');
 });
@@ -64,7 +54,6 @@ const initialState = {
   isLoggedIn: false,
   user: null,
   error: null,
-  token: null,
 };
 
 const userSlice = createSlice({
@@ -73,8 +62,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(logIn.fulfilled, (state, action) => {
       state.isLoggedIn = true;
-      state.token = action.payload;
-      sessionStorage.setItem('accessToken', action.payload);
+      state.user = action.payload?.logInUserInfo;
       console.log('로그인 성공!');
     });
     builder.addCase(logIn.rejected, (state, action) => {
@@ -85,7 +73,6 @@ const userSlice = createSlice({
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload?.userInfo;
-      state.token = action.payload?.token;
       console.log('유저정보 가져오기 성공!', state, action);
     });
     builder.addCase(getUserInfo.rejected, (state, action) => {
@@ -97,7 +84,6 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
       state.error = null;
-      state.token = null;
       console.log('로그아웃 성공!!', state, action);
     });
     builder.addCase(logOut.rejected, (state, action) => {

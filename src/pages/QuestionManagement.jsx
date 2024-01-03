@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown, DropdownButton, Table } from 'react-bootstrap';
-import useAuth from '../hooks/common/useAuth';
 import { useDeleteQuestion } from '../hooks/mutations/useDeleteQuestion';
 import { useGetQuestionsByFilteringOption } from '../hooks/queries/useGetQuestionsByFilteringOption';
 import {
@@ -17,7 +16,7 @@ import DeleteQuestionModal from '../components/modal/DeleteQuestionModal';
 
 export default function QuestionManagement() {
   const navigate = useNavigate();
-  const { token } = useAuth();
+
   const [show, setShow] = useState(false);
   const [deletedId, setDeletedId] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,7 +67,7 @@ export default function QuestionManagement() {
   };
 
   const handleDeleteQuestion = () => {
-    deleteQuestion({ deletedId, token });
+    deleteQuestion({ deletedId });
     setShow(false);
   };
 
