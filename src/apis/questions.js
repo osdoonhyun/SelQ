@@ -1,7 +1,7 @@
-import { serverApi } from './api';
+import { api } from './api';
 
 export const getQuestions = async () => {
-  const response = await serverApi.get('/questions', {
+  const response = await api.get('/questions', {
     params: {
       take: 50,
     },
@@ -16,19 +16,19 @@ export const getQuestionsByCategory = async (category) => {
   if (category.toLowerCase() !== 'all') {
     url += `?category=${category.toLowerCase()}`;
   }
-  const response = await serverApi.get(url);
+  const response = await api.get(url);
 
   return response.data.body.data;
 };
 
 export const getQuestionDetailById = async (questionId) => {
-  const response = await serverApi.get(`/questions/${questionId}`);
+  const response = await api.get(`/questions/${questionId}`);
 
   return response.data.body;
 };
 
 export const getQuestionsByKeyword = async (keyword) => {
-  const response = await serverApi.get('/questions', {
+  const response = await api.get('/questions', {
     params: {
       take: 50,
     },
@@ -45,7 +45,7 @@ export const getQuestionsByKeyword = async (keyword) => {
 };
 
 export const getQuestionsByFilteringOption = async (page, queryString) => {
-  const response = await serverApi.get(`/questions?${queryString}`, {
+  const response = await api.get(`/questions?${queryString}`, {
     params: {
       take: 10,
       page,

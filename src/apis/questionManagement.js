@@ -1,19 +1,14 @@
-import { serverApi } from './api';
+import { api, authApi } from './api';
 
 // 질문, 답변 등록 (admin)
 export const registerQuestion = async (formData) => {
-  const { question, answer, token } = formData;
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
+  const { question, answer } = formData;
 
-  const { data } = await serverApi.post('/questions', question, config);
+  const { data } = await authApi.post('/questions', question);
 
   const questionId = data.body.id;
 
-  const { status } = await serverApi.post('/answers', {
+  const { status } = await api.post('/answers', {
     answers: answer.answers,
     question: questionId,
   });
@@ -23,35 +18,18 @@ export const registerQuestion = async (formData) => {
 
 // 질문 수정 (admin)
 export const editQuestion = async (formData) => {
-  const { questionId, editData, token } = formData;
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
+  const { questionId, editData } = formData;
 
-  const { status } = await serverApi.patch(
-    `/questions/${questionId}`,
-    editData,
-    config
-  );
+  const { status } = await authApi.patch(`/questions/${questionId}`, editData);
 
   return { status, questionId };
 };
 
 // 질문 삭제 (admin)
 export const deleteQuestion = async (formData) => {
-  const { deletedId, token } = formData;
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
+  const { deletedId } = formData;
 
-  const { data } = await serverApi.delete(
-    `/questions/${deletedId?.id}`,
-    config
-  );
+  const { data } = await authApi.delete(`/questions/${deletedId?.id}`);
 
   return data.body;
 };
