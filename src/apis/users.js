@@ -1,4 +1,4 @@
-import { serverApi } from './api';
+import { api, authApi } from './api';
 
 // 유저 정보 조회
 export const getUsers = async (page) => {
@@ -8,36 +8,20 @@ export const getUsers = async (page) => {
       page,
     },
   };
-  const response = await serverApi.get('/users', params);
+  const response = await api.get('/users', params);
 
   return response.data.body;
 };
 
 // 유저 정보 수정 - Admin
-export const updateUserInfoByAdmin = async ({ userId, updatedInfo, token }) => {
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
-
-  const { data } = await serverApi.patch(
-    `/users/${userId}`,
-    updatedInfo,
-    config
-  );
+export const updateUserInfoByAdmin = async ({ userId, updatedInfo }) => {
+  const { data } = await authApi.patch(`/users/${userId}`, updatedInfo);
   return data.body;
 };
 
 // 유저 정보 수정 - User
-export const updateUserInfoByUser = async ({ updatedInfo, token }) => {
-  const config = {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  };
-
-  const { data } = await serverApi.patch('/auth/update', updatedInfo, config);
+export const updateUserInfoByUser = async ({ updatedInfo }) => {
+  const { data } = await authApi.patch('/auth/update', updatedInfo);
 
   return data.body;
 };

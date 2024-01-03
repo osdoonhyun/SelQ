@@ -1,8 +1,8 @@
-import { serverApi } from './api';
+import { api } from './api';
 
 // 회원가입
 export const signUpHandler = async (userInput) => {
-  const { status } = await serverApi.post('/auth/signup', userInput);
+  const { status } = await api.post('/auth/signup', userInput);
 
   return status; // 201
 };
@@ -10,7 +10,7 @@ export const signUpHandler = async (userInput) => {
 // 이메일 등록 검증
 export const checkRegisteredEmail = async (email) => {
   try {
-    const { status } = await serverApi.post('/users/email', {
+    const { status } = await api.post('/users/email', {
       email,
     });
 
@@ -28,7 +28,7 @@ export const checkRegisteredEmail = async (email) => {
 };
 // 인증번호 전송
 export const sendVerificationCode = async (email) => {
-  await serverApi.post('/auth/email/send', {
+  await api.post('/auth/email/send', {
     email,
   });
 };
@@ -37,7 +37,7 @@ export const sendVerificationCode = async (email) => {
 export const checkVerificationCode = async (data) => {
   const { email, code } = data;
 
-  const { status } = await serverApi.post('/auth/email/check', {
+  const { status } = await api.post('/auth/email/check', {
     email,
     code,
   });
