@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/common/useAuth';
 import { PATH } from '../constant/paths';
 
 export default function PrivateRoute({ isOnlyAdminAllowed = false, children }) {
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isOnlyAdminAllowed && user?.roles[0] !== 'admin') {

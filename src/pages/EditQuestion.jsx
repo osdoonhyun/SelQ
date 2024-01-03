@@ -11,7 +11,6 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import useAuth from '../hooks/common/useAuth';
 import { useEditQuestion } from '../hooks/mutations/useEditQuestion';
 import { useQuestionDetailQuery } from '../hooks/queries/useGetQuestionDetailById';
 import { CATEGORIES, IMPORTANCES } from '../constant/options';
@@ -27,7 +26,6 @@ export default function EditQuestion() {
   const [hintBtnDisable, setHintBtnDisable] = useState(true);
 
   const { data: question } = useQuestionDetailQuery(questionId);
-  const { token } = useAuth();
 
   const { handleSubmit, getValues, control, setValue } = useForm();
 
@@ -71,7 +69,7 @@ export default function EditQuestion() {
       updatedData.hints = [...hints];
     }
 
-    editQuestion({ editData: updatedData, questionId, token });
+    editQuestion({ editData: updatedData, questionId });
     navigate(-1);
   };
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/common/useAuth';
 import { useRegisterQuestion } from '../../hooks/mutations/useRegisterQuestion';
 import QuestionInput from './QuestionInput';
 import AnswerInput from './AnswerInput';
@@ -13,7 +12,6 @@ import { PostingContainer } from '../../styles/LayoutStyles';
 
 export default function PostingQuestion() {
   const navigate = useNavigate();
-  const { token } = useAuth();
 
   const [showTemporarySaveModal, setShowTemporarySaveModal] = useState(false);
   const [loadTemporaryData, setLoadTemporaryData] = useState(false);
@@ -116,7 +114,6 @@ export default function PostingQuestion() {
               const { status, questionId } = await registerQuestion({
                 question: questionFormData,
                 answer: answerFormData,
-                token,
               });
 
               if (status === 201) {

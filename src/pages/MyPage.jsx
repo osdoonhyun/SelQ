@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import useAuth from '../hooks/common/useAuth';
+import { Form } from 'react-bootstrap';
 import { useUpdateUserInfoByUser } from '../hooks/common/useUpdateUserInfoByUser';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -31,12 +31,12 @@ export default function MyPage() {
   const [show, setShow] = useState(false);
   // const [isChecked, setIsChecked] = useState(false);
 
-  const { user, token } = useAuth();
+  const { user } = useSelector((state) => state.user);
 
   const {
     mutateAsync: updateUser,
     isLoading: loadingUpdateUser,
-    error: errorUpdateUser,
+    //error: errorUpdateUser,
   } = useUpdateUserInfoByUser();
 
   const {
@@ -57,7 +57,7 @@ export default function MyPage() {
       updatedInfo.username = usernameValue;
     }
 
-    await updateUser({ updatedInfo, token });
+    await updateUser({ updatedInfo });
     navigate('/');
   };
 
