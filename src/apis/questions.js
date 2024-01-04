@@ -1,11 +1,13 @@
 import { api } from './api';
 
+const questionsParams = {
+  params: {
+    take: 50,
+  },
+};
+
 export const getQuestions = async () => {
-  const response = await api.get('/questions', {
-    params: {
-      take: 50,
-    },
-  });
+  const response = await api.get('/questions', questionsParams);
 
   return response.data.body;
 };
@@ -16,7 +18,7 @@ export const getQuestionsByCategory = async (category) => {
   if (category.toLowerCase() !== 'all') {
     url += `?category=${category.toLowerCase()}`;
   }
-  const response = await api.get(url);
+  const response = await api.get(url, questionsParams);
 
   return response.data.body.data;
 };
