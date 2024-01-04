@@ -20,7 +20,7 @@ export const userKeys = {
   all: ['users'],
   lists: () => [...userKeys.all, 'list'],
   details: () => [...userKeys.all, 'detail'],
-  detail: (userId) => [...userKeys.all, 'detail', userId],
+  detail: (userId) => [...userKeys.details(), userId],
   pages: () => [...userKeys.all, 'page'],
   page: (page) => [...userKeys.pages(), page],
 };

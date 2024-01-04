@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-bootstrap';
@@ -16,6 +16,7 @@ import { MyPageContainer } from '../styles/LayoutStyles';
 import { NextButton } from '../styles/ButtonStyles';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DeleteUserModal from '../components/modal/DeleteUserModal';
+import { getUserInfo } from '../store/Slices/auth';
 
 const usernameSchema = yup
   .object({
@@ -29,7 +30,7 @@ const usernameSchema = yup
 export default function MyPage() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  // const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
 
@@ -58,6 +59,7 @@ export default function MyPage() {
     }
 
     await updateUser({ updatedInfo });
+    dispatch(getUserInfo());
     navigate('/');
   };
 
