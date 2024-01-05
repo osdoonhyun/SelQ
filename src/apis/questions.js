@@ -9,7 +9,7 @@ const questionsParams = {
 export const getQuestions = async () => {
   const response = await api.get('/questions', questionsParams);
 
-  return response.data.body;
+  return response.data.body.data;
 };
 
 export const getQuestionsByCategory = async (category) => {
@@ -30,11 +30,7 @@ export const getQuestionDetailById = async (questionId) => {
 };
 
 export const getQuestionsByKeyword = async (keyword) => {
-  const response = await api.get('/questions', {
-    params: {
-      take: 50,
-    },
-  });
+  const response = await api.get('/questions', questionsParams);
 
   const filteredQuestions = response.data.body.data.filter((question) => {
     const lowQuestion = question.question.toLowerCase().trim();

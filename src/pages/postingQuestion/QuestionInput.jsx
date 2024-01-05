@@ -69,7 +69,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
   useEffect(() => {
     const saveTimer = setInterval(() => {
       saveDataToLocalStorage('question', questionFormData);
-    }, 5000); // 5초마다 저장
+    }, 3000); // 3초마다 저장
 
     return () => clearInterval(saveTimer);
   }, [questionFormData]);
