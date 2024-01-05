@@ -1,30 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { serverApi } from '../../apis/api';
-import { getCookie } from '../../config/cookie';
-import Google from '../../assets/icon/oauth/google.svg';
+import { useDispatch } from 'react-redux';
+import { Image } from 'react-bootstrap';
 import { POPUP_STRING } from '../../constant/options';
 import { SocialLoginButton, SocialLoginSpan } from '../../styles/ButtonStyles';
-import { Image } from 'react-bootstrap';
+import { getUserInfo } from '../../store/Slices/auth';
+import Google from '../../assets/icon/oauth/google.svg';
 
 export default function SocialLogInButton() {
   const navigate = useNavigate();
 
-  const getUserInfo = async (accessToken) => {
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-      },
-    };
-
-    try {
-      const { data, status } = await serverApi.get('/auth', config);
-      if (status === 200) {
-        return { userInfo: data?.body };
-      }
-    } catch (error) {
-      console.log('유저정보 조회 실패', error.message);
-    }
-  };
+  const dispatch = useDispatch();
 
   const socialLogin = () => {
     const popup = window.open(
@@ -34,26 +19,28 @@ export default function SocialLogInButton() {
     );
 
     const receiveLoginCompleteMessage = async (event) => {
-      console.log('EVENT', event);
       if (
         event.origin === process.env.REACT_APP_ORIGIN_URL &&
         event.data === 'loginComplete'
       ) {
         popup.close();
 
-        const token = getCookie('Authentication');
-        sessionStorage.setItem('accessToken', token);
-
         // 유저 정보 조회
-        const userInfo = await getUserInfo(token);
+        const userInfo = await dispatch(getUserInfo());
 
         // 이용약관 확인
+        const { termsOfUseAgree, personalInfoAgree, fourteenOverAgree } =
+          userInfo.payload.userInfo;
+
+        // 필수항목 체크 X -> 회원가입 진행
         if (
-          userInfo?.userInfo.termsOfUseAgree === false ||
-          userInfo?.userInfo.personalInfoAgree === false ||
-          userInfo?.userInfo.fourteenOverAgree === false
+          termsOfUseAgree === false ||
+          personalInfoAgree === false ||
+          fourteenOverAgree === false
         ) {
-          navigate('/signup/social', { state: { userInfo, token } });
+          navigate('/signup/social', {
+            state: { userInfo: userInfo.payload.userInfo },
+          });
         } else {
           navigate('/');
         }

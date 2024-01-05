@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { serverApi } from '../apis/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { TERMS_AND_CONDITIONS } from '../constant/signUp';
-import { useSignUpHandler } from '../hooks/common/useSignUpHandler';
+import { useSocialSignUpHandler } from '../hooks/common/useSocialSignUpHandler';
 import { MESSAGE } from '../constant/message';
 import LoadingSpinner from './LoadingSpinner';
 import { ErrorMessage } from '../styles/Styles';
@@ -24,9 +23,9 @@ const signUpSchema = yup.object().shape({
 });
 
 export default function SocialSignUp() {
-  const [agreeList, setAgreeList] = useState(TERMS_AND_CONDITIONS);
   const navigate = useNavigate();
   const location = useLocation();
+  const [agreeList, setAgreeList] = useState(TERMS_AND_CONDITIONS);
 
   const {
     handleSubmit,
@@ -38,15 +37,11 @@ export default function SocialSignUp() {
     resolver: yupResolver(signUpSchema),
   });
 
-  const {
-    //TODO: 소셜 회원가입시 API 연결
-    // mutateAsync: signUp,
-    isLoading: loadingSignUp,
-    // error: errorSignUp,
-  } = useSignUpHandler();
+  //TODO: 소셜 회원가입시 API 연결
+  const { mutateAsync: socialSignUp, isLoading: loadingSocialSignUpUser } =
+    useSocialSignUpHandler();
 
-  const userInfo = location.state.userInfo?.userInfo;
-  const accessToken = location.state.token;
+  const userInfo = location.state.userInfo;
 
   const handleAgreeCheckList = (e, field, setFieldValue) => {
     const { value, checked } = e.target;
@@ -78,9 +73,6 @@ export default function SocialSignUp() {
     const allTrue = values.allTrue;
     const signUpInfo = {
       username: values.username,
-      // email: userInfo?.email,
-      // profileImg: userInfo.picture || '',
-      // provider: 'google',
 
       fourteenOverAgree: allTrue || !!values.fourteenOverAgree,
       termsOfUseAgree: allTrue || !!values.termsOfUseAgree,
@@ -89,25 +81,8 @@ export default function SocialSignUp() {
       smsAndEventAgree: allTrue || !!values.smsAndEventAgree,
     };
 
-    // TODO: 회원가입시 비밀번호 없는 상태로 요청
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-      },
-    };
-
-    try {
-      const { status } = await serverApi.patch(
-        '/auth/update',
-        signUpInfo,
-        config
-      );
-      if (status === 200) {
-        navigate('/');
-      }
-    } catch (error) {
-      console.log('소셜 로그인(회원가입) 에러 발생');
-    }
+    await socialSignUp(signUpInfo);
+    navigate('/');
   };
 
   return (
@@ -183,7 +158,7 @@ export default function SocialSignUp() {
         </Form.Group>
 
         <NextButton variant='Light' type='submit' className='w-100 mt-3'>
-          {loadingSignUp ? <LoadingSpinner /> : '회원가입'}
+          {loadingSocialSignUpUser ? <LoadingSpinner /> : '회원가입'}
         </NextButton>
       </Form>
     </SocialContainer>
