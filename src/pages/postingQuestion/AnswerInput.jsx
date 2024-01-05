@@ -36,7 +36,7 @@ export default function AnswerInput({
   useEffect(() => {
     const saveTimer = setInterval(() => {
       saveDataToLocalStorage('answer', answers);
-    }, 5000); // 5초마다 저장
+    }, 3000); // 3초마다 저장
 
     return () => clearInterval(saveTimer);
   }, [answers]);
