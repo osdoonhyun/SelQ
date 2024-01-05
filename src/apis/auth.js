@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api, authApi } from './api';
 
 // 회원가입
 export const signUpHandler = async (userInput) => {
@@ -46,5 +46,15 @@ export const checkVerificationCode = async (data) => {
     return true;
   } else {
     return false;
+  }
+};
+
+// 소셜 회원가입: 추가 정보 요청(닉네임, 이용약관)
+export const socialSignUp = async (signUpInfo) => {
+  try {
+    const { status } = await authApi.patch('/auth/update', signUpInfo);
+    return status;
+  } catch (error) {
+    console.log('소셜 로그인(회원가입) 에러 발생');
   }
 };

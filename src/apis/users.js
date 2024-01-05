@@ -26,4 +26,4 @@ export const updateUserInfoByUser = async ({ updatedInfo }) => {
   return data.body;
 };
 
-// 유저 정보 삭제
+// TODO: 유저 정보 삭제 API가 아직 안나옴
