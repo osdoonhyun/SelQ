@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import useDebounce from '../../hooks/common/useDebounce';
 import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
@@ -12,6 +13,8 @@ export default function AnswerInput({
   onNext,
 }) {
   const [answers, setAnswers] = useState('');
+
+  const debounceAnswer = useDebounce(answers);
 
   const postingAnswer = (e) => {
     e.preventDefault();
@@ -34,12 +37,8 @@ export default function AnswerInput({
 
   // 임시 자동저장
   useEffect(() => {
-    const saveTimer = setInterval(() => {
-      saveDataToLocalStorage('answer', answers);
-    }, 3000); // 3초마다 저장
-
-    return () => clearInterval(saveTimer);
-  }, [answers]);
+    saveDataToLocalStorage('answer', debounceAnswer);
+  }, [debounceAnswer]);
 
   return (
     <Container>
