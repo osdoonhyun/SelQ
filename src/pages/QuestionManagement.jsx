@@ -11,10 +11,10 @@ import QuestionFilter from '../components/filter/QuestionFilter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../components/Pagination';
-import { TableData } from '../styles/Styles';
+import { TableData, TableHead } from '../styles/Styles';
 import DeleteQuestionModal from '../components/modal/DeleteQuestionModal';
 
-export default function QuestionManagement() {
+export default function QuestionsManagement() {
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
@@ -170,7 +170,7 @@ export default function QuestionManagement() {
 
   return (
     <>
-      <h1>질문 관리페이지</h1>
+      <h1>질문 관리 페이지</h1>
       <QuestionFilter
         filterOptions={filterOptions}
         categoryOption={categoryOption}
@@ -184,15 +184,25 @@ export default function QuestionManagement() {
         handleDeleteCategoryOption={handleDeleteCategoryOption}
       />
 
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
-            <th className='text-center d-none d-md-table-cell'>#</th>
-            <th>질문</th>
-            <th className='text-center text-nowrap'>카테고리</th>
-            <th className='text-center text-nowrap'>중요도</th>
-            <th className='text-center text-nowrap'>등록 날짜</th>
-            <th className='text-center'>옵션</th>
+            <TableHead width={4} className='text-center d-none d-md-table-cell'>
+              #
+            </TableHead>
+            <TableHead width={56}>질문</TableHead>
+            <TableHead width={12} className='text-center text-nowrap'>
+              카테고리
+            </TableHead>
+            <TableHead width={8} className='text-center text-nowrap'>
+              중요도
+            </TableHead>
+            <TableHead width={12} className='text-center text-nowrap'>
+              등록 날짜
+            </TableHead>
+            <TableHead width={8} className='text-center'>
+              옵션
+            </TableHead>
           </tr>
         </thead>
         <tbody>
