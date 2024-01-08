@@ -9,7 +9,7 @@ import EditUserByAdminModal from '../components/modal/EditUserByAdminModal';
 import Filter from '../components/filter/Filter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import { TableData } from '../styles/Styles';
+import { TableData, TableHead } from '../styles/Styles';
 
 export default function UsersManagement() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -90,22 +90,33 @@ export default function UsersManagement() {
 
   return (
     <>
-      <h1>유저 관리페이지</h1>
+      <h1>유저 관리 페이지</h1>
       <Filter
         filterOptions={filterOptions}
         handleOptionsClick={handleOptionsClick}
         handleDeleteOption={handleDeleteOption}
       />
-      <Table striped bordered hover>
+
+      <Table bordered hover>
         <thead>
           <tr>
-            <th className='text-center d-none d-md-table-cell'>#</th>
-            <th>닉네임</th>
-            <th>계정</th>
-            <th className='text-center text-nowrap'>가입 날짜</th>
-            <th className='text-center text-nowrap'>유저 권한</th>
-            <th className='text-center text-nowrap'>가입 유형</th>
-            <th className='text-center'>옵션</th>
+            <TableHead width={4} className='text-center d-none d-md-table-cell'>
+              #
+            </TableHead>
+            <TableHead width={24}>닉네임</TableHead>
+            <TableHead width={28}>계정</TableHead>
+            <TableHead width={16} className='text-center text-nowrap'>
+              가입 날짜
+            </TableHead>
+            <TableHead width={10} className='text-center text-nowrap'>
+              유저 권한
+            </TableHead>
+            <TableHead width={10} className='text-center text-nowrap'>
+              가입 유형
+            </TableHead>
+            <TableHead width={8} className='text-center'>
+              옵션
+            </TableHead>
           </tr>
         </thead>
         <tbody>
@@ -142,7 +153,7 @@ export default function UsersManagement() {
                 <td className='text-center align-middle'>
                   {user.provider === 'local' ? '로컬' : '소셜'}
                 </td>
-                <td className='text-center align-middle'>
+                <td className='text-center align-middle p-1'>
                   <DropdownButton
                     id='dropdown-basic-button'
                     variant='light'

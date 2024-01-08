@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 import CategoryQuestions from '../pages/CategoryQuestions';
@@ -9,14 +10,16 @@ import LogIn from '../pages/LogIn';
 import ResetPassword from '../pages/ResetPassword';
 import PostingQuestion from '../pages/PostingQuestion';
 import MyPage from '../pages/MyPage';
-import UsersManagement from '../pages/UserManagement';
 import EditQuestion from '../pages/EditQuestion';
 import BookmarkedQuestions from '../pages/BookmarkedQuestions';
-import QuestionManagement from '../pages/QuestionManagement';
 import SocialSignUp from '../components/SocialSignUp';
 import NotFoundPage from '../pages/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
+import ManagementSkeleton from '../components/ManagementSkeleton';
 import { PATH } from '../constant/paths';
+
+const UsersManagement = lazy(() => import('../pages/UsersManagement'));
+const QuestionsManagement = lazy(() => import('../pages/QuestionsManagement'));
 
 export const router = createBrowserRouter([
   {
@@ -60,17 +63,21 @@ export const router = createBrowserRouter([
       {
         path: PATH.USERS_MANAGEMENT,
         element: (
-          <PrivateRoute isOnlyAdminAllowed>
-            <UsersManagement />
-          </PrivateRoute>
+          <Suspense fallback={<ManagementSkeleton pageOption={'user'} />}>
+            <PrivateRoute isOnlyAdminAllowed>
+              <UsersManagement />
+            </PrivateRoute>
+          </Suspense>
         ),
       },
       {
         path: PATH.QUESTIONS_MANAGEMENT,
         element: (
-          <PrivateRoute isOnlyAdminAllowed>
-            <QuestionManagement />
-          </PrivateRoute>
+          <Suspense fallback={<ManagementSkeleton pageOption={'question'} />}>
+            <PrivateRoute isOnlyAdminAllowed>
+              <QuestionsManagement />
+            </PrivateRoute>
+          </Suspense>
         ),
       },
     ],

@@ -235,6 +235,10 @@ export const HomeLink = styled(Link)`
   color: ${MAIN.MEDIUM};
 `;
 
+export const TableHead = styled.th`
+  width: ${(props) => `${props.width}%` || 'auto'};
+`;
+
 export const TableData = styled.td`
   white-space: nowrap;
   overflow: hidden;
