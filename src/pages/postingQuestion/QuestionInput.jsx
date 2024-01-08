@@ -8,6 +8,7 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import useDebounce from '../../hooks/common/useDebounce';
 import { MAIN, GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
@@ -23,6 +24,8 @@ export default function QuestionInput({ autoLoad, onNext }) {
   });
   const [hintBtnDisable, setHintBtnDisable] = useState(true);
   const [nextBtnDisable, setNextBtnDisable] = useState(true);
+
+  const debounceFormData = useDebounce(questionFormData);
 
   const postingQuestion = (e) => {
     e.preventDefault();
@@ -67,12 +70,8 @@ export default function QuestionInput({ autoLoad, onNext }) {
 
   // 임시 자동저장
   useEffect(() => {
-    const saveTimer = setInterval(() => {
-      saveDataToLocalStorage('question', questionFormData);
-    }, 3000); // 3초마다 저장
-
-    return () => clearInterval(saveTimer);
-  }, [questionFormData]);
+    saveDataToLocalStorage('question', debounceFormData);
+  }, [debounceFormData]);
 
   // 힌트 버튼 활성화 관련 Effect
   useEffect(() => {
