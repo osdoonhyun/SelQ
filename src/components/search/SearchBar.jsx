@@ -6,7 +6,7 @@ import SearchQuetions from './SearchQuetions';
 import { useNavigate } from 'react-router-dom';
 import { GREYS } from '../../styles/variables';
 import { useSearchQuestions } from '../../hooks/queries/useSearchQuestions';
-import useThrottle from '../../utils/throttle';
+import useThrottle from '../../hooks/common/useThrottle';
 import { OpacityDiv, SearchInput } from '../../styles/Styles';
 
 export default function SearchBar() {
