@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap';
 import { POPUP_STRING } from '../../constant/options';
 import { SocialLoginButton, SocialLoginSpan } from '../../styles/ButtonStyles';
 import { getUserInfo } from '../../store/Slices/auth';
-import Google from '../../assets/icon/oauth/google.svg';
+import Google from '../../assets/icon/google.webp';
 
 export default function SocialLogInButton() {
   const navigate = useNavigate();
