@@ -73,6 +73,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
     saveDataToLocalStorage('question', debounceFormData);
   }, [debounceFormData]);
 
+
   // 힌트 버튼 활성화 관련 Effect
   useEffect(() => {
     if (questionFormData.hint !== '') {
@@ -94,6 +95,8 @@ export default function QuestionInput({ autoLoad, onNext }) {
       setNextBtnDisable(true);
     }
   }, [questionFormData]);
+
+  console.log('QWEQWE', questionFormData);
 
   return (
     <Container>
@@ -127,6 +130,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.importance}
+            defaultValue={questionFormData.importance}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -151,6 +155,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.category}
+            defaultValue={questionFormData.category}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -176,6 +181,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
                 type='text'
                 placeholder='힌트를 입력하세요'
                 value={questionFormData.hint}
+                defaultValue={questionFormData.hint}
                 onChange={(e) =>
                   setQuestionFormData({
                     ...questionFormData,

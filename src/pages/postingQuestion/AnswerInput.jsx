@@ -6,6 +6,7 @@ import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 
+
 export default function AnswerInput({
   autoLoad,
   question,
@@ -29,7 +30,6 @@ export default function AnswerInput({
   // 작성중이던 데이터 불러오기
   useEffect(() => {
     const storedAnswerForm = localStorage.getItem('answer');
-
     if (autoLoad && storedAnswerForm) {
       setAnswers(JSON.parse(storedAnswerForm));
     }

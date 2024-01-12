@@ -37,6 +37,7 @@ export default function TemporarySaveModal({
           </p>
         </Modal.Body>
         <Modal.Footer>
+
           <GreyButton variant='Light' onClick={handleDelete}>
             삭제
           </GreyButton>
