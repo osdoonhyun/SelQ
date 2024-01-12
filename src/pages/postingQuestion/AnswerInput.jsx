@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import useDebounce from '../../hooks/common/useDebounce';
 import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 
-export default function AnswerInput({ question, onPrevious, onNext }) {
+
+export default function AnswerInput({
+  autoLoad,
+  question,
+  onPrevious,
+  onNext,
+}) {
   const [answers, setAnswers] = useState('');
+
+  const debounceAnswer = useDebounce(answers);
 
   const postingAnswer = (e) => {
     e.preventDefault();
@@ -21,21 +30,15 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
   // 작성중이던 데이터 불러오기
   useEffect(() => {
     const storedAnswerForm = localStorage.getItem('answer');
-
-    if (storedAnswerForm) {
+    if (autoLoad && storedAnswerForm) {
       setAnswers(JSON.parse(storedAnswerForm));
-      // setShowTemporaryModal(true);
     }
-  }, []);
+  }, [autoLoad]);
 
   // 임시 자동저장
   useEffect(() => {
-    const saveTimer = setInterval(() => {
-      saveDataToLocalStorage('answer', answers);
-    }, 5000); // 5초마다 저장
-
-    return () => clearInterval(saveTimer);
-  }, [answers]);
+    saveDataToLocalStorage('answer', debounceAnswer);
+  }, [debounceAnswer]);
 
   return (
     <Container>
@@ -60,7 +63,7 @@ export default function AnswerInput({ question, onPrevious, onNext }) {
             as='textarea'
             type='text'
             placeholder='답변을 등록하세요.'
-            value={answers}
+            // value={answers}
             defaultValue={answers}
             onChange={(e) => setAnswers(e.target.value)}
           />

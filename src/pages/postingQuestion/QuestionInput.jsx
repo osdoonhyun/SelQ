@@ -8,12 +8,13 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { CATEGORIES } from '../../constant/categories';
+import useDebounce from '../../hooks/common/useDebounce';
 import { MAIN, GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
+import { CATEGORIES, IMPORTANCES } from '../../constant/options';
 
-export default function QuestionInput({ onNext }) {
+export default function QuestionInput({ autoLoad, onNext }) {
   const [questionFormData, setQuestionFormData] = useState({
     question: '',
     importance: 0,
@@ -23,6 +24,8 @@ export default function QuestionInput({ onNext }) {
   });
   const [hintBtnDisable, setHintBtnDisable] = useState(true);
   const [nextBtnDisable, setNextBtnDisable] = useState(true);
+
+  const debounceFormData = useDebounce(questionFormData);
 
   const postingQuestion = (e) => {
     e.preventDefault();
@@ -59,21 +62,17 @@ export default function QuestionInput({ onNext }) {
   // 작성중이던 데이터 불러오기
   useEffect(() => {
     const storedQuestionForm = localStorage.getItem('question');
-    console.log('데이터 불러오기!!', storedQuestionForm);
-    if (storedQuestionForm) {
+
+    if (autoLoad && storedQuestionForm) {
       setQuestionFormData(JSON.parse(storedQuestionForm));
-      // setShowTemporaryModal(true);
     }
-  }, []);
+  }, [autoLoad]);
 
   // 임시 자동저장
   useEffect(() => {
-    const saveTimer = setInterval(() => {
-      saveDataToLocalStorage('question', questionFormData);
-    }, 5000); // 5초마다 저장
+    saveDataToLocalStorage('question', debounceFormData);
+  }, [debounceFormData]);
 
-    return () => clearInterval(saveTimer);
-  }, [questionFormData]);
 
   // 힌트 버튼 활성화 관련 Effect
   useEffect(() => {
@@ -114,7 +113,7 @@ export default function QuestionInput({ onNext }) {
             type='text'
             placeholder='질문을 등록하세요.'
             defaultValue={questionFormData.question}
-            value={questionFormData.question}
+            // value={questionFormData.question}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -124,7 +123,7 @@ export default function QuestionInput({ onNext }) {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+        <Form.Group className='mb-3'>
           <Form.Label>
             중요도
             <RequiredLabel />
@@ -141,11 +140,11 @@ export default function QuestionInput({ onNext }) {
             aria-label='Select Importance'
           >
             <option>중요도 선택</option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
+            {IMPORTANCES.map(({ level }, index) => (
+              <option key={index} value={level}>
+                {level}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 

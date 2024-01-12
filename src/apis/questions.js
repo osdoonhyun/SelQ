@@ -1,13 +1,15 @@
-import { serverApi } from './api';
+import { api } from './api';
+
+const questionsParams = {
+  params: {
+    take: 50,
+  },
+};
 
 export const getQuestions = async () => {
-  const response = await serverApi.get('/questions', {
-    params: {
-      take: 50,
-    },
-  });
+  const response = await api.get('/questions', questionsParams);
 
-  return response.data.body;
+  return response.data.body.data;
 };
 
 export const getQuestionsByCategory = async (category) => {
@@ -16,23 +18,19 @@ export const getQuestionsByCategory = async (category) => {
   if (category.toLowerCase() !== 'all') {
     url += `?category=${category.toLowerCase()}`;
   }
-  const response = await serverApi.get(url);
+  const response = await api.get(url, questionsParams);
 
   return response.data.body.data;
 };
 
 export const getQuestionDetailById = async (questionId) => {
-  const response = await serverApi.get(`/questions/${questionId}`);
+  const response = await api.get(`/questions/${questionId}`);
 
   return response.data.body;
 };
 
 export const getQuestionsByKeyword = async (keyword) => {
-  const response = await serverApi.get('/questions', {
-    params: {
-      take: 50,
-    },
-  });
+  const response = await api.get('/questions', questionsParams);
 
   const filteredQuestions = response.data.body.data.filter((question) => {
     const lowQuestion = question.question.toLowerCase().trim();
@@ -45,7 +43,7 @@ export const getQuestionsByKeyword = async (keyword) => {
 };
 
 export const getQuestionsByFilteringOption = async (page, queryString) => {
-  const response = await serverApi.get(`/questions?${queryString}`, {
+  const response = await api.get(`/questions?${queryString}`, {
     params: {
       take: 10,
       page,

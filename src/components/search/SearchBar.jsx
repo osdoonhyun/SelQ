@@ -6,16 +6,24 @@ import SearchQuetions from './SearchQuetions';
 import { useNavigate } from 'react-router-dom';
 import { GREYS } from '../../styles/variables';
 import { useSearchQuestions } from '../../hooks/queries/useSearchQuestions';
+import useThrottle from '../../hooks/common/useThrottle';
 import { OpacityDiv, SearchInput } from '../../styles/Styles';
 
 export default function SearchBar() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const throttleSearch = useThrottle(searchInput, 500);
   const defferedSearchInput = useDeferredValue(searchInput);
   const isStale = searchInput !== defferedSearchInput;
 
-  const { data: searchResults } = useSearchQuestions({ searchInput });
+  const { data: searchResults } = useSearchQuestions({
+    searchInput: throttleSearch,
+  });
+
+  const onChangeSearchInput = (e) => {
+    setSearchInput(e.target.value);
+  };
 
   const handleClose = () => {
     setSearchInput('');
@@ -51,7 +59,7 @@ export default function SearchBar() {
             <SearchInput
               placeholder='Search Questions'
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={onChangeSearchInput}
               autoFocus
             />
           </label>

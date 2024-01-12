@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import useAuth from '../hooks/common/useAuth';
+import { Form } from 'react-bootstrap';
 import { useUpdateUserInfoByUser } from '../hooks/common/useUpdateUserInfoByUser';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -16,6 +16,7 @@ import { MyPageContainer } from '../styles/LayoutStyles';
 import { NextButton } from '../styles/ButtonStyles';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DeleteUserModal from '../components/modal/DeleteUserModal';
+import { getUserInfo } from '../store/Slices/auth';
 
 const usernameSchema = yup
   .object({
@@ -29,14 +30,14 @@ const usernameSchema = yup
 export default function MyPage() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  // const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
 
-  const { user, token } = useAuth();
+  const { user } = useSelector((state) => state.user);
 
   const {
     mutateAsync: updateUser,
     isLoading: loadingUpdateUser,
-    error: errorUpdateUser,
+    //error: errorUpdateUser,
   } = useUpdateUserInfoByUser();
 
   const {
@@ -57,7 +58,8 @@ export default function MyPage() {
       updatedInfo.username = usernameValue;
     }
 
-    await updateUser({ updatedInfo, token });
+    await updateUser({ updatedInfo });
+    dispatch(getUserInfo());
     navigate('/');
   };
 

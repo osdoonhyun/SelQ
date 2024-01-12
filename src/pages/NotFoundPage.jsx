@@ -1,6 +1,6 @@
 import { Image } from 'react-bootstrap';
 import Header from '../components/layout/Header';
-import Logo from '../assets/image/sel-q-logo.png';
+import Logo from '../assets/image/sel-q-logo.webp';
 import Footer from '../components/layout/Footer';
 import { BodyContainer } from '../styles/LayoutStyles';
 import { HomeLink } from '../styles/Styles';

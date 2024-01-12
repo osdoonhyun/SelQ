@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { registerQuestion } from '../../apis/questionManagement';
+import { questionKeys } from '../../constant/queryKeyFactory';
 
 export const useRegisterQuestion = () => {
   const queryClient = useQueryClient();
@@ -7,7 +8,7 @@ export const useRegisterQuestion = () => {
     mutationFn: (formData) => registerQuestion(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['questions'],
+        queryKey: questionKeys.all,
       });
     },
     onError: (error) => {
