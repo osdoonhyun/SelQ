@@ -4,10 +4,10 @@ import Question from '../components/question/Question';
 import RandomQuestion from '../components/question/RandomQuestion';
 import Hint from '../components/Hint';
 import Answer from '../components/Answer';
+import { shuffle } from '../utils/shuffle';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [prevIndex, setPrevIndex] = useState(-1);
   const [randomQuestion, setRandomQuestion] = useState({});
 
   const { data: questions } = useGetQuestionsByCategory({
@@ -16,15 +16,13 @@ export default function Home() {
 
   const getRandomQuestion = useCallback(() => {
     if (questions && questions.length > 0) {
-      let randomIndex;
+      // Fisher-Yates shuffle
+      const shuffledQuestions = shuffle(questions);
+      const randomIndex = Math.floor(Math.random() * questions.length);
 
-      do {
-        randomIndex = Math.floor(Math.random() * questions.length);
-      } while (randomIndex === prevIndex);
-      setPrevIndex(randomIndex);
-      setRandomQuestion(questions[randomIndex]);
+      setRandomQuestion(shuffledQuestions[randomIndex]);
     }
-  }, [questions, prevIndex]);
+  }, [questions]);
 
   const handleDropdownCategorySelect = useCallback((eventKey) => {
     setSelectedCategory(eventKey);
