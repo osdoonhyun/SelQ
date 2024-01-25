@@ -24,6 +24,7 @@ const signUpSchema = yup.object().shape({
   emailCategory: yup
     .string()
     .required(MESSAGE.SIGNUP.VALIDATION_EMAIL_CATEGORY),
+  // .test()
   password: yup
     .string()
     .required(MESSAGE.SIGNUP.VALIDATION_PASSWORD)
@@ -122,15 +123,18 @@ export default function SignUp() {
 
   const checkEmailVerificationHandler = async () => {
     const userEmail = email + '@' + emailCategory;
-    const response = await checkEmail({
-      email: userEmail,
-      code: verificationCode,
-    });
 
-    if (response === true) {
-      setIsVerifiedEmail(false);
-      setVerificationBtnDisable(false);
-    } else {
+    try {
+      const response = await checkEmail({
+        email: userEmail,
+        code: verificationCode,
+      });
+
+      if (response === true) {
+        setIsVerifiedEmail(false);
+        setVerificationBtnDisable(false);
+      }
+    } catch (error) {
       alert(MESSAGE.SIGNUP.VERIFY_EMAIL_CODE);
     }
   };

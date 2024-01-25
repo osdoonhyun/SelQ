@@ -1,41 +1,50 @@
 import { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useCheckRegisteredEmail } from '../../hooks/common/useCheckRegisteredEmail';
 import { useSendVerificationCode } from '../../hooks/common/useSendVerificationCode';
 import { NextButton } from '../../styles/ButtonStyles';
+import { ErrorMessage } from '../../styles/Styles';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function EmailVerification({ onNext }) {
   const [checkBtnDisable, setCheckBtnDisable] = useState(true);
   const [sendBtnDisable, setSendBtnDisable] = useState(true);
 
-  const { handleSubmit, control, getValues, setValue } = useForm();
+  const resetPasswordSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email('유효한 이메일을 입력해 주세요.')
+      .required('이메일을 입력해 주세요.')
+      .test('check email', '가입 되지 않은 이메일입니다.', async (email) => {
+        const response = await verifyEmail(email);
+        // 가입된 경우 다음 step 진행
+        if (response) {
+          setSendBtnDisable(false);
+          setCheckBtnDisable(true);
+        }
+        return !!response;
+      }),
+  });
 
   const {
-    mutateAsync: verifyEmail,
-    isLoading: loadingVerifyEmail,
-    error: errorVerifyEmail,
-  } = useCheckRegisteredEmail();
+    handleSubmit,
+    control,
+    getValues,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(resetPasswordSchema),
+  });
 
-  const {
-    mutateAsync: sendEmail,
-    isLoading: loadingSendEmail,
-    error: errorSendEmail,
-  } = useSendVerificationCode();
+  const { mutateAsync: verifyEmail, isLoading: loadingVerifyEmail } =
+    useCheckRegisteredEmail();
 
-  const handleCheckButton = async () => {
-    const inputEmail = getValues('email');
-    const response = await verifyEmail(inputEmail);
-
-    if (response === false) {
-      alert('가입 되지 않은 이메일입니다.');
-      return;
-    } else {
-      setSendBtnDisable(false);
-      setCheckBtnDisable(true);
-    }
-  };
+  const { mutateAsync: sendEmail, isLoading: loadingSendEmail } =
+    useSendVerificationCode();
 
   const handleEmailVerification = async () => {
     const inputEmail = getValues('email');
@@ -71,16 +80,10 @@ export default function EmailVerification({ onNext }) {
                 )}
               />
             </Col>
-            <Col
-              xs='auto'
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                marginLeft: '10px',
-              }}
-            >
+
+            <Col xs='auto' className='d-inline-flex align-items-center ms-2'>
               <NextButton
-                onClick={handleCheckButton}
+                onClick={() => trigger('email')}
                 disabled={checkBtnDisable}
               >
                 {loadingVerifyEmail ? (
@@ -94,6 +97,7 @@ export default function EmailVerification({ onNext }) {
             </Col>
           </div>
         </Row>
+        {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
       </Form.Group>
       <div className='d-flex justify-content-center'>
         <NextButton
