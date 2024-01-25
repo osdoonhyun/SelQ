@@ -9,12 +9,14 @@ import Bookmark from '../components/button/Bookmark';
 import { BookmarkH2, MbDiv, QuestionQ, QuestionTitle } from '../styles/Styles';
 
 export default function BookmarkedQuestions() {
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { fontSizing, calcFontSize } = useFontSize();
+
   const bookmarkQuestions = useSelector(bookmarkedQuestions);
 
   return (
     <>
-      {bookmarkQuestions.length > 0 ? (
+      {bookmarkQuestions.length > 0 && isLoggedIn ? (
         bookmarkQuestions.map((question, index) => (
           <LinkContainer to={`/bookmarks/${question.id}`} key={question.id}>
             <div>
