@@ -10,8 +10,5 @@ export const useCheckVerificationCode = () => {
         queryKey: ['check'],
       });
     },
-    onError: (error) => {
-      console.log('Check Email Verifiaction Error', error.message);
-    },
   });
 };
