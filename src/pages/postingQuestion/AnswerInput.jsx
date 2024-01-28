@@ -6,7 +6,6 @@ import { GREYS } from '../../styles/variables';
 import { NextButton } from '../../styles/ButtonStyles';
 import RequiredLabel from '../../components/RequiredLabel';
 
-
 export default function AnswerInput({
   autoLoad,
   question,
@@ -38,6 +37,9 @@ export default function AnswerInput({
   // 임시 자동저장
   useEffect(() => {
     saveDataToLocalStorage('answer', debounceAnswer);
+    return () => {
+      saveDataToLocalStorage('answer', debounceAnswer);
+    };
   }, [debounceAnswer]);
 
   return (
