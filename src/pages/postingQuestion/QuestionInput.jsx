@@ -71,8 +71,10 @@ export default function QuestionInput({ autoLoad, onNext }) {
   // 임시 자동저장
   useEffect(() => {
     saveDataToLocalStorage('question', debounceFormData);
+    return () => {
+      saveDataToLocalStorage('question', debounceFormData);
+    };
   }, [debounceFormData]);
-
 
   // 힌트 버튼 활성화 관련 Effect
   useEffect(() => {
@@ -95,8 +97,6 @@ export default function QuestionInput({ autoLoad, onNext }) {
       setNextBtnDisable(true);
     }
   }, [questionFormData]);
-
-  console.log('QWEQWE', questionFormData);
 
   return (
     <Container>
