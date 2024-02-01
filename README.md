@@ -137,7 +137,7 @@
 			<td><img width="400px" src="./public/readme-images/adminUserPage.gif" alt="유저 관리 페이지"/></td>
 		</tr>
 		<tr>
-			<td>- 단계별 질문 등록 기능<br>- 등록 진행 상태 표시 Progress Bar 구현<br>- 유효성 검사</td><td>- 작성 중 임시 저장 / 불러오기<br>
+			<td>- 단계별 질문 등록 기능<br>- 등록 진행 상태 표시 Progress Bar 구현<br>- 유효성 검사<br>- 작성 중 임시 저장 / 불러오기</td>
 			<td>- 전체 유저 관리<br>- 유저 프로필 조회 / (닉네임, 등급)수정 / 삭제<br>- 닉네임 / 날짜 / 권한 필터링 기능<br>- 페이지네이션 기능</td>
 		</tr>
 		<tr>
