@@ -19,10 +19,10 @@ export default function QuestionInput({ autoLoad, onNext }) {
     question: '',
     importance: 0,
     category: '',
-    hint: '',
     hints: [],
   });
-  const [hintBtnDisable, setHintBtnDisable] = useState(true);
+  const [hint, setHint] = useState('');
+
   const [nextBtnDisable, setNextBtnDisable] = useState(true);
 
   const debounceFormData = useDebounce(questionFormData);
@@ -41,9 +41,9 @@ export default function QuestionInput({ autoLoad, onNext }) {
   const handleAddHint = () => {
     setQuestionFormData({
       ...questionFormData,
-      hints: [...questionFormData.hints, questionFormData.hint],
-      hint: '',
+      hints: [...questionFormData.hints, hint],
     });
+    setHint('');
   };
 
   const handleDeleteHint = (index) => {
@@ -62,7 +62,6 @@ export default function QuestionInput({ autoLoad, onNext }) {
   // 작성중이던 데이터 불러오기
   useEffect(() => {
     const storedQuestionForm = localStorage.getItem('question');
-
     if (autoLoad && storedQuestionForm) {
       setQuestionFormData(JSON.parse(storedQuestionForm));
     }
@@ -72,18 +71,9 @@ export default function QuestionInput({ autoLoad, onNext }) {
   useEffect(() => {
     saveDataToLocalStorage('question', debounceFormData);
     return () => {
-      saveDataToLocalStorage('question', debounceFormData);
+      saveDataToLocalStorage('question', questionFormData);
     };
   }, [debounceFormData]);
-
-  // 힌트 버튼 활성화 관련 Effect
-  useEffect(() => {
-    if (questionFormData.hint !== '') {
-      setHintBtnDisable(false);
-    } else {
-      setHintBtnDisable(true);
-    }
-  }, [questionFormData.hint]);
 
   // 다음 버튼 활성화 관련 Effect
   useEffect(() => {
@@ -112,8 +102,8 @@ export default function QuestionInput({ autoLoad, onNext }) {
             as='textarea'
             type='text'
             placeholder='질문을 등록하세요.'
-            defaultValue={questionFormData.question}
-            // value={questionFormData.question}
+            // defaultValue={questionFormData.question}
+            value={questionFormData.question}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -130,7 +120,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.importance}
-            defaultValue={questionFormData.importance}
+            // defaultValue={questionFormData.importance}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -155,7 +145,7 @@ export default function QuestionInput({ autoLoad, onNext }) {
           </Form.Label>
           <Form.Select
             value={questionFormData.category}
-            defaultValue={questionFormData.category}
+            // defaultValue={questionFormData.category}
             onChange={(e) =>
               setQuestionFormData({
                 ...questionFormData,
@@ -180,18 +170,12 @@ export default function QuestionInput({ autoLoad, onNext }) {
               <Form.Control
                 type='text'
                 placeholder='힌트를 입력하세요'
-                value={questionFormData.hint}
-                defaultValue={questionFormData.hint}
-                onChange={(e) =>
-                  setQuestionFormData({
-                    ...questionFormData,
-                    hint: e.target.value,
-                  })
-                }
+                value={hint}
+                onChange={(e) => setHint(e.target.value)}
               />
             </Col>
             <Col>
-              <NextButton disabled={hintBtnDisable} onClick={handleAddHint}>
+              <NextButton disabled={!hint} onClick={handleAddHint}>
                 추가
               </NextButton>
             </Col>
