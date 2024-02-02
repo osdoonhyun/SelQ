@@ -1,6 +1,16 @@
+<div align="center">
+
+### [Sel-Q, 셀큐 바로가기](https://selq.store)
+
+</div>
+
 <p align='middle'>
   <img width="484px;" src="./public/logo.jpg" alt="selq-logo">
 </p>
+
+## [배포 레포로 이동 ➡️](https://github.com/osdoonhyun/SEL-Q)
+
+프로젝트 기술 스택, 인프라 구성도, 버전 설명 보러가기!
 
 ### 📌 목차
 
@@ -14,35 +24,28 @@
 
 ## 🔎 서비스 소개
 
-매일 공부하며 습득한 지식을 기록하고 정리하며, Sel-Q에서 제공하는 다양한 기능을 활용하여 사용자가 스스로 학습을 진행할 수 있도록 도와주는 서비스입니다.<br>
+신입 개발자라면 꼭 알아야 할 내용들을 일문일답 형식으로 문제은행화 하였습니다.<br>Sel-Q에서 제공하는 다양한 기능을 활용하여 사용자가 스스로 학습을 진행할 수 있도록 도와주는 서비스입니다.<br>
 질문과 답변 형식으로 프론트엔드 개발자가 갖춰야 할 개발 지식, 상식의 내용을 **문제 은행 방식으로 스스로에게 질의응답**하여 학습한 내용을 더욱 효과적으로 정리하고 상기되도록 설계하였습니다.
 
 ## 🛠️ 기술 스택
 
-<div>
+### 프론트엔드
 
-![JavaScript](<https://img.shields.io/static/v1?style=for-the-badge&color=f7df1e&message=JavaScript(ES6)&logo=JavaScript&logoColor=white&label=>)
-![React](https://img.shields.io/static/v1?style=for-the-badge&color=61DAFB&message=React&logo=React&logoColor=white&label=)
-![ReactQuery](https://img.shields.io/static/v1?style=for-the-badge&color=FF4154&message=ReactQuery&logo=ReactQuery&logoColor=white&label=)
-![ReduxToolkit](https://img.shields.io/static/v1?style=for-the-badge&color=764ABC&message=ReduxToolkit&logo=ReduxToolkit&logoColor=white&label=)
-![Axios](https://img.shields.io/static/v1?style=for-the-badge&color=5A29E4&message=Axios&logo=Axios&logoColor=white&label=)
-![ReactRouter](https://img.shields.io/static/v1?style=for-the-badge&color=CA4245&message=ReactRouter&logo=ReactRouter&logoColor=white&label=)
-![ReactHookForm](https://img.shields.io/static/v1?style=for-the-badge&color=EC5990&message=ReactHookForm&logo=ReactHookForm&logoColor=white&label=)
-![Bootstrap](https://img.shields.io/static/v1?style=for-the-badge&color=7952B3&message=Bootstrap&logo=Bootstrap&logoColor=white&label=)
-![styled-components](https://img.shields.io/static/v1?style=for-the-badge&color=DB7093&message=styled-components&logo=styled-components&logoColor=white&label=)
-![Docker](https://img.shields.io/static/v1?style=for-the-badge&color=2496ED&message=docker&logo=docker&logoColor=white&label=)
-![EC2](https://img.shields.io/static/v1?style=for-the-badge&color=FF9900&message=aws+ec2&logo=amazonec2&logoColor=black&label=)
+<img alt="fronted" src="https://github.com/osdoonhyun/selQ-client/assets/87527736/15c50c71-0163-42c6-9714-277b463912f4" width="60%"  style="background-color: #f0f0f0; padding-top:10px;">
 
-</div>
+### 인프라
+
+<img alt="infra" src="https://github.com/osdoonhyun/selQ-client/assets/87527736/653f3602-fc64-4ad2-8f03-e14762c8c120" width="60%"  style="background-color: #f0f0f0; padding-top:10px;">
 
 ## 🏛️ 아키텍쳐
 
-![Architecture](./public/readme-images//architecture.png)
+<img alt="architecture" src="https://github.com/osdoonhyun/selQ-client/assets/87527736/89e5c695-2244-46fa-8fd7-277dcc24c203" width="80%"  style="background-color: #f0f0f0; padding-top:10px;">
 
 ## 🌳 폴더 구조
 
 ```
 📦src
+┃
 ┣ 📂assets : 폰트 및 아이콘
 ┃
 ┣ 📂components : 공통 컴포넌트 및 페이지 컴포넌트
@@ -140,7 +143,7 @@
 			<td><img width="400px" src="./public/readme-images/adminUserPage.gif" alt="유저 관리 페이지"/></td>
 		</tr>
 		<tr>
-			<td>- 단계별 질문 등록 기능<br>- 등록 진행 상태 표시 Progress Bar 구현<br>- 유효성 검사</td>
+			<td>- 단계별 질문 등록 기능<br>- 등록 진행 상태 표시 Progress Bar 구현<br>- 유효성 검사<br>- 작성 중 임시 저장 / 불러오기</td>
 			<td>- 전체 유저 관리<br>- 유저 프로필 조회 / (닉네임, 등급)수정 / 삭제<br>- 닉네임 / 날짜 / 권한 필터링 기능<br>- 페이지네이션 기능</td>
 		</tr>
 		<tr>
@@ -205,3 +208,5 @@
 ## 📚 관련 포스팅
 
 [사용자 우아하게 입력하기(feat. 퍼널 패턴)](https://velog.io/@osdsoonhyun/%ED%8D%BC%EB%84%90-%ED%8C%A8%ED%84%B4%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%ED%95%9C-%EB%B0%A9%EC%97%90-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
+
+[Sequence Diagram으로 보는 토큰 만료 시나리오(with JWT 토큰, Axios Interceptors)](https://velog.io/@osdsoonhyun/JWT-%ED%86%A0%ED%81%B0-%EA%B4%80%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%9C-Axios-Interceptors%EC%99%80-API-%EC%9A%94%EC%B2%AD-%EC%84%A4%EC%A0%95)
