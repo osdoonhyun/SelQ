@@ -1,7 +1,7 @@
 <div align="center">
 
 ### [Sel-Q, 셀큐 바로가기](https://selq.store)
-
+임시계정(ID: admin@naver.com / PW: 1234!Admin)<br>
 </div>
 
 <p align='middle'>
@@ -207,6 +207,6 @@
 
 ## 📚 관련 포스팅
 
-[사용자 우아하게 입력하기(feat. 퍼널 패턴)](https://velog.io/@osdsoonhyun/%ED%8D%BC%EB%84%90-%ED%8C%A8%ED%84%B4%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%ED%95%9C-%EB%B0%A9%EC%97%90-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
+- [사용자 우아하게 입력하기(feat. 퍼널 패턴)](https://velog.io/@osdsoonhyun/%ED%8D%BC%EB%84%90-%ED%8C%A8%ED%84%B4%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%ED%95%9C-%EB%B0%A9%EC%97%90-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
 
-[Sequence Diagram으로 보는 토큰 만료 시나리오(with JWT 토큰, Axios Interceptors)](https://velog.io/@osdsoonhyun/JWT-%ED%86%A0%ED%81%B0-%EA%B4%80%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%9C-Axios-Interceptors%EC%99%80-API-%EC%9A%94%EC%B2%AD-%EC%84%A4%EC%A0%95)
+- [Sequence Diagram으로 보는 토큰 만료 시나리오(with JWT 토큰, Axios Interceptors)](https://velog.io/@osdsoonhyun/JWT-%ED%86%A0%ED%81%B0-%EA%B4%80%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%9C-Axios-Interceptors%EC%99%80-API-%EC%9A%94%EC%B2%AD-%EC%84%A4%EC%A0%95)
