@@ -1,7 +1,7 @@
 <div align="center">
 
 ### [Sel-Q, 셀큐 바로가기](https://selq.store)
-임시계정(ID: admin@naver.com / PW: 1234!Admin)<br>
+임시계정(ID: admin@<hi>naver.com / PW: 1234!Admin)<br>
 </div>
 
 <p align='middle'>
