@@ -38,7 +38,7 @@ export default function AnswerInput({
   useEffect(() => {
     saveDataToLocalStorage('answer', debounceAnswer);
     return () => {
-      saveDataToLocalStorage('answer', debounceAnswer);
+      saveDataToLocalStorage('answer', answers);
     };
   }, [debounceAnswer]);
 
